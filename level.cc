@@ -4,100 +4,90 @@
 using namespace std;
 
 char Level1::makeBlock() {
-	char * cptr;
 	int num_prob = 12;
 	int rand_c = rand() % num_prob;
 
 	if (rand_c == 0) {
-		*cptr = 'S';
+		return 'S';
 	} else if (rand_c == 1) {
-		*cptr = 'Z';
+		return 'Z';
 	} else if (rand_c <= 3) {
-		*cptr = 'I';
+		return 'I';
 	} else if (rand_c <= 5) {
-                *cptr = 'J';
+                return 'J';
         } else if (rand_c <= 7) {
-                *cptr = 'L';
+                return 'L';
         } else if (rand_c <= 9) {
-                *cptr = 'O';
+                return 'O';
 	} else if (rand_c <= 11) {
-                *cptr = 'T';
+                return 'T';
 	}
-
-	return cptr;
 }
 
 
 char Level2::makeBlock() {
-        char * cptr;
         int num_prob = 7;
         int rand_c = rand() % num_prob;
 
         if (rand_c == 0) {
-                *cptr = 'S';
+                return 'S'
         } else if (rand_c == 1) {
-                *cptr = 'Z';
+                return 'Z';
         } else if (rand_c == 2) {
-                *cptr = 'I';
+                return 'I';
         } else if (rand_c == 3) {
-                *cptr = 'J';
+                return 'J';
         } else if (rand_c == 4) {
-                *cptr = 'L';
+                return 'L';
         } else if (rand_c == 5) {
-                *cptr = 'O';
+                return 'O';
         } else if (rand_c == 6) {
-                *cptr = 'T';
+                return 'T';
         }
 
         return cptr;
 }
 
 char Level3::makeBlock() {
-        char * cptr;
         int num_prob = 9;
         int rand_c = rand() % num_prob;
 
         if (rand_c <= 1) {
-                *cptr = 'S';
+                return 'S';
         } else if (rand_c <= 3) {
-                *cptr = 'Z';
+                return 'Z';
         } else if (rand_c == 4) {
-                *cptr = 'I';
+                return 'I';
         } else if (rand_c == 5) {
-                *cptr = 'J';
+                return 'J';
         } else if (rand_c == 6) {
-                *cptr = 'L';
+                return 'L';
         } else if (rand_c == 7) {
-                *cptr = 'O';
+                return 'O';
         } else if (rand_c == 8) {
-                *cptr = 'T';
+                return 'T';
         }
-
-        return cptr;
 }
 
 char Level4::makeBlock() {
-        char * cptr;
         int num_prob = 9;
         int rand_c = rand() % num_prob;
 
         if (rand_c <= 1) {
-                *cptr = 'S';
+                return 'S';
         } else if (rand_c <= 3) {
-                *cptr = 'Z';
+                return 'Z';
         } else if (rand_c == 4) {
-                *cptr = 'I';
+                return 'I';
         } else if (rand_c == 5) {
-                *cptr = 'J';
+                return 'J';
         } else if (rand_c == 6) {
-                *cptr = 'L';
+                return 'L';
         } else if (rand_c == 7) {
-                *cptr = 'O';
+                return 'O';
         } else if (rand_c == 8) {
-                *cptr = 'T';
+                return 'T';
         }
-
-        return cptr;
 }
 
 
