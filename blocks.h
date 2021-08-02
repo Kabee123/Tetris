@@ -1,6 +1,7 @@
 #ifndef _BLOCKS_H_
 #define _BLOCKS_H_
 #include <vector>
+#include "board.h"
 
 class Coords {
 	int x, y;
@@ -10,11 +11,11 @@ class Blocks {
 	char type;
 	int turn;
 	int levelMade;
-	vector<Coords> cList;
+	vector<Coords> cList; 
 	Board &board;
 	public:
 	Blocks(char type, int turn, int levelMades, vector<Coords> v, Board &b);
-	void move(int x, int y);
+	bool move(int x, int y);
 	void drop();
 	void rotateCW();
 	void rotateCCW();
