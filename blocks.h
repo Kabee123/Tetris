@@ -2,7 +2,7 @@
 #define _BLOCKS_H_
 #include <vector>
 
-class Coordinates {
+class Coords {
 	int x, y;
 };
 
@@ -10,11 +10,10 @@ class Blocks {
 	char type;
 	int turn;
 	int levelMade;
-	vector<Coordinates>;
+	vector<Coords> cList;
 	Board &board;
 	public:
-	Blocks(char type, int turn, int levelMade,
-			vector<Coordinates> v, Board &b);
+	Blocks(char type, int turn, int levelMades, vector<Coords> v, Board &b);
 	void move(int x, int y);
 	void drop();
 	void rotateCW();
