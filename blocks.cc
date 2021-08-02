@@ -63,7 +63,7 @@ bool Blocks::move(int x, int y) {
 		tList[i].x = tList[i].x + x;
 		tList[i].y = tList[i].y + y;
 
-		if ([tList[i].x][tList[i].y]board->cell.type != 'E') {
+		if (board->theBoard[tList[i].x][tList[i].y]->cell.type != 'E') {
 			return false;
 		}
 	}
@@ -76,5 +76,6 @@ bool Blocks::move(int x, int y) {
 	return true;
 }
 
+void Blocks::drop() {
 
 
