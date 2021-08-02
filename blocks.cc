@@ -1,6 +1,10 @@
 #include "blocks.h"
 using namespace std;
 
+// Coords ctor
+Coords::Coords(int x, int y): x{x}, y{y} {}
+
+
 Blocks::Block(char type, int turn, int levelMade, vector<Coords> v, Board &b):
 	type{type}, turn{turn}, level{levelMade}, cList{v}, board{b} {}	
 
