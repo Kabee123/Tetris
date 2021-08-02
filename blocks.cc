@@ -50,3 +50,31 @@ Blocks::IBlock(int turn, int levelMade, Board &b):
 	Block('I', turn, levelMade,
 		vector<Coords>{Coords{0, 2}, Coords{1, 2}, Coords{2, 2}, Coords{1, 3}},
 		b) {}
+
+bool Blocks::move(int x, int y) {
+	vector<Coords> tList;
+
+	for (int i = 0; i < cList.size(); ++i) {
+		tList[i].x = cList[i].x;
+		tList[i].y = cList[i].y;
+	}
+
+	for (int i = 0; i < tList.size(); ++i) {
+		tList[i].x = tList[i].x + x;
+		tList[i].y = tList[i].y + y;
+
+		if ([tList[i].x][tList[i].y]board->cell.type != 'E') {
+			return false;
+		}
+	}
+
+	for (int i = 0; i < cList.size(); ++i) {
+                cList[i].x = tList[i].x;
+                cList[i].y = tList[i].y;
+        }
+
+	return true;
+}
+
+
+
