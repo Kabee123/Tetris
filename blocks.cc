@@ -63,7 +63,7 @@ bool Blocks::move(int x, int y) {
 		tList[i].x = tList[i].x + x;
 		tList[i].y = tList[i].y + y;
 
-		if ([tList[i].x][tList[i].y]board->cell.type != 'E') {
+		if (board->theBoard[tList[i].x][tList[i].y]->cell.type != 'E') {
 			return false;
 		}
 	}
@@ -76,5 +76,28 @@ bool Blocks::move(int x, int y) {
 	return true;
 }
 
+
+bool Blocks::rotateCW() {
+
+}
+
+
+bool Blocks::rotateCCW() {
+	vector<Coords> tList; 
+
+	for (int i = 0; i < cList.size(); ++i) {
+		tList[i].x = cList[i].x;
+		tList[i].y = cList[i].y;
+	}
+
+	int width = abs(tList[0].x - tList[3].x);
+	int height = abs(tList[0].y - tList[3].x);
+
+	for (int i = 0; i < tList.size(); ++i) {
+		tList[i].x = tList[i].x * 0 + tList[i].y * 1 - width;
+		tList[i].y = tList[i].x * -1 + tList[i].y * 0 + 2 * height;
+	}
+
+}
 
 
