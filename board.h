@@ -7,7 +7,9 @@ using namespace std;
 
 class Board {
 	protected:
-		int width, height;
+		int reserve = 3;
+		int width = 11 ;
+		int height = 15;
 		vector<vector<Cell>> theBoard;
 	public:
 		void init(int width, int height);

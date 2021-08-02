@@ -2,18 +2,16 @@
 #include <iostream>
 using namespace std;
 
-Board::Board() {};
+Board::Board() {}
 
 Board::~Board() {};
 
-void Board::init(int width, int height) {
-	this->width = width;
-	this->height = height;
+void Board::init() {
 
 	//make board
 	for (int i = 0; i < width, ++i) {
 		vector<Cell> v;
-		for (int j = 0; j < height; ++j) {
+		for (int j = 0; j < height + reserve; ++j) {
 			Cell c;
 			v.emplace_back(c);
 		}
