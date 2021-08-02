@@ -76,6 +76,32 @@ bool Blocks::move(int x, int y) {
 	return true;
 }
 
+void Blocks::drop() {
+        vector<Coords> tList;
+
+        for (int i = 0; i < cList.size(); ++i) {
+                tList[i].x = cList[i].x;
+                tList[i].y = cList[i].y;
+        }
+
+        while(true) {
+                for (int i = 0; i < tList.size(); ++i) {
+                        if (tList[i].y + 1 > (board->reserve + board->height - 1)) {
+                                break;
+                        } else if (board->theBoard[tList[i].x][tList[i].y + 1]->cell.type != 'E') {
+                                break;
+                        } else {
+                                tList[i].y = tList[i].y + 1;
+                        }
+                }
+
+                for (int i = 0; i < cList.size(); ++i) {
+                        cList[i].x = tList[i].x;
+                        cList[i].y = tList[i].y;
+                }
+        }
+}
+
 
 bool Blocks::rotateCW() {
 
