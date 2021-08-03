@@ -15,7 +15,7 @@ class Board {
 		void init(int width, int height);
 
 		void printBoard();
-}
+};
 
 #endif
 

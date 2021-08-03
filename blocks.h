@@ -4,6 +4,7 @@
 #include "board.h"
 
 class Coords {
+	protected:
 	int x, y;
 };
 

@@ -7,9 +7,11 @@ class Cell {
 	int levelMade;
 	//int x, y;
 	public:
-	setCell(char type, int turn, int level);
-	resetCell();
-}
+	Cell();
+	~Cell();
+	void setCell(char type, int turn, int level);
+	void resetCell();
+};
 
 #endif
 
