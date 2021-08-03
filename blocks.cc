@@ -65,6 +65,10 @@ bool Blocks::move(int x, int y) {
 
 		if (board->theBoard[tList[i].x][tList[i].y]->cell.type != 'E') {
 			return false;
+		} else if (tlist[i].x > (board->width - 1) || tlist[i].x < 0) {
+			return false;
+		} else if (tlist[i].y > (board->reserve + board->height - 1)) {
+			return false;
 		}
 	}
 
