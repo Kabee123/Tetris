@@ -4,7 +4,7 @@
 #include "board.h"
 
 class Coords {
-	protected:
+	public:
 	int x, y;
 };
 
@@ -18,8 +18,8 @@ class Blocks {
 	Blocks(char type, int turn, int levelMades, vector<Coords> v, Board &b);
 	bool move(int x, int y);
 	void drop();
-	void rotateCW();
-	void rotateCCW();
+	bool rotateCW();
+	bool rotateCCW();
 	void clearBlock();
 };
 
@@ -63,6 +63,9 @@ class TBlock : public Blocks {
 	public:
 		TBlock(int turn, int levelMade, Board &b);
 };
+
+
+
 
 #endif
 

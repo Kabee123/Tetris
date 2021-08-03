@@ -2,6 +2,7 @@
 #define _BOARD_H_
 #include "level.h"
 #include "blocks.h"
+#include "cell.h"
 #include <vector>
 using namespace std;
 
