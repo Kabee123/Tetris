@@ -3,6 +3,7 @@
 #include <stringstream>
 #include <iostream>
 #include <fstream>
+#include <levels.h>
 using namespace std;
 
 const int w = 11;
@@ -17,13 +18,18 @@ Biquadris::Biquadris() : width{w}, height{h + reserve} {
 void Biquadris::playGame() {
 	string cmd;
 	stringstream ss;
-	string c_seq;
+	char bType;
+	bool first_p = true;
 
-	if (in_file) {
-		std::ifsteam seq(c_seq);
-		char bType;
+	if (in_file && first_p) {
+		std::ifsteam seq(seq_1);
 		infile.get(bType)
-	} else {
+	} else if (in_file && !first_p) {
+		std::ifsteam seq2(seq_1);
+		infile.get(bType);
+	}
+
+
 
 	while (ss << cin && ss >> cmd) {
 		switch (cmd) {
