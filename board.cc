@@ -1,5 +1,6 @@
 #include "board.h"
 #include <iostream>
+#include <utility>
 using namespace std;
 
 Board::Board() {}
@@ -32,4 +33,30 @@ void Board::printBoard() {
 	}
 	cout << endl;
 }
+
+int checkRows() {
+	int n_row = 0;
+	vector<int> r_fill;
+	for (int i = reserve; i < height + reserve; ++i) {
+		int fill_b = 0;
+		for (int j = 0; k < width; ++j) {
+			if (theBoard[j][i].type != 'E') {
+				++fill_b;
+			}
+		}
+		if (fill_b == width) {
+			r_fill.emplace_back(i);
+			++n_row;
+		}
+	}
+
+	for (int i = 0; i < r_fill.size(); ++i) {
+		for (int j = 0; j < width; ++j) {
+			theBoard[j][r_fill[i]].resetCell();
+		}
+	}
+
+	return n_row;
+}
+
 
