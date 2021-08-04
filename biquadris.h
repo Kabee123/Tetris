@@ -12,7 +12,7 @@ class Biquadris: public Board {
 	Board player2;
 
 	public:
-	Biquadris{};
+	Biquadris();
 	void playGame();
 };
 #endif
