@@ -3,6 +3,8 @@
 #include "board.h"
 #include "cell.h"
 #include <vector>
+
+
 class Coords {
 	public:
 	int x, y;

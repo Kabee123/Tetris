@@ -2,6 +2,7 @@
 #define BIQUADRIS_H_
 #include <iostream>
 #include "board.h"
+#include "blocks.h"
 #include <string>
 
 class Biquadris: public Board {
@@ -12,10 +13,7 @@ class Biquadris: public Board {
 	Board player1;
 	Board player2;
 
-<<<<<<< HEAD
 	public:
-=======
->>>>>>> f67044d26b0542b2e44494004611cf09eef16778
 	Biquadris();
 	void playGame();
 };
