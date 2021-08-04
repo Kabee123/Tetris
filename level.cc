@@ -30,7 +30,7 @@ char Level2::makeBlock() const {
         int rand_c = rand() % num_prob;
 
         if (rand_c == 0) {
-                return 'S'
+                return 'S';
         } else if (rand_c == 1) {
                 return 'Z';
         } else if (rand_c == 2) {
@@ -44,8 +44,6 @@ char Level2::makeBlock() const {
         } else if (rand_c == 6) {
                 return 'T';
         }
-
-        return cptr;
 }
 
 char Level3::makeBlock() const {
