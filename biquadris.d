@@ -1,1 +1,1 @@
-biquadris.o: biquadris.cc biquadris.h board.h level.h cell.h
+biquadris.o: biquadris.cc biquadris.h board.h level.h cell.h blocks.h

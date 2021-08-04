@@ -22,10 +22,14 @@ void Board::init() {
 void Board::printBoard() {
 	for (int i = 0; i < height + reserve; ++i) {
 		for (int j = 0; j < width; ++ j) {
-			if (i < 3) {
-				cout << '-';
+			if (theBoard[j][i].type == 'E') {
+				if (i < 3) {
+					cout << '-';
+				} else {
+					cout << '.';
+				}
 			} else {
-				cout << '.';
+				cout << theBoard[j][i].type;
 			}
 		}
 		cout << endl;

@@ -34,37 +34,72 @@ void Biquadris::playGame() {
 	}
 
 	cout << "PLAYING" << endl;
+	player1.printBoard();
 
 //for testing
 	int i = 0;
-	while (i < 2) {
+	while (i < 5) {
+		cout << "TYPE:" << curBlock->type << endl;
 		if (first_p) {
 			getline(*infileP1, cmd);
-			player1.printBoard();
+			cout << "After:";
 		} else {
 			getline(*infileP2, cmd);
-			player2.printBoard();
-		}
-		
-		
+		}	
+		cout << cmd << endl;	
 		if (cmd == "left") {
-
-
+			curBlock->move(-1, 0);
+			curBlock->placeBlock();
 		} else if (cmd == "right") {
-
-
+			curBlock->move(1, 0);
+			curBlock->placeBlock();
+	
 		} else if (cmd == "down") {
+			curBlock->move(0, -1);
+			
+		} else if (cmd == "clockwise") {
+
+
+		} else if (cmd == "counterclockwise") {
 
 
 		} else if (cmd == "drop") {
 
 
-		} else if (cmd == "I" or cmd == "J" or cmd == "L" or 
-			   cmd == "O" or cmd == "S" or cmd == "Z" or cmd == "T") {
-			player1.curBlock = cmd[0];
-
-		}
+		} else if (cmd == "I") {
+			IBlock temp{0, 0, player1};
+			curBlock = &temp;
+			curBlock->placeBlock();
+		} else if (cmd == "J") {
+			JBlock temp{0, 0, player1};
+ 			curBlock = &temp;
+			curBlock->placeBlock();
+		} else if (cmd == "L") {
+			LBlock temp{0, 0, player1};
+			curBlock = &temp;
+			curBlock->placeBlock();
+		} else if (cmd == "O") {
+                        OBlock temp{0, 0, player1};
+			curBlock = &temp;
+			curBlock->placeBlock();
+		} else if (cmd == "Z") {
+	                ZBlock temp{0, 0, player1};
+			curBlock = &temp;
+			curBlock->placeBlock();
+		} else if (cmd == "S") {
+	                SBlock temp{0, 0, player1};
+			curBlock = &temp;
+			curBlock->placeBlock();
+		//	player1.printBoard();
+		//	curBlock->move(1, 0);
+		//	curBlock->placeBlock();
+		} else if (cmd == "T") {
+	                TBlock temp{0, 0, player1};
+			curBlock = &temp;
+			curBlock->placeBlock();
+		}	       
 		//first_p = !first_p;
+		player1.printBoard();
 		++i;
 	}
 

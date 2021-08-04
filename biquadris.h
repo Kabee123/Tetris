@@ -13,6 +13,8 @@ class Biquadris: public Board {
 	Board player1;
 	Board player2;
 
+	Blocks *curBlock;
+
 	public:
 	Biquadris();
 	void playGame();

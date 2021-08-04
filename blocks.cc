@@ -1,5 +1,6 @@
 #include "blocks.h"
 #include <cmath>
+#include <iostream>
 using namespace std;
 
 // Coords ctor
@@ -52,27 +53,41 @@ TBlock::TBlock(int turn, int levelMade, Board &b):
 		vector<Coords>{Coords{0, 2}, Coords{1, 2}, Coords{2, 2}, Coords{1, 3}},
 		b) {}
 
+void Blocks::placeBlock() {
+	for (int i = 0; i < cList.size(); ++i) {
+		int x = cList[i].x;
+		int y = cList[i].y;
+		board.theBoard[x][y].setCell(type, turn, levelMade);
+	}
+}	
+
 bool Blocks::move(int x, int y) {
 	vector<Coords> tList;
 
 	for (int i = 0; i < cList.size(); ++i) {
-		tList[i].x = cList[i].x;
-		tList[i].y = cList[i].y;
+		cout << "start x: " << cList[i].x;
+		cout << " start y: " << cList[i].y << endl;
+		Coords cds(cList[i].x, cList[i].y);
+		tList.emplace_back(cds);
 	}
 
 	for (int i = 0; i < tList.size(); ++i) {
 		tList[i].x = tList[i].x + x;
 		tList[i].y = tList[i].y + y;
 
+		cout << "new x: " << tList[i].x;
+		cout << " new y: " << tList[i].y << endl;
+
+/*
 		if (board.theBoard[tList[i].x][tList[i].y].type != 'E') {
 			return false;
 		} else if (tList[i].x > (board.width - 1) || tList[i].x < 0) {
 			return false;
 		} else if (tList[i].y > (board.reserve + board.height - 1)) {
 			return false;
-		}
+		}*/
 	}
-
+	
 	for (int i = 0; i < cList.size(); ++i) {
                 cList[i].x = tList[i].x;
                 cList[i].y = tList[i].y;
