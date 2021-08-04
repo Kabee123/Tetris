@@ -1,16 +1,16 @@
 #include "biquadris.h"
 #include <string>
-#include <stringstream>
+#include <sstream>
 #include <iostream>
 #include <fstream>
-#include <levels.h>
+#include "level.h"
 using namespace std;
 
 const int w = 11;
 const int h = 15;
 const int reserve = 3;
 
-Biquadris::Biquadris() : width{w}, height{h + reserve} {
+Biquadris::Biquadris() {
 	player1.init();
 	player2.init();
 }
@@ -22,11 +22,11 @@ void Biquadris::playGame() {
 	bool first_p = true;
 
 	if (in_file && first_p) {
-		std::ifsteam seq(seq_1);
-		infile.get(bType)
+		std::ifstream seq(seq_1);
+		seq.get(bType);
 	} else if (in_file && !first_p) {
-		std::ifsteam seq2(seq_1);
-		infile.get(bType);
+		std::ifstream seq2(seq_1);
+		seq2.get(bType);
 	}
 
 
