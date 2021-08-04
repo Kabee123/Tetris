@@ -8,7 +8,6 @@ using namespace std;
 //Board::~Board() {};
 
 void Board::init() {
-
 	//make board
 	for (int i = 0; i < width; ++i) {
 		vector<Cell> v;
@@ -21,9 +20,9 @@ void Board::init() {
 }
 
 void Board::printBoard() {
-	for (int i = 0; i < width; ++i) {
-		for (int j = 0; j < height; ++ j) {
-			if (j < 3) {
+	for (int i = 0; i < height + reserve; ++i) {
+		for (int j = 0; j < width; ++ j) {
+			if (i < 3) {
 				cout << '-';
 			} else {
 				cout << '.';

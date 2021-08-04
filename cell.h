@@ -7,8 +7,8 @@ class Cell {
 	int turn;
 	int levelMade;
 	//int x, y;
-	
-	Cell();
+
+	Cell();	
 	~Cell();
 	void setCell(char type, int turn, int level);
 	void resetCell();

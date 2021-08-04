@@ -3,11 +3,8 @@
 using namespace std;
 
 int main(int argc, char *argv[]) {
-	if (argc != 1) {
-		cout << "Usage: " << argv[0] << endl;
-		return 1;
-	}
-	biquadris g{};
+	
+	Biquadris g{};
 
 	if (argc > 1) {
 		g.in_file = true;
@@ -15,6 +12,6 @@ int main(int argc, char *argv[]) {
 		g.seq_2 = argv[2];
 	}
 
-	g.playGame;
+	g.playGame();
 }
 

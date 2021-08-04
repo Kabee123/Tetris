@@ -5,14 +5,14 @@
 #include <string>
 
 class Biquadris: public Board {
-	int wdith, height;
+	public:
+	int width, height;
 	bool in_file = false;
 	std::string seq_1, seq_2;
 	Board player1;
 	Board player2;
 
-	public:
-	Biquadris{};
+	Biquadris();
 	void playGame();
 };
 #endif
