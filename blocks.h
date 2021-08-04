@@ -1,6 +1,7 @@
 #ifndef _BLOCKS_H_
 #define _BLOCKS_H_
 #include "board.h"
+#include "cell.h"
 #include <vector>
 class Coords {
 	public:

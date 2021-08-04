@@ -1,6 +1,6 @@
 #include "cell.h"
 
-Cell::Cell() {}
+Cell::Cell(): type{'E'}, turn{-1}, levelMade{-1} {}
 
 Cell::~Cell() {}
 
