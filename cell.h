@@ -2,11 +2,12 @@
 #define _CELL_H_
 
 class Cell {
+	public:
 	char type;
 	int turn;
 	int levelMade;
 	//int x, y;
-	public:
+	
 	Cell();
 	~Cell();
 	void setCell(char type, int turn, int level);

@@ -1,21 +1,21 @@
 #ifndef _BLOCKS_H_
 #define _BLOCKS_H_
-#include <vector>
 #include "board.h"
-
+#include <vector>
 class Coords {
 	public:
 	int x, y;
+	Coords(int x, int y);
 };
 
 class Blocks {
 	char type;
 	int turn;
 	int levelMade;
-	vector<Coords> cList; 
+	std::vector<Coords> cList; 
 	Board &board;
 	public:
-	Blocks(char type, int turn, int levelMades, vector<Coords> v, Board &b);
+	Blocks(char type, int turn, int levelMades, std::vector<Coords> v, Board &b);
 	bool move(int x, int y);
 	void drop();
 	bool rotateCW();

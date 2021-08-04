@@ -3,14 +3,14 @@
 #include <utility>
 using namespace std;
 
-Board::Board() {}
+//Board::Board() {}
 
-Board::~Board() {};
+//Board::~Board() {};
 
 void Board::init() {
 
 	//make board
-	for (int i = 0; i < width, ++i) {
+	for (int i = 0; i < width; ++i) {
 		vector<Cell> v;
 		for (int j = 0; j < height + reserve; ++j) {
 			Cell c;
@@ -34,12 +34,12 @@ void Board::printBoard() {
 	cout << endl;
 }
 
-int checkRows() {
+int Board::checkRows() {
 	int n_row = 0;
 	vector<int> r_fill;
 	for (int i = reserve; i < height + reserve; ++i) {
 		int fill_b = 0;
-		for (int j = 0; k < width; ++j) {
+		for (int j = 0; j < width; ++j) {
 			if (theBoard[j][i].type != 'E') {
 				++fill_b;
 			}

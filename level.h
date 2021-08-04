@@ -12,19 +12,19 @@ class Level {
 };*/
 
 class Level1 : public Level {
-        virtual char makeBlock() override;
+        char makeBlock() const override;
 };
 
 class Level2 : public Level {
-        virtual char makeBlock() override;
+        char makeBlock() const override;
 };
 
 class Level3 : public Level {
-        virtual char makeBlock() override;
+        char makeBlock() const override;
 };
 
 class Level4 : public Level {
-        virtual char makeBlock() override;
+        char makeBlock() const override;
 };
 
 

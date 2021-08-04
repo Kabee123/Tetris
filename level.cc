@@ -1,9 +1,9 @@
 #include "level.h"
-#include <rand>
+#include <cstdlib>
 
 using namespace std;
 
-char Level1::makeBlock() {
+char Level1::makeBlock() const {
 	int num_prob = 12;
 	int rand_c = rand() % num_prob;
 
@@ -25,7 +25,7 @@ char Level1::makeBlock() {
 }
 
 
-char Level2::makeBlock() {
+char Level2::makeBlock() const {
         int num_prob = 7;
         int rand_c = rand() % num_prob;
 
@@ -48,7 +48,7 @@ char Level2::makeBlock() {
         return cptr;
 }
 
-char Level3::makeBlock() {
+char Level3::makeBlock() const {
         int num_prob = 9;
         int rand_c = rand() % num_prob;
 
@@ -69,7 +69,7 @@ char Level3::makeBlock() {
         }
 }
 
-char Level4::makeBlock() {
+char Level4::makeBlock() const {
         int num_prob = 9;
         int rand_c = rand() % num_prob;
 

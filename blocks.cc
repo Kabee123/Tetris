@@ -1,4 +1,5 @@
 #include "blocks.h"
+#include <cmath>
 using namespace std;
 
 // Coords ctor
@@ -63,9 +64,9 @@ bool Blocks::move(int x, int y) {
 		tList[i].x = tList[i].x + x;
 		tList[i].y = tList[i].y + y;
 
-		if (board.theBoard[tList[i].x][tList[i].y]->cell.type != 'E') {
+		if (board.theBoard[tList[i].x][tList[i].y].type != 'E') {
 			return false;
-		} else if (tList[i].x > (board.width - 1) || tlist[i].x < 0) {
+		} else if (tList[i].x > (board.width - 1) || tList[i].x < 0) {
 			return false;
 		} else if (tList[i].y > (board.reserve + board.height - 1)) {
 			return false;
@@ -90,9 +91,9 @@ void Blocks::drop() {
 
         while(true) {
                 for (int i = 0; i < tList.size(); ++i) {
-                        if (tList[i].y + 1 > (board->reserve + board->height - 1)) {
+                        if (tList[i].y + 1 > (board.reserve + board.height - 1)) {
                                 break;
-                        } else if (board->theBoard[tList[i].x][tList[i].y + 1]->cell.type != 'E') {
+                        } else if (board.theBoard[tList[i].x][tList[i].y + 1].type != 'E') {
                                 break;
                         } else {
                                 tList[i].y = tList[i].y + 1;
@@ -127,6 +128,8 @@ bool Blocks::rotateCCW() {
 		tList[i].x = tList[i].x * 0 + tList[i].y * 1 - width;
 		tList[i].y = tList[i].x * -1 + tList[i].y * 0 + 2 * height;
 	}
+
+	return true;
 
 }
 
