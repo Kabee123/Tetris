@@ -1,9 +1,38 @@
 #include "level.h"
 #include <cstdlib>
+#include <fstream>
 
 using namespace std;
 
-char Level1::makeBlock() const {
+Level0::Level0(std::string file_name) : file_name{file_name} {}
+
+char Level0::makeBlock()  {
+        char fType;
+        char type;
+        fstream seq(file_name);
+        int i = 0;
+        seq.get(fType);
+        
+        if (c_idx == 0) {
+                ++c_idx;
+                return fType;
+        }
+        for (int i = 0; i < c_idx; ++i) {
+                seq.get(type);
+                if (type == ' ') {
+                        seq.get(type);
+                }
+                if (seq.eof()) {
+                        c_idx = 1;
+                        return fType;
+                }
+        }
+
+        ++c_idx;
+        return type;
+}
+
+char Level1::makeBlock()  {
 	int num_prob = 12;
 	int rand_c = rand() % num_prob;
 
@@ -25,7 +54,7 @@ char Level1::makeBlock() const {
 }
 
 
-char Level2::makeBlock() const {
+char Level2::makeBlock()  {
         int num_prob = 7;
         int rand_c = rand() % num_prob;
 
@@ -46,7 +75,7 @@ char Level2::makeBlock() const {
         }
 }
 
-char Level3::makeBlock() const {
+char Level3::makeBlock()  {
         int num_prob = 9;
         int rand_c = rand() % num_prob;
 
@@ -67,7 +96,7 @@ char Level3::makeBlock() const {
         }
 }
 
-char Level4::makeBlock() const {
+char Level4::makeBlock()  {
         int num_prob = 9;
         int rand_c = rand() % num_prob;
 
