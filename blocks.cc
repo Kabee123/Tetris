@@ -98,6 +98,10 @@ bool Blocks::move(int x, int y) {
 }
 
 void Blocks::drop() {
+		if (board.blind) {
+                board.blind = false;
+        }
+
 <<<<<<< HEAD
         while(this->move(0, 1)) {
 
