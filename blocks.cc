@@ -49,7 +49,7 @@ ZBlock::ZBlock(int turn, int levelMade, Board &b):
 
 // T Block
 TBlock::TBlock(int turn, int levelMade, Board &b):
-	Blocks('I', turn, levelMade,
+	Blocks('T', turn, levelMade,
 		vector<Coords>{Coords{0, 2}, Coords{1, 2}, Coords{2, 2}, Coords{1, 3}},
 		b) {}
 
@@ -98,38 +98,9 @@ bool Blocks::move(int x, int y) {
 }
 
 void Blocks::drop() {
-<<<<<<< HEAD
-        vector<Coords> tList;
-	cout << "DROP:" << endl;
-
-        for (int i = 0; i < cList.size(); ++i) {
-		Coords cds(cList[i].x, cList[i].y);
-                tList.emplace_back(cds);
-		board.theBoard[cList[i].x][cList[i].y].resetCell();
-        }
-
-	cout << "copied" << endl;
-        while(true) {
-                for (int i = 0; i < tList.size(); ++i) {
-                        if (tList[i].y + 1 > (board.reserve + board.height - 1)) {
-                                return;
-                        } else if (board.theBoard[tList[i].x][tList[i].y + 1].type != 'E') {
-                                return;
-                        } else {
-                                tList[i].y = tList[i].y + 1;
-                        }
-                }
-
-                for (int i = 0; i < cList.size(); ++i) {
-                        cList[i].x = tList[i].x;
-                        cList[i].y = tList[i].y;
-                }
-        }
-=======
         while(this->move(0, 1)) {
 
 	}
->>>>>>> 85d0033b5a131d6c9bb7d500f8a3d7436fcdad95
 }
 
 bool Blocks::rotateCW() {
