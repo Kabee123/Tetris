@@ -56,7 +56,8 @@ void Biquadris::playGame() {
 	
 		} else if (cmd == "down") {
 			curBlock->move(0, 1);
-			curBlock->placeBlock();	
+			curBlock->placeBlock();
+
 		} else if (cmd == "clockwise") {
 			curBlock->rotateCW();
 			curBlock->placeBlock();
@@ -66,7 +67,8 @@ void Biquadris::playGame() {
 			curBlock->placeBlock();
 
 		} else if (cmd == "drop") {
-
+			curBlock->drop();
+			curBlock->placeBlock();
 
 		} else if (cmd == "I") {
 			curBlock = make_unique<IBlock>(0, 0, player1);
@@ -74,31 +76,23 @@ void Biquadris::playGame() {
 		} else if (cmd == "J") {
  			curBlock = make_unique<JBlock>(0, 0, player1);
 			curBlock->placeBlock();
-			
-		} /*else if (cmd == "L") {
-			LBlock temp{0, 0, player1};
-			curBlock = temp;
+		} else if (cmd == "L") {
+			curBlock = make_unique<LBlock>(0, 0, player1);
 			curBlock->placeBlock();
 		} else if (cmd == "O") {
-                        OBlock temp{0, 0, player1};
-			curBlock = temp;
+                        curBlock = make_unique<OBlock>(0, 0, player1);
 			curBlock->placeBlock();
 		} else if (cmd == "Z") {
-	                ZBlock temp{0, 0, player1};
-			curBlock = temp;
+	                curBlock = make_unique<ZBlock>(0, 0, player1);
 			curBlock->placeBlock();
 		} else if (cmd == "S") {
-	                SBlock temp{0, 0, player1};
-			curBlock = temp;
+	                curBlock = make_unique<SBlock>(0, 0, player1);
 			curBlock->placeBlock();
-		//	player1.printBoard();
-		//	curBlock->move(1, 0);
-		//	curBlock->placeBlock();
+
 		} else if (cmd == "T") {
-	                TBlock temp{0, 0, player1};
-			curBlock = temp;
+			curBlock = make_unique<TBlock>(0, 0, player1);
 			curBlock->placeBlock();
-		}*/	       
+		}      
 		//first_p = !first_p;
 		player1.printBoard();
 		++i;
