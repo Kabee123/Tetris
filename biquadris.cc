@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include "level.h"
+#include <memory>
 using namespace std;
 
 const int w = 11;
@@ -16,34 +17,30 @@ Biquadris::Biquadris() {
 }
 
 void Biquadris::playGame() {
-
+	bool fp = true;
 	string cmd;
-	
-	istream *infileP1 = &cin; //default values
-	istream *infileP2 = &cin;
-
 	char bType;
-	bool first_p = true;
+	Level *level_fp;
+	Level *level_sp;
 
-	if (in_file && first_p) {
-		infileP1 = new ifstream(seq_1);
-		//seq.get(bType);
-	} else if (in_file && !first_p) {
-		infileP2 = new ifstream(seq_2);
-		//seq2.get(bType);
-	}
+	if (in_file) {
+		level_fp = new Level0(seq_1);
+		level_sp = new Level0(seq_2);
+	} else {
+		std::cout << "Choose you level [1-4]" << std::endl;
+		cin >> level;
 
-	cout << "PLAYING" << endl;
-	player1.printBoard();
-
-//for testing
-	int i = 0;
-	while (i < 5) {
-	//	cout << "TYPE:" << curBlock->type << endl;
-		if (first_p) {
-			getline(*infileP1, cmd);
-			cout << "After:";
+		if (level == 1) {
+			level_fp = new Level1;
+			level_sp = new Level1;
+		} else if (level == 2) {
+			level_fp = new Level2;
+			level_sp = new Level2;
+		} else if (level == 3) {
+			level_fp = new Level3;
+			level_sp = new Level3;
 		} else {
+<<<<<<< HEAD
 			getline(*infileP2, cmd);
 		}	
 		cout << cmd << endl;	
@@ -61,21 +58,41 @@ void Biquadris::playGame() {
 		} else if (cmd == "clockwise") {
 			curBlock->rotateCW();
 			curBlock->placeBlock();
+=======
+			level_fp = new Level4;
+			level_sp = new Level4;
+		}
+	}
+>>>>>>> 7bb25404389d29b61a416a7ed803dbded26cbf32
 
-		} else if (cmd == "counterclockwise") {
-			curBlock->rotateCCW();
-			curBlock->placeBlock();
 
+<<<<<<< HEAD
 		} else if (cmd == "drop") {
 			curBlock->drop();
 			curBlock->placeBlock();
+=======
 
-		} else if (cmd == "I") {
-			curBlock = make_unique<IBlock>(0, 0, player1);
+	cout << "PLAYING" << endl;
+
+	while (true) {
+		Board cplayer;
+		//      cout << "TYPE:" << curBlock->type << endl;
+		if (fp) {
+			bType = level_fp->makeBlock();
+			cplayer = player1;
+		} else {
+			bType = level_sp->makeBlock();
+			cplayer = player2;
+		}
+>>>>>>> 7bb25404389d29b61a416a7ed803dbded26cbf32
+
+		if (bType == 'I') {
+			curBlock = make_unique<IBlock>(0, 0, cplayer);
 			curBlock->placeBlock();
-		} else if (cmd == "J") {
- 			curBlock = make_unique<JBlock>(0, 0, player1);
+		} else if (bType == 'J') {
+			curBlock = make_unique<JBlock>(0, 0, cplayer);
 			curBlock->placeBlock();
+<<<<<<< HEAD
 		} else if (cmd == "L") {
 			curBlock = make_unique<LBlock>(0, 0, player1);
 			curBlock->placeBlock();
@@ -101,9 +118,62 @@ void Biquadris::playGame() {
 	if (in_file) {
 		delete infileP1;
 		delete infileP2;
+=======
+		} else if (bType == 'L') {
+			curBlock = make_unique<LBlock>(0, 0, cplayer);
+			curBlock->placeBlock();
+		} else if (bType == 'O') {
+			curBlock = make_unique<OBlock>(0, 0, cplayer);
+			curBlock->placeBlock();
+		} else if (bType == 'Z') {
+			curBlock = make_unique<ZBlock>(0, 0, cplayer);
+			curBlock->placeBlock();
+		} else if (bType == 'S') {
+			curBlock = make_unique<SBlock>(0, 0, cplayer);
+			curBlock->placeBlock();
+		} else if (bType == 'T') {
+			curBlock = make_unique<TBlock>(0, 0, cplayer);
+			curBlock->placeBlock();
+		}
+		cplayer.printBoard();
+		while (cin >> cmd) {
+			if (cmd == "left") {
+				curBlock->move(-1, 0);
+				curBlock->placeBlock();
+				cplayer.printBoard();
+			} else if (cmd == "right") {
+				curBlock->move(1, 0);
+				curBlock->placeBlock();
+				cplayer.printBoard();
+			} else if (cmd == "down") {
+				curBlock->move(0, 1);
+				curBlock->placeBlock();
+				cplayer.printBoard();
+			} else if (cmd == "clockwise") {
+				curBlock->rotateCW();
+				curBlock->placeBlock();
+				cplayer.printBoard();
+			} else if (cmd == "counterclockwise") {
+				curBlock->rotateCCW();
+				curBlock->placeBlock();
+				cplayer.printBoard();
+			} else if (cmd == "drop") {
+				cout << "TRIGGER:" << endl;
+				curBlock->drop();
+				cout << "here" << endl;
+				curBlock->placeBlock();
+				cplayer.printBoard();
+				fp = !fp;
+				break;
+			}
+		}
+>>>>>>> 7bb25404389d29b61a416a7ed803dbded26cbf32
 	}
 }
-				
+
+
+
+
 
 
 
