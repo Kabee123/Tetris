@@ -116,22 +116,38 @@ void Biquadris::playGame() {
 			player2.printBoard();
 		}
 		while (cin >> cmd) {
-			if (cmd == "left") {
-				curBlock->move(-1, 0);
-				curBlock->placeBlock();
-				if (fp) {
-					player1.printBoard();
-				} else {
-					player2.printBoard();
-				}
-			} else if (cmd == "right") {
-				curBlock->move(1, 0);
-				curBlock->placeBlock();
-				if (fp) {
-					player1.printBoard();
-				} else {
-					player2.printBoard();
-				}
+                if (cmd == "left") {
+                    curBlock->move(-1, 0);
+                    if (curBlock.board.heavy) {
+                    	if (!curBlock->move(0, 1)) {
+                            break;
+                        }
+                    	if (!curBlock->move(0,1)) {
+                            break;
+                        }
+                     }
+                    curBlock->placeBlock();
+                    if (fp) {
+                        player1.printBoard();
+                    } else {
+                        player2.printBoard();
+                    }
+                    } else if (cmd == "right") {
+                        curBlock->move(1, 0);
+                        if (curBlock.board.heavy) {
+                            if (!curBlock->move(0, 1)) {
+                                break;
+                            }
+                            if (!curBlock->move(0,1)) {
+                                break;
+                            }
+                        }
+                        curBlock->placeBlock();
+                        if (fp) {
+                                player1.printBoard();
+                        } else {
+                                 player2.printBoard();
+                        }
 			} else if (cmd == "down") {
 				curBlock->move(0, 1);
 				curBlock->placeBlock();
