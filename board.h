@@ -7,6 +7,9 @@ using namespace std;
 
 class Board {
 	public:
+		bool heavy, blind, force;
+        std::string forced;
+
 		int reserve = 3;
 		int width = 11 ;
 		int height = 15;
