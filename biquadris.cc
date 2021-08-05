@@ -118,6 +118,14 @@ void Biquadris::playGame() {
 		while (cin >> cmd) {
 			if (cmd == "left") {
 				curBlock->move(-1, 0);
+				if (curBlock.board.heavy) {
+                                        if (!curBlock->move(0, 1)) {
+						break;
+					}
+                                        if (!curBlock->move(0,1)) {
+						break;
+					}
+                                }
 				curBlock->placeBlock();
 				if (fp) {
 					player1.printBoard();
@@ -126,6 +134,14 @@ void Biquadris::playGame() {
 				}
 			} else if (cmd == "right") {
 				curBlock->move(1, 0);
+				if (curBlock.board.heavy) {
+					if (!curBlock->move(0, 1)) {
+                                                break;
+                                        }
+                                        if (!curBlock->move(0,1)) {
+                                                break;
+                                        }
+				}
 				curBlock->placeBlock();
 				if (fp) {
 					player1.printBoard();
@@ -162,13 +178,37 @@ void Biquadris::playGame() {
 				curBlock->drop();
 				curBlock->placeBlock();
 				if (fp) {
-					player1.checkRows();
+					if (player1.checkRows() > 1) {
+						cout << "Choose your special action (blind, heavy, force)" << endl;
+						cin >> cmd;
+						if (cmd == "blind") {
+							player2.blind = true;
+						} else if (cmd == "heavy") {
+							player2.heavy = true;
+						} else {
+							player2.force = true;
+							cin >> cmd;
+							player2.force = cmd;
+						}
+					}
 					player1.printBoard();
 				} else {
-					player2.checkRows();
+					if (player2.checkRows() > 1) {
+						cout << "Choose your special action (blind, heavy, force)" << endl;
+						cin >> cmd;
+						if (cmd == "blind") {
+							player1.blind = true;
+						} else if (cmd == "heavy") {
+							player1.heavy = true;
+						} else {
+							player1.force = true;
+							cin >> cmd;
+							player2.force = cmd;
+						}
+					}
 					player2.printBoard();
 				}
-				fp = !fp;
+				//fp = !fp;
 				break;
 			}
 		}

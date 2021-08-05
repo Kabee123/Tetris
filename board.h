@@ -3,10 +3,13 @@
 #include "level.h"
 #include "cell.h"
 #include <vector>
+#include <string>
 using namespace std;
 
 class Board {
-	public:
+	public:	
+		bool heavy, blind, force;
+		std::string forced;
 		int reserve = 3;
 		int width = 11 ;
 		int height = 15;

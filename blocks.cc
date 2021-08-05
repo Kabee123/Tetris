@@ -100,7 +100,9 @@ bool Blocks::move(int x, int y) {
 void Blocks::drop() {
         vector<Coords> tList;
 	cout << "DROP:" << endl;
-
+	if (board.blind) {
+		board.blind = false;
+	}
         for (int i = 0; i < cList.size(); ++i) {
 		Coords cds(cList[i].x, cList[i].y);
                 tList.emplace_back(cds);
