@@ -116,17 +116,29 @@ void Biquadris::playGame() {
 			player2.printBoard();
 		}
 		while (cin >> cmd) {
-<<<<<<< HEAD
 			if (cmd == "left") {
 				curBlock->move(-1, 0);
-				if (curBlock.board.heavy) {
-                                        if (!curBlock->move(0, 1)) {
+				if (fp && player1.heavy) {
+					if (!curBlock->move(0, 1)) {
+						player1.printBoard();
 						break;
 					}
-                                        if (!curBlock->move(0,1)) {
+					if (!curBlock->move(0,1)) {
+						curBlock->placeBlock();
+						player1.printBoard();
 						break;
 					}
-                                }
+				} else if (!fp && player2.heavy) {
+					if (!curBlock->move(0, 1)) {
+						player2.printBoard();
+						break;
+					}
+					if (!curBlock->move(0,1)) {
+						curBlock->placeBlock();
+						player2.printBoard();
+						break;
+					}
+				}
 				curBlock->placeBlock();
 				if (fp) {
 					player1.printBoard();
@@ -135,13 +147,26 @@ void Biquadris::playGame() {
 				}
 			} else if (cmd == "right") {
 				curBlock->move(1, 0);
-				if (curBlock.board.heavy) {
+				if (fp && player1.heavy) {
 					if (!curBlock->move(0, 1)) {
-                                                break;
-                                        }
-                                        if (!curBlock->move(0,1)) {
-                                                break;
-                                        }
+						player1.printBoard();
+						break;
+					}
+					if (!curBlock->move(0,1)) {
+						curBlock->placeBlock();
+						player1.printBoard();
+						break;
+					}
+				} else if (!fp && player2.heavy) {
+					if (!curBlock->move(0, 1)) {
+						player2.printBoard();
+						break;
+					}
+					if (!curBlock->move(0,1)) {
+						curBlock->placeBlock();
+						player2.printBoard();
+						break;
+					}
 				}
 				curBlock->placeBlock();
 				if (fp) {
@@ -149,40 +174,6 @@ void Biquadris::playGame() {
 				} else {
 					player2.printBoard();
 				}
-=======
-                if (cmd == "left") {
-                    curBlock->move(-1, 0);
-                    if (curBlock.board.heavy) {
-                    	if (!curBlock->move(0, 1)) {
-                            break;
-                        }
-                    	if (!curBlock->move(0,1)) {
-                            break;
-                        }
-                     }
-                    curBlock->placeBlock();
-                    if (fp) {
-                        player1.printBoard();
-                    } else {
-                        player2.printBoard();
-                    }
-                    } else if (cmd == "right") {
-                        curBlock->move(1, 0);
-                        if (curBlock.board.heavy) {
-                            if (!curBlock->move(0, 1)) {
-                                break;
-                            }
-                            if (!curBlock->move(0,1)) {
-                                break;
-                            }
-                        }
-                        curBlock->placeBlock();
-                        if (fp) {
-                                player1.printBoard();
-                        } else {
-                                 player2.printBoard();
-                        }
->>>>>>> b59b1a08286e64185f213e6f76f168fdd171aed1
 			} else if (cmd == "down") {
 				curBlock->move(0, 1);
 				curBlock->placeBlock();
@@ -200,7 +191,6 @@ void Biquadris::playGame() {
 				} else {
 					player2.printBoard();
 				}
-
 			} else if (cmd == "counterclockwise") {
 				curBlock->rotateCCW();
 				curBlock->placeBlock();
@@ -223,7 +213,7 @@ void Biquadris::playGame() {
 						} else {
 							player2.force = true;
 							cin >> cmd;
-							player2.force = cmd;
+							player2.forced = cmd;
 						}
 					}
 					player1.printBoard();
@@ -238,7 +228,7 @@ void Biquadris::playGame() {
 						} else {
 							player1.force = true;
 							cin >> cmd;
-							player2.force = cmd;
+							player1.forced = cmd;
 						}
 					}
 					player2.printBoard();
@@ -249,6 +239,7 @@ void Biquadris::playGame() {
 		}
 	}
 }
+
 
 
 
