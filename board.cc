@@ -73,16 +73,6 @@ int Board::checkRows() {
 		}
 	}
 
-	for (int i = 0; i < r_fill.size(); ++i) {
-                for (int j = r_fill[i]; j > reserve; --j) {
-                        for (int k = 0; k < width; ++k) {
-                                theBoard[k][j].type = theBoard[k][j-1].type;
-                                theBoard[k][j-1].resetCell();
-                        }
-                }
-        }
-
-
 	return n_row;
 }
 
