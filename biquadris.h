@@ -4,6 +4,7 @@
 #include "board.h"
 #include "blocks.h"
 #include <string>
+#include <memory>
 
 class Biquadris: public Board {
 	public:
@@ -13,7 +14,7 @@ class Biquadris: public Board {
 	Board player1;
 	Board player2;
 
-	Blocks *curBlock;
+	std::unique_ptr<Blocks> curBlock;
 
 	public:
 	Biquadris();
