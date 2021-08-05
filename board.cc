@@ -20,6 +20,7 @@ void Board::init() {
 }
 
 void Board::printBoard() {
+<<<<<<< HEAD
 	for (int i = 0; i < height + reserve; ++i) {
 		for (int j = 0; j < width; ++ j) {
 			if (blind && (i > 1 && i < 12)) {
@@ -39,7 +40,29 @@ void Board::printBoard() {
 		cout << endl;
 	}
 	cout << endl;
+=======
+        for (int i = 0; i < height + reserve; ++i) {
+                for (int j = 0; j < width; ++ j) {
+                        if (blind && (i > 1 && i < 12)) {
+                                cout << '?';
+                        } else if (blind && (j > 1 && j < 9)) {
+                                cout << 'J';
+                        } else if (theBoard[j][i].type == 'E') {
+                                if (i < 3) {
+                                        cout << '-';
+                                } else {
+                                        cout << '.';
+                                }
+                        } else {
+                                cout << theBoard[j][i].type;
+                        }
+                }
+                cout << endl;
+        }
+        cout << endl;
+>>>>>>> b59b1a08286e64185f213e6f76f168fdd171aed1
 }
+
 
 int Board::checkRows() {
 	int n_row = 0;
@@ -71,6 +94,16 @@ int Board::checkRows() {
 			}
 		}
 	}
+
+	for (int i = 0; i < r_fill.size(); ++i) {
+                for (int j = r_fill[i]; j > reserve; --j) {
+                        for (int k = 0; k < width; ++k) {
+                                theBoard[k][j].type = theBoard[k][j-1].type;
+                                theBoard[k][j-1].resetCell();
+                        }
+                }
+        }
+
 
 	return n_row;
 }

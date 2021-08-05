@@ -49,7 +49,7 @@ ZBlock::ZBlock(int turn, int levelMade, Board &b):
 
 // T Block
 TBlock::TBlock(int turn, int levelMade, Board &b):
-	Blocks('I', turn, levelMade,
+	Blocks('T', turn, levelMade,
 		vector<Coords>{Coords{0, 2}, Coords{1, 2}, Coords{2, 2}, Coords{1, 3}},
 		b) {}
 
@@ -98,6 +98,7 @@ bool Blocks::move(int x, int y) {
 }
 
 void Blocks::drop() {
+<<<<<<< HEAD
         vector<Coords> tList;
 	cout << "DROP:" << endl;
 	if (board.blind) {
@@ -126,6 +127,15 @@ void Blocks::drop() {
                         cList[i].y = tList[i].y;
                 }
         }
+=======
+		if (board.blind) {
+                board.blind = false;
+        }
+
+        while(this->move(0, 1)) {
+
+	}
+>>>>>>> b59b1a08286e64185f213e6f76f168fdd171aed1
 }
 
 bool Blocks::rotateCW() {
