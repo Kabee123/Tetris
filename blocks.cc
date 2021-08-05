@@ -69,6 +69,7 @@ bool Blocks::move(int x, int y) {
 		cout << " start y: " << cList[i].y << endl;
 		Coords cds(cList[i].x, cList[i].y);
 		tList.emplace_back(cds);
+		board.theBoard[cList[i].x][cList[i].y].resetCell();
 	}
 
 	for (int i = 0; i < tList.size(); ++i) {
@@ -78,14 +79,14 @@ bool Blocks::move(int x, int y) {
 		cout << "new x: " << tList[i].x;
 		cout << " new y: " << tList[i].y << endl;
 
-/*
+
 		if (board.theBoard[tList[i].x][tList[i].y].type != 'E') {
 			return false;
 		} else if (tList[i].x > (board.width - 1) || tList[i].x < 0) {
 			return false;
 		} else if (tList[i].y > (board.reserve + board.height - 1)) {
 			return false;
-		}*/
+		}
 	}
 	
 	for (int i = 0; i < cList.size(); ++i) {
@@ -122,30 +123,72 @@ void Blocks::drop() {
         }
 }
 
-
 bool Blocks::rotateCW() {
-
-}
-
-
-bool Blocks::rotateCCW() {
 	vector<Coords> tList; 
 
 	for (int i = 0; i < cList.size(); ++i) {
-		tList[i].x = cList[i].x;
-		tList[i].y = cList[i].y;
+		cout << "start x: " << cList[i].x;
+		                cout << " start y: " << cList[i].y << endl;
+		Coords cds(cList[i].x, cList[i].y);
+		tList.emplace_back(cds);
+		board.theBoard[cList[i].x][cList[i].y].resetCell();
 	}
-
-	int width = abs(tList[0].x - tList[3].x);
-	int height = abs(tList[0].y - tList[3].x);
+	
+	int startx = tList[0].x;
+	int starty = tList[0].y;
+	int width = abs(tList[0].x - tList[3].x) + 1;
+	int height = abs(tList[0].y - tList[3].x) + 1;
+	
+	cout << "W: " << width << " H: " << height << endl;
 
 	for (int i = 0; i < tList.size(); ++i) {
-		tList[i].x = tList[i].x * 0 + tList[i].y * 1 - width;
-		tList[i].y = tList[i].x * -1 + tList[i].y * 0 + 2 * height;
+		tList[i].x = cList[i].x * 0 + cList[i].y * -1 + width + startx;
+		tList[i].y = cList[i].x * 1 + cList[i].y * 0 + height - starty;
+
+
+		cout << "new x: " << tList[i].x;
+		cout << " new y: " << tList[i].y << endl;
+	}
+
+	for (int i = 0; i < cList.size(); ++i) {
+		cList[i].x = tList[i].x;
+		cList[i].y = tList[i].y;
 	}
 
 	return true;
 
 }
 
+bool Blocks::rotateCCW() {
+	vector<Coords> tList;
+cout <<"CCW"<<endl;	
+	for (int i = 0; i < cList.size(); ++i) {
+		cout << "start x: " << cList[i].x;
+		cout << " start y: " << cList[i].y << endl;
+		Coords cds(cList[i].x, cList[i].y);
+		tList.emplace_back(cds);
+		board.theBoard[cList[i].x][cList[i].y].resetCell();
+	}
+
+	int width = abs(tList[0].x - tList[3].x);
+	int height = abs(tList[0].y - tList[3].x);
+
+	cout << "W: " << width << " H: " << height << endl;
+
+	for (int i = 0; i < tList.size(); ++i) {
+		tList[i].x = cList[i].x * 0 + cList[i].y * -1 + width; 
+		tList[i].y = cList[i].x * 1 + cList[i].y * 0;
+	
+		cout << "new x: " << tList[i].x;
+		cout << " new y: " << tList[i].y << endl;
+	}
+
+	for (int i = 0; i < cList.size(); ++i) {
+                cList[i].x = tList[i].x;
+		cList[i].y = tList[i].y;
+	}
+
+        return true;
+
+}
 
