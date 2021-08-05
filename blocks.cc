@@ -98,7 +98,6 @@ bool Blocks::move(int x, int y) {
 }
 
 void Blocks::drop() {
-<<<<<<< HEAD
         vector<Coords> tList;
 	cout << "DROP:" << endl;
 
@@ -125,11 +124,6 @@ void Blocks::drop() {
                         cList[i].y = tList[i].y;
                 }
         }
-=======
-        while(this->move(0, 1)) {
-
-	}
->>>>>>> 85d0033b5a131d6c9bb7d500f8a3d7436fcdad95
 }
 
 bool Blocks::rotateCW() {

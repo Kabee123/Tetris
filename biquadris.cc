@@ -162,8 +162,10 @@ void Biquadris::playGame() {
 				curBlock->drop();
 				curBlock->placeBlock();
 				if (fp) {
+					player1.checkRows();
 					player1.printBoard();
 				} else {
+					player2.checkRows();
 					player2.printBoard();
 				}
 				fp = !fp;
