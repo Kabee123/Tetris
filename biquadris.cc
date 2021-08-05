@@ -69,44 +69,44 @@ void Biquadris::playGame() {
 			curBlock->placeBlock();
 		} else if (bType == 'J') {
 			if (fp) {
-				curBlock = make_unique<IBlock>(0, 0, player1);
+				curBlock = make_unique<JBlock>(0, 0, player1);
 			} else {
-				curBlock = make_unique<IBlock>(0, 0, player2);
+				curBlock = make_unique<JBlock>(0, 0, player2);
 			}
 			curBlock->placeBlock();
 		} else if (bType == 'L') {
 			if (fp) {
-				curBlock = make_unique<IBlock>(0, 0, player1);
+				curBlock = make_unique<LBlock>(0, 0, player1);
 			} else {
-				curBlock = make_unique<IBlock>(0, 0, player2);
+				curBlock = make_unique<LBlock>(0, 0, player2);
 			}
 			curBlock->placeBlock();
 		} else if (bType == 'O') {
 			if (fp) {
-				curBlock = make_unique<IBlock>(0, 0, player1);
+				curBlock = make_unique<OBlock>(0, 0, player1);
 			} else {
-				curBlock = make_unique<IBlock>(0, 0, player2);
+				curBlock = make_unique<OBlock>(0, 0, player2);
 			}
 			curBlock->placeBlock();
 		} else if (bType == 'Z') {
 			if (fp) {
-				curBlock = make_unique<IBlock>(0, 0, player1);
+				curBlock = make_unique<ZBlock>(0, 0, player1);
 			} else {
-				curBlock = make_unique<IBlock>(0, 0, player2);
+				curBlock = make_unique<ZBlock>(0, 0, player2);
 			}
 			curBlock->placeBlock();
 		} else if (bType == 'S') {
 			if (fp) {
-				curBlock = make_unique<IBlock>(0, 0, player1);
+				curBlock = make_unique<SBlock>(0, 0, player1);
 			} else {
-				curBlock = make_unique<IBlock>(0, 0, player2);
+				curBlock = make_unique<SBlock>(0, 0, player2);
 			}
 			curBlock->placeBlock();
 		} else if (bType == 'T') {
 			if (fp) {
-				curBlock = make_unique<IBlock>(0, 0, player1);
+				curBlock = make_unique<TBlock>(0, 0, player1);
 			} else {
-				curBlock = make_unique<IBlock>(0, 0, player2);
+				curBlock = make_unique<TBlock>(0, 0, player2);
 			}
 			curBlock->placeBlock();
 		}
@@ -132,7 +132,6 @@ void Biquadris::playGame() {
 				} else {
 					player2.printBoard();
 				}
-
 			} else if (cmd == "down") {
 				curBlock->move(0, 1);
 				curBlock->placeBlock();
@@ -159,7 +158,6 @@ void Biquadris::playGame() {
 				} else {
 					player2.printBoard();
 				}
-
 			} else if (cmd == "drop") {
 				curBlock->drop();
 				curBlock->placeBlock();
