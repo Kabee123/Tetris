@@ -34,6 +34,7 @@ void Biquadris::playGame() {
 			level_fp = new Level1;
 			level_sp = new Level1;
 		} else if (level == 2) {
+			cout << "LEVEL: " << level << endl;
 			level_fp = new Level2;
 			level_sp = new Level2;
 		} else if (level == 3) {
@@ -55,9 +56,12 @@ void Biquadris::playGame() {
 		if (fp) {
 			bType = level_fp->makeBlock();
 			cplayer = player1;
+			cout << "PLAYER 1:" << endl;
+			cout << "TYPE: " << bType << endl;
 		} else {
 			bType = level_sp->makeBlock();
 			cplayer = player2;
+			cout << "PLAYER 2:" << endl;
 		}
 
 		if (bType == 'I') {
@@ -110,7 +114,7 @@ void Biquadris::playGame() {
 				cout << "here" << endl;
 				curBlock->placeBlock();
 				cplayer.printBoard();
-				fp = !fp;
+				//fp = !fp;
 				break;
 			}
 		}
