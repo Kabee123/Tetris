@@ -7,23 +7,17 @@
 using namespace std;
 
 class Board {
-<<<<<<< HEAD
 	public:	
-		bool heavy, blind, force;
-		std::string forced;
-=======
-	public:
-		bool heavy, blind, force;
-        std::string forced;
-
->>>>>>> b59b1a08286e64185f213e6f76f168fdd171aed1
+		bool blind = false;
+		bool heavy = false; 
+		bool force = false;
+		int level;
+		char forced;
 		int reserve = 3;
 		int width = 11 ;
 		int height = 15;
 		vector<vector<Cell>> theBoard;
-
-		char curBlock;
-		char nextBlock;
+		char nextBlock = 'X';
 
 
 		void init();

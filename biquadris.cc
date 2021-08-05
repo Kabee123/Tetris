@@ -3,8 +3,8 @@
 #include <sstream>
 #include <iostream>
 #include <fstream>
-#include "level.h"
-#include <memory>
+#include <cstdlib>
+#include <ctime>
 using namespace std;
 
 const int w = 11;
@@ -17,6 +17,7 @@ Biquadris::Biquadris() {
 }
 
 void Biquadris::playGame() {
+	std::srand(std::time (NULL));
 	bool fp = true;
 	string cmd;
 	char bType;
@@ -27,89 +28,126 @@ void Biquadris::playGame() {
 		level_fp = new Level0(seq_1);
 		level_sp = new Level0(seq_2);
 	} else {
-		std::cout << "Choose you level [1-4]" << std::endl;
-		cin >> level;
-
-		if (level == 1) {
+		std::cout << "Choose your level player 1 [1-4]" << std::endl;
+		cin >> player1.level;
+		if (player1.level == 1) {
 			level_fp = new Level1;
-			level_sp = new Level1;
-		} else if (level == 2) {
+		} else if (player1.level == 2) {
 			level_fp = new Level2;
-			level_sp = new Level2;
-		} else if (level == 3) {
+		} else if (player1.level == 3) {
 			level_fp = new Level3;
-			level_sp = new Level3;
 		} else {
 			level_fp = new Level4;
-			level_sp = new Level4;
 		}
-	}
 
+		std::cout << "Choose your level player 2 [1-4]" << std::endl;
+		cin >> player2.level;
+		 if (player2.level == 1) {
+                        level_sp = new Level1;
+                } else if (player2.level == 2) {
+                        level_sp = new Level2;
+                } else if (player2.level == 3) {
+                        level_sp = new Level3;
+                } else {
+                        level_sp = new Level4;
+                }
+
+
+	}
 
 
 	cout << "PLAYING" << endl;
 
 	while (true) {
+		if (cin.eof()) {
+			break;
+		}
+
 		if (fp) {
-			bType = level_fp->makeBlock();
+			if (player1.force) {
+				bType = player1.forced;
+				player1.nextBlock = level_fp->makeBlock();
+				player1.force = false;
+			} else {
+				if (player1.nextBlock == 'X') {
+					bType = level_fp->makeBlock();
+					player1.nextBlock = level_fp->makeBlock();
+				} else {
+					bType = player1.nextBlock;
+					player1.nextBlock = level_fp->makeBlock();
+				}
+			}
 			cout << "PLAYER 1: " << endl;
 		} else {
-			bType = level_sp->makeBlock();
+			if (player2.force) {
+				bType = player2.forced;
+				player2.nextBlock = level_sp->makeBlock();
+				player2.force = false;
+			} else {
+				if (player1.nextBlock == 'X') {
+					bType = level_fp->makeBlock();
+					player1.nextBlock = level_fp->makeBlock();
+				} else {
+					bType = player1.nextBlock;
+					player1.nextBlock = level_fp->makeBlock();
+				}
+			}
 			cout << "PLAYER 2: " << endl;
 		}
 
-		cout << "TYPE: " << bType << endl;
-
 		if (bType == 'I') {
 			if (fp) {
-				curBlock = make_unique<IBlock>(0, 0, player1);
+				curBlock = make_unique<IBlock>(0, player1.level, player1);
 			} else {
-				curBlock = make_unique<IBlock>(0, 0, player2);
+				curBlock = make_unique<IBlock>(0, player2.level, player2);
 			}
 			curBlock->placeBlock();
 		} else if (bType == 'J') {
 			if (fp) {
-				curBlock = make_unique<JBlock>(0, 0, player1);
+				curBlock = make_unique<JBlock>(0, player1.level, player1);
 			} else {
-				curBlock = make_unique<JBlock>(0, 0, player2);
+				curBlock = make_unique<JBlock>(0, player2.level, player2);
 			}
 			curBlock->placeBlock();
 		} else if (bType == 'L') {
 			if (fp) {
-				curBlock = make_unique<LBlock>(0, 0, player1);
+				curBlock = make_unique<LBlock>(0, player1.level, player1);
 			} else {
-				curBlock = make_unique<LBlock>(0, 0, player2);
+				curBlock = make_unique<LBlock>(0, player2.level, player2);
 			}
 			curBlock->placeBlock();
 		} else if (bType == 'O') {
 			if (fp) {
-				curBlock = make_unique<OBlock>(0, 0, player1);
+				curBlock = make_unique<OBlock>(0, player1.level, player1);
 			} else {
-				curBlock = make_unique<OBlock>(0, 0, player2);
+				curBlock = make_unique<OBlock>(0, player2.level, player2);
 			}
 			curBlock->placeBlock();
 		} else if (bType == 'Z') {
 			if (fp) {
-				curBlock = make_unique<ZBlock>(0, 0, player1);
+				curBlock = make_unique<ZBlock>(0, player1.level, player1);
 			} else {
-				curBlock = make_unique<ZBlock>(0, 0, player2);
+				curBlock = make_unique<ZBlock>(0, player2.level, player2);
 			}
 			curBlock->placeBlock();
 		} else if (bType == 'S') {
 			if (fp) {
-				curBlock = make_unique<SBlock>(0, 0, player1);
+				curBlock = make_unique<SBlock>(0, player1.level, player1);
 			} else {
-				curBlock = make_unique<SBlock>(0, 0, player2);
+				curBlock = make_unique<SBlock>(0, player2.level, player2);
 			}
 			curBlock->placeBlock();
 		} else if (bType == 'T') {
 			if (fp) {
-				curBlock = make_unique<TBlock>(0, 0, player1);
+				curBlock = make_unique<TBlock>(0, player1.level, player1);
 			} else {
-				curBlock = make_unique<TBlock>(0, 0, player2);
+				curBlock = make_unique<TBlock>(0, player2.level, player2);
 			}
 			curBlock->placeBlock();
 		}
+		cout << "TYPE: " << bType << endl;
+		cout << "NEXT: " << player1.nextBlock << endl;
+
 		if (fp) {
 			player1.printBoard();
 		} else {
@@ -118,6 +156,9 @@ void Biquadris::playGame() {
 		while (cin >> cmd) {
 			if (cmd == "left") {
 				curBlock->move(-1, 0);
+				if (curBlock->levelMade == 3) {
+                                        curBlock->move(0, 1);
+                                }
 				if (fp && player1.heavy) {
 					if (!curBlock->move(0, 1)) {
 						player1.printBoard();
@@ -147,6 +188,9 @@ void Biquadris::playGame() {
 				}
 			} else if (cmd == "right") {
 				curBlock->move(1, 0);
+				if (curBlock->levelMade == 3) {
+					curBlock->move(0, 1);
+				}
 				if (fp && player1.heavy) {
 					if (!curBlock->move(0, 1)) {
 						player1.printBoard();
@@ -176,15 +220,20 @@ void Biquadris::playGame() {
 				}
 			} else if (cmd == "down") {
 				curBlock->move(0, 1);
+				if (curBlock->levelMade == 3) {
+                                        curBlock->move(0, 1);
+                                }
 				curBlock->placeBlock();
 				if (fp) {
 					player1.printBoard();
 				} else {
 					player2.printBoard();
 				}
-
 			} else if (cmd == "clockwise") {
 				curBlock->rotateCW();
+				if (curBlock->levelMade == 3) {
+                                        curBlock->move(0, 1);
+                                }
 				curBlock->placeBlock();
 				if (fp) {
 					player1.printBoard();
@@ -193,6 +242,9 @@ void Biquadris::playGame() {
 				}
 			} else if (cmd == "counterclockwise") {
 				curBlock->rotateCCW();
+				if (curBlock->levelMade == 3) {
+                                        curBlock->move(0, 1);
+                                }
 				curBlock->placeBlock();
 				if (fp) {
 					player1.printBoard();
@@ -212,8 +264,7 @@ void Biquadris::playGame() {
 							player2.heavy = true;
 						} else {
 							player2.force = true;
-							cin >> cmd;
-							player2.forced = cmd;
+							cin >> player2.forced;
 						}
 					}
 					player1.printBoard();
@@ -227,23 +278,52 @@ void Biquadris::playGame() {
 							player1.heavy = true;
 						} else {
 							player1.force = true;
-							cin >> cmd;
-							player1.forced = cmd;
+							cin >> player1.forced;
 						}
 					}
 					player2.printBoard();
 				}
 				//fp = !fp;
 				break;
+			} else if (cmd == "levelup") {
+				if (fp) {
+					if (player1.level == 4) {
+						continue;
+					} else {
+						player1.level = player1.level + 1;
+						cout << player1.level << endl;
+					}
+
+					Level *temp = level_fp;
+					delete temp;
+					if (player1.level == 1) {
+						level_fp = new Level1;
+					} else if (player1.level == 2) {
+						level_fp = new Level2;
+					} else {
+						level_fp = new Level3;
+					}
+
+				} else {
+					if (player2.level == 4) {
+                                                continue;
+                                        } else {
+                                                player2.level = player2.level + 1;
+						cout << player2.level << endl;
+                                        }
+
+                                        Level *temp = level_sp;
+                                        delete temp;
+                                        if (player2.level == 1) {
+                                                level_sp = new Level1;
+                                        } else if (player2.level == 2) {
+                                                level_sp = new Level2;
+                                        } else {
+                                                level_sp = new Level3;
+                                        }
+				}
 			}
 		}
 	}
 }
-
-
-
-
-
-
-
 

@@ -5,6 +5,7 @@
 #include "blocks.h"
 #include <string>
 #include <memory>
+#include "level.h"
 
 class Biquadris: public Board {
 	public:
@@ -16,6 +17,7 @@ class Biquadris: public Board {
 	Board player2;
 
 	std::unique_ptr<Blocks> curBlock;
+	std::unique_ptr<Blocks> nexBlock;
 
 	public:
 	Biquadris();

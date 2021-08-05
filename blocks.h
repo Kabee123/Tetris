@@ -14,10 +14,10 @@ class Coords {
 class Blocks {
 	//char type;
 	int turn;
-	int levelMade;
 	std::vector<Coords> cList; 
 	Board &board;
 	public:
+	int levelMade;
 	char type;
 	Blocks(char type, int turn, int levelMades, std::vector<Coords> v, Board &b);
 	void placeBlock();

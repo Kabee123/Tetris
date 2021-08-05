@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <fstream>
 #include <ctime>
+#include <iostream>
 
 using namespace std;
 
@@ -9,6 +10,7 @@ Level0::Level0(std::string file_name) : file_name{file_name} {}
 
 char Level0::makeBlock()  {
         char fType;
+	char check_eof;
         char type;
         fstream seq(file_name);
         int i = 0;
@@ -20,9 +22,11 @@ char Level0::makeBlock()  {
         }
         for (int i = 0; i < c_idx; ++i) {
                 seq.get(type);
+	
                 if (type == ' ') {
                         seq.get(type);
                 }
+		seq.get(check_eof);
                 if (seq.eof()) {
                         c_idx = 1;
                         return fType;
@@ -35,7 +39,7 @@ char Level0::makeBlock()  {
 
 char Level1::makeBlock()  {
 	int num_prob = 12;
-	std::srand(std::time (NULL));
+	//std::srand(std::time (NULL));
 	int rand_c = rand() % num_prob;
 
 	if (rand_c == 0) {
@@ -58,7 +62,7 @@ char Level1::makeBlock()  {
 
 char Level2::makeBlock()  {
         int num_prob = 7;
-	std::srand(std::time (NULL));
+	//std::srand(std::time (NULL));
         int rand_c = rand() % num_prob;
 
         if (rand_c == 0) {
@@ -80,7 +84,7 @@ char Level2::makeBlock()  {
 
 char Level3::makeBlock()  {
         int num_prob = 9;
-	std::srand(std::time (NULL));
+	//std::srand(std::time (NULL));
         int rand_c = rand() % num_prob;
 
         if (rand_c <= 1) {
@@ -102,7 +106,7 @@ char Level3::makeBlock()  {
 
 char Level4::makeBlock()  {
         int num_prob = 9;
-	std::srand(std::time (NULL));
+	//std::srand(std::time (NULL));
         int rand_c = rand() % num_prob;
 
         if (rand_c <= 1) {
