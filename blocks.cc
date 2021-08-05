@@ -99,18 +99,21 @@ bool Blocks::move(int x, int y) {
 
 void Blocks::drop() {
         vector<Coords> tList;
+	cout << "DROP:" << endl;
 
         for (int i = 0; i < cList.size(); ++i) {
-                tList[i].x = cList[i].x;
-                tList[i].y = cList[i].y;
+		Coords cds(cList[i].x, cList[i].y);
+                tList.emplace_back(cds);
+		board.theBoard[cList[i].x][cList[i].y].resetCell();
         }
 
+	cout << "copied" << endl;
         while(true) {
                 for (int i = 0; i < tList.size(); ++i) {
                         if (tList[i].y + 1 > (board.reserve + board.height - 1)) {
-                                break;
+                                return;
                         } else if (board.theBoard[tList[i].x][tList[i].y + 1].type != 'E') {
-                                break;
+                                return;
                         } else {
                                 tList[i].y = tList[i].y + 1;
                         }

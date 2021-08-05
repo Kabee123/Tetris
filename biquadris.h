@@ -8,6 +8,7 @@
 
 class Biquadris: public Board {
 	public:
+	int level;
 	int width, height;
 	bool in_file = false;
 	std::string seq_1, seq_2;

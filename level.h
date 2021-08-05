@@ -1,6 +1,7 @@
 #ifndef LEVEL_H_
 #define LEVEL_H_
 #include "board.h"
+#include <string>
 
 class Level {
 	public:
