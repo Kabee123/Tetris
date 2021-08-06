@@ -105,8 +105,37 @@ char Level3::makeBlock()  {
 }
 
 char Level4::makeBlock()  {
+        ++counter;
+        if (in_file) {
+                char fType;
+	        char check_eof;
+                char type;
+                fstream seq(seq_file);
+                int i = 0;
+                seq.get(fType);
+        
+        if (c_idx == 0) {
+                ++c_idx;
+                return fType;
+        }
+        for (int i = 0; i < c_idx; ++i) {
+                seq.get(type);
+	
+                if (type == ' ') {
+                        seq.get(type);
+                }
+		seq.get(check_eof);
+                if (seq.eof()) {
+                        c_idx = 1;
+                        return fType;
+                }
+        }
+
+        ++c_idx;
+        return type;
+
+        }
         int num_prob = 9;
-	//std::srand(std::time (NULL));
         int rand_c = rand() % num_prob;
 
         if (rand_c <= 1) {
