@@ -100,6 +100,9 @@ bool Blocks::move(int x, int y) {
 void Blocks::drop() {
 	if (board.blind) {
 		board.blind = false;
+	} 
+	if (board.heavy) {
+		board.heavy = false;
 	}
 
 	while(this->move(0, 1)) {

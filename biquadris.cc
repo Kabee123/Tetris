@@ -188,27 +188,31 @@ void Biquadris::playGame() {
 				}
 			} else if (cmd == "right") {
 				curBlock->move(1, 0);
-				if (curBlock->levelMade == 3) {
+				if (curBlock->levelMade == 3 || curBlock->levelmade == 4) {
 					curBlock->move(0, 1);
 				}
 				if (fp && player1.heavy) {
 					if (!curBlock->move(0, 1)) {
 						player1.printBoard();
+						player1.heavy = false;
 						break;
 					}
 					if (!curBlock->move(0,1)) {
 						curBlock->placeBlock();
 						player1.printBoard();
+						player1.heavy = false;
 						break;
 					}
 				} else if (!fp && player2.heavy) {
 					if (!curBlock->move(0, 1)) {
 						player2.printBoard();
+						player2.heavy = false;
 						break;
 					}
 					if (!curBlock->move(0,1)) {
 						curBlock->placeBlock();
 						player2.printBoard();
+						player2.heavy = false;
 						break;
 					}
 				}
@@ -220,7 +224,7 @@ void Biquadris::playGame() {
 				}
 			} else if (cmd == "down") {
 				curBlock->move(0, 1);
-				if (curBlock->levelMade == 3) {
+				if (curBlock->levelMade == 3 || curBlock->levelMade == 4) {
                                         curBlock->move(0, 1);
                                 }
 				curBlock->placeBlock();
@@ -231,7 +235,7 @@ void Biquadris::playGame() {
 				}
 			} else if (cmd == "clockwise") {
 				curBlock->rotateCW();
-				if (curBlock->levelMade == 3) {
+				if (curBlock->levelMade == 3 || curBlock->levelMade == 4) {
                                         curBlock->move(0, 1);
                                 }
 				curBlock->placeBlock();
@@ -242,7 +246,7 @@ void Biquadris::playGame() {
 				}
 			} else if (cmd == "counterclockwise") {
 				curBlock->rotateCCW();
-				if (curBlock->levelMade == 3) {
+				if (curBlock->levelMade == 3 || curBlock->levelMade == 4) {
                                         curBlock->move(0, 1);
                                 }
 				curBlock->placeBlock();
