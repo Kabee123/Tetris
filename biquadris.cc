@@ -164,7 +164,7 @@ void Biquadris::playGame() {
 		while (cin >> cmd) {
 			if (cmd == "left") {
 				curBlock->move(-1, 0);
-				if (curBlock->levelMade == 3) {
+				if (curBlock->levelMade >= 3) {
 					curBlock->move(0, 1);
 				}
 				if (fp && player1.heavy) {
@@ -196,7 +196,7 @@ void Biquadris::playGame() {
 				}
 			} else if (cmd == "right") {
 				curBlock->move(1, 0);
-				if (curBlock->levelMade == 3 || curBlock->levelMade == 4) {
+				if (curBlock->levelMade >= 3) {
 					curBlock->move(0, 1);
 				}
 				if (fp && player1.heavy) {
@@ -232,7 +232,7 @@ void Biquadris::playGame() {
 				}
 			} else if (cmd == "down") {
 				curBlock->move(0, 1);
-				if (curBlock->levelMade == 3 || curBlock->levelMade == 4) {
+				if (curBlock->levelMade >= 3) {
 					curBlock->move(0, 1);
 				}
 				curBlock->placeBlock();
