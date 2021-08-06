@@ -13,13 +13,16 @@ class Coords {
 
 class Blocks {
 	//char type;
+	int width;
+	int height;
 	int turn;
+	Coords botLeft;
 	std::vector<Coords> cList; 
 	Board &board;
 	public:
 	int levelMade;
 	char type;
-	Blocks(char type, int turn, int levelMades, std::vector<Coords> v, Board &b);
+	Blocks(char type, int turn, int levelMades, int w, int h, Coords corner, std::vector<Coords> v, Board &b);
 	void placeBlock();
 	bool move(int x, int y);
 	void drop();

@@ -7,50 +7,50 @@ using namespace std;
 Coords::Coords(int x, int y): x{x}, y{y} {}
 
 
-Blocks::Blocks(char type, int turn, int levelMade, vector<Coords> v, Board &b):
-	type{type}, turn{turn}, levelMade{levelMade}, cList{v}, board{b} {}	
+Blocks::Blocks(char type, int turn, int levelMade, int w, int h, Coords corner, vector<Coords> v, Board &b):
+	type{type}, turn{turn}, levelMade{levelMade}, width{w}, height{h}, botLeft{corner}, cList{v}, board{b} {}	
 
 // I Block
 IBlock::IBlock(int turn, int levelMade, Board &b):
-	Blocks('I', turn, levelMade, 
+	Blocks('I', turn, levelMade, 4, 1, Coords{0, 3}, 
 		vector<Coords>{Coords{0, 3}, Coords{1, 3}, Coords{2, 3}, Coords{3, 3}},
 		b) {}
 
 // J Block
 JBlock::JBlock(int turn, int levelMade, Board &b):
-	Blocks('J', turn, levelMade,
+	Blocks('J', turn, levelMade, 3, 2, Coords{0, 3},
 		vector<Coords>{Coords{0, 2}, Coords{0, 3}, Coords{1, 3}, Coords{2, 3}},
 		b) {}
 
 // L Block
 LBlock::LBlock(int turn, int levelMade, Board &b):
-	Blocks('L', turn, levelMade,
+	Blocks('L', turn, levelMade, 3, 2, Coords{0, 3},
 		vector<Coords>{Coords{0, 3}, Coords{1, 3}, Coords{2, 3}, Coords{2, 2}},
 		b) {}
 
 // O Block
 OBlock::OBlock(int turn, int levelMade, Board &b):
-	Blocks('O', turn, levelMade,
+	Blocks('O', turn, levelMade, 2, 2, Coords{0, 3},
 		vector<Coords>{Coords{0, 2}, Coords{1, 2}, Coords{0, 3}, Coords{1, 3}},
 		b) {}
 
 // S Block
 SBlock::SBlock(int turn, int levelMade, Board &b):
-	Blocks('S', turn, levelMade,
+	Blocks('S', turn, levelMade, 3, 2, Coords{0, 3},
 		vector<Coords>{Coords{0, 3}, Coords{1, 3}, Coords{1, 2}, Coords{2, 2}},
 		b) {}
 
 // Z Block
 ZBlock::ZBlock(int turn, int levelMade, Board &b):
-	Blocks('Z', turn, levelMade,
+	Blocks('Z', turn, levelMade, 3, 2, Coords{0, 3},
 		vector<Coords>{Coords{0, 2}, Coords{1, 2}, Coords{1, 3}, Coords{2, 3}},
 		b) {}
 
 
 // T Block
 TBlock::TBlock(int turn, int levelMade, Board &b):
-	Blocks('T', turn, levelMade,
-		vector<Coords>{Coords{0, 2}, Coords{1, 2}, Coords{2, 2}, Coords{1, 3}},
+	Blocks('T', turn, levelMade, 3, 2, Coords{0, 3},
+		vector<Coords>{Coords{0, 2}, Coords{1, 2}, Coords{1, 3}, Coords{2, 2}},
 		b) {}
 
 void Blocks::placeBlock() {
@@ -94,6 +94,9 @@ bool Blocks::move(int x, int y) {
 		cList[i].y = tList[i].y;
 	}
 
+	botLeft.x += x;
+	botLeft.y += y;
+
 	return true;
 }
 
@@ -111,28 +114,20 @@ bool Blocks::rotateCW() {
 	vector<Coords> tList; 
 
 	for (int i = 0; i < cList.size(); ++i) {
-		cout << "start x: " << cList[i].x;
-		cout << " start y: " << cList[i].y << endl;
 		Coords cds(cList[i].x, cList[i].y);
 		tList.emplace_back(cds);
 		board.theBoard[cList[i].x][cList[i].y].resetCell();
 	}
 
-	int startx = tList[0].x;
-	int starty = tList[0].y;
-	int width = abs(tList[0].x - tList[3].x) + 1;
-	int height = abs(tList[0].y - tList[3].x) + 1;
-
-	cout << "W: " << width << " H: " << height << endl;
-
 	for (int i = 0; i < tList.size(); ++i) {
-		tList[i].x = cList[i].x * 0 + cList[i].y * -1 + width + startx;
-		tList[i].y = cList[i].x * 1 + cList[i].y * 0 + height - starty;
+		tList[i].x = cList[i].y *-1 + botLeft.x + botLeft.y;
+		tList[i].y = cList[i].x - (botLeft.x + (width - 1) - botLeft.y);
 
-
-		cout << "new x: " << tList[i].x;
-		cout << " new y: " << tList[i].y << endl;
 	}
+	 
+	int oldWidth = width;
+	width = height;
+	height = oldWidth;
 
 	for (int i = 0; i < cList.size(); ++i) {
 		cList[i].x = tList[i].x;
@@ -145,27 +140,22 @@ bool Blocks::rotateCW() {
 
 bool Blocks::rotateCCW() {
 	vector<Coords> tList;
-	cout <<"CCW"<<endl;	
+	
 	for (int i = 0; i < cList.size(); ++i) {
-		cout << "start x: " << cList[i].x;
-		cout << " start y: " << cList[i].y << endl;
 		Coords cds(cList[i].x, cList[i].y);
 		tList.emplace_back(cds);
 		board.theBoard[cList[i].x][cList[i].y].resetCell();
 	}
 
-	int width = abs(tList[0].x - tList[3].x);
-	int height = abs(tList[0].y - tList[3].x);
-
-	cout << "W: " << width << " H: " << height << endl;
-
 	for (int i = 0; i < tList.size(); ++i) {
-		tList[i].x = cList[i].x * 0 + cList[i].y * -1 + width; 
-		tList[i].y = cList[i].x * 1 + cList[i].y * 0;
+		tList[i].x = cList[i].y + (botLeft.x + (height - 1) - botLeft.y); 
+		tList[i].y = cList[i].x * -1 + botLeft.x + botLeft.y;
 
-		cout << "new x: " << tList[i].x;
-		cout << " new y: " << tList[i].y << endl;
 	}
+
+	int oldWidth = width;
+	width = height;
+	height = oldWidth;
 
 	for (int i = 0; i < cList.size(); ++i) {
 		cList[i].x = tList[i].x;
