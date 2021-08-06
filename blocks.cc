@@ -65,8 +65,6 @@ bool Blocks::move(int x, int y) {
 	vector<Coords> tList;
 
 	for (int i = 0; i < cList.size(); ++i) {
-		cout << "start x: " << cList[i].x;
-		cout << " start y: " << cList[i].y << endl;
 		Coords cds(cList[i].x, cList[i].y);
 		tList.emplace_back(cds);
 		board.theBoard[cList[i].x][cList[i].y].resetCell();
@@ -76,15 +74,11 @@ bool Blocks::move(int x, int y) {
 		tList[i].x = tList[i].x + x;
 		tList[i].y = tList[i].y + y;
 
-		cout << "new x: " << tList[i].x;
-		cout << " new y: " << tList[i].y << endl;
-
-
-		if (board.theBoard[tList[i].x][tList[i].y].type != 'E') {
-			return false;
-		} else if (tList[i].x > (board.width - 1) || tList[i].x < 0) {
+		if (tList[i].x > (board.width - 1) || tList[i].x < 0) {
 			return false;
 		} else if (tList[i].y > (board.reserve + board.height - 1)) {
+			return false;
+		} else if (board.theBoard[tList[i].x][tList[i].y].type != 'E') {
 			return false;
 		}
 	}
@@ -126,6 +120,14 @@ bool Blocks::rotateCW() {
 		tList[i].x = cList[i].y *-1 + botLeft.x + botLeft.y;
 		tList[i].y = cList[i].x - (botLeft.x + (width - 1) - botLeft.y);
 
+		if (tList[i].x > (board.width - 1) || tList[i].x < 0) {
+			return false;
+		} else if (tList[i].y > (board.reserve + board.height - 1)) {
+			return false;
+		} else if (board.theBoard[tList[i].x][tList[i].y].type != 'E') {
+			return false;
+		}
+
 	}
 	 
 	int oldWidth = width;
@@ -153,7 +155,13 @@ bool Blocks::rotateCCW() {
 	for (int i = 0; i < tList.size(); ++i) {
 		tList[i].x = cList[i].y + (botLeft.x + (height - 1) - botLeft.y); 
 		tList[i].y = cList[i].x * -1 + botLeft.x + botLeft.y;
-
+		if (tList[i].x > (board.width - 1) || tList[i].x < 0) {
+			return false;
+		} else if (tList[i].y > (board.reserve + board.height - 1)) {
+			return false;
+		} else if (board.theBoard[tList[i].x][tList[i].y].type != 'E') {
+			return false;
+		}
 	}
 
 	int oldWidth = width;

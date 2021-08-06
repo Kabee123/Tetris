@@ -84,12 +84,12 @@ void Board::bomb() {
 
 	for (int i = reserve; i < height + reserve - 1; ++i) {
 		if (theBoard[mid][i + 1].type == 'E' && i == height + reserve - 2) {
-			theBoard[mid][i + 1].type == 'B';
+			theBoard[mid][i + 1].setCell('*', 10, 4);
 			return;
 		} else if (theBoard[mid][i + 1].type == 'E') {
 			continue;
 		} else {
-			theBoard[mid][i].type == 'B';
+			theBoard[mid][i].setCell('*', 10, 4);
 			return;
 		}
 	}
