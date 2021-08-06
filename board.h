@@ -23,6 +23,7 @@ class Board {
 		void init();
 		int checkRows();
 		void printBoard();
+		void bomb();
 };
 
 #endif

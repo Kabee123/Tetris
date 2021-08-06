@@ -5,7 +5,7 @@
 
 class Level {
 	public:
-                int counter = 0;
+                int counter = -1;
                 std::string seq_file;
                 bool in_file = false;
 		virtual char makeBlock()  = 0;
@@ -28,10 +28,12 @@ class Level2 : public Level {
 };
 
 class Level3 : public Level {
+	int c_idx = 0;
         char makeBlock()  override;
 };
 
 class Level4 : public Level {
+	int c_idx = 0;
         char makeBlock()  override;
 };
 

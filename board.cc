@@ -48,7 +48,7 @@ int Board::checkRows() {
 	for (int i = reserve; i < height + reserve; ++i) {
 		int fill_b = 0;
 		for (int j = 0; j < width; ++j) {
-			if (theBoard[j][i].type != 'E') {
+			if (theBoard[j][i].type != 'E' && theBoard[j][i].type != 'B') {
 				++fill_b;
 			}
 		}
@@ -63,7 +63,7 @@ int Board::checkRows() {
 			theBoard[j][r_fill[i]].resetCell();
 		}
 	}
-	
+
 	for (int i = 0; i < r_fill.size(); ++i) {
 		for (int j = r_fill[i]; j > reserve; --j) {
 			for (int k = 0; k < width; ++k) {
@@ -75,5 +75,25 @@ int Board::checkRows() {
 
 	return n_row;
 }
+
+void Board::bomb() {
+	int mid = 5;
+	if (theBoard[mid][reserve].type != 'E') {
+		return;
+	}
+
+	for (int i = reserve; i < height + reserve - 1; ++i) {
+		if (theBoard[mid][i + 1].type == 'E' && i == height + reserve - 2) {
+			theBoard[mid][i + 1].type == 'B';
+			return;
+		} else if (theBoard[mid][i + 1].type == 'E') {
+			continue;
+		} else {
+			theBoard[mid][i].type == 'B';
+			return;
+		}
+	}
+}
+
 
 
