@@ -5,6 +5,9 @@
 
 class Level {
 	public:
+                int counter = 0;
+                std::string seq_file;
+                bool in_file = false;
 		virtual char makeBlock()  = 0;
 };
 
