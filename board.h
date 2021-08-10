@@ -22,9 +22,14 @@ class Board {
 		void init();
 		void reset();
 		int checkRows();
-		void printBoard();
 		void bomb();
+			
+		void printBoard();
+		friend std::ostream &operator<<(std::ostream &out, vector<Board> boards);
 };
+
+
+
 
 #endif
 

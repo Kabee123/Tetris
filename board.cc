@@ -27,9 +27,37 @@ void Board::reset() {
 	}
 }
 
+std::ostream &operator<<(std::ostream &out, vector<Board> boards) {
+	int width = boards[0].width;
+	int height = boards[0].height;
+	int reserve = boards[0].reserve;
+	for (int i = 0; i < height + reserve; ++i) {
+		for (int j = 0; j < 2; ++j) {
+			for (int k = 0; k < width; ++k) {
+				if (boards[j].blind && (i > 4 && i < 15) && (k > 2 && k < 10)) {
+					out << '?';
+				} else if (boards[j].theBoard[k][i].type == 'E') {
+					if (i < 3) {
+						out << '-';
+					} else {
+						out << '.';
+					}
+				} else {
+					cout << "HERE";
+					out << boards[j].theBoard[k][i].type;
+				}
+			}
+			out << "     ";
+		}
+		out << endl;
+	}
+	return out;
+}
+
+
 void Board::printBoard() {
 	for (int i = 0; i < height + reserve; ++i) {
-		for (int j = 0; j < width; ++ j) {
+		for (int j = 0; j < width; ++j) {
 			if (blind && (i > 4 && i < 15)) {
 				cout << '?';
 			} else if (blind && (j > 1 && j < 9) && i > 2) {
