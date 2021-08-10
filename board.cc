@@ -36,14 +36,14 @@ std::ostream &operator<<(std::ostream &out, vector<Board*> boards) {
 			for (int k = 0; k < width; ++k) {
 				if (boards[j]->blind && (i > 4 && i < 15) && (k > 2 && k < 10)) {
 					out << '?';
-				} else if (boards[j]->theBoard[k][i].type == 'E') {
+				} else if (boards[j]->theBoard[k][i].getType() == 'E') {
 					if (i < 3) {
 						out << '-';
 					} else {
 						out << '.';
 					}
 				} else {
-					out << boards[j]->theBoard[k][i].type;
+					out << boards[j]->theBoard[k][i].getType();
 				}
 			}
 			out << "     ";
@@ -60,14 +60,14 @@ void Board::printBoard() {
 				cout << '?';
 			} else if (blind && (j > 1 && j < 9) && i > 2) {
 				cout << '?';
-			} else if (theBoard[j][i].type == 'E') {
+			} else if (theBoard[j][i].getType() == 'E') {
 				if (i < 3) {
 					cout << '-';
 				} else {
 					cout << '.';
 				}
 			} else {
-				cout << theBoard[j][i].type;
+				cout << theBoard[j][i].getType();
 			}
 		}
 		cout << endl;
@@ -82,7 +82,7 @@ int Board::checkRows() {
 	for (int i = reserve; i < height + reserve; ++i) {
 		int fill_b = 0;
 		for (int j = 0; j < width; ++j) {
-			if (theBoard[j][i].type != 'E' && theBoard[j][i].type != 'B') {
+			if (theBoard[j][i].getType() != 'E' && theBoard[j][i].getType() != 'B') {
 				++fill_b;
 			}
 		}
@@ -101,7 +101,8 @@ int Board::checkRows() {
 	for (int i = 0; i < r_fill.size(); ++i) {
 		for (int j = r_fill[i]; j > reserve; --j) {
 			for (int k = 0; k < width; ++k) {
-				theBoard[k][j].type = theBoard[k][j-1].type;
+				theBoard[k][j].setCell(theBoard[k][j-1].getType(), 
+					theBoard[k][j-1].getTurn(), theBoard[k][j-1].getLevel());
 				theBoard[k][j-1].resetCell();
 			}
 		}
@@ -112,15 +113,15 @@ int Board::checkRows() {
 
 void Board::bomb() {
 	int mid = 5;
-	if (theBoard[mid][reserve].type != 'E') {
+	if (theBoard[mid][reserve].getType() != 'E') {
 		return;
 	}
 
 	for (int i = reserve; i < height + reserve - 1; ++i) {
-		if (theBoard[mid][i + 1].type == 'E' && i == height + reserve - 2) {
+		if (theBoard[mid][i + 1].getType() == 'E' && i == height + reserve - 2) {
 			theBoard[mid][i + 1].setCell('*', 10, 4);
 			return;
-		} else if (theBoard[mid][i + 1].type == 'E') {
+		} else if (theBoard[mid][i + 1].getType() == 'E') {
 			continue;
 		} else {
 			theBoard[mid][i].setCell('*', 10, 4);

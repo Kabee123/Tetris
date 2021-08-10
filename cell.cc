@@ -17,3 +17,14 @@ void Cell::resetCell() {
 	levelMade = -1;
 }
 
+char Cell::getType() {
+	return type;
+}
+
+int Cell::getTurn() {
+	return turn;
+}
+
+int Cell::getLevel() {
+	return levelMade;
+}

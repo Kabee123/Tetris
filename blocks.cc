@@ -57,7 +57,7 @@ bool Blocks::placeBlock() {
 	for (int i = 0; i < cList.size(); ++i) {
 		int x = cList[i].x;
 		int y = cList[i].y;
-		if (board->theBoard[x][y].type != 'E') return false;
+		if (board->theBoard[x][y].getType() != 'E') return false;
 		board->theBoard[x][y].setCell(type, turn, levelMade);
 	}
 	return true;
@@ -84,7 +84,7 @@ bool Blocks::move(int x, int y) {
 			return false;
 		} else if (tList[i].y > (board->reserve + board->height - 1)) {
 			return false;
-		} else if (board->theBoard[tList[i].x][tList[i].y].type != 'E') {
+		} else if (board->theBoard[tList[i].x][tList[i].y].getType() != 'E') {
 			return false;
 		}
 	}
@@ -130,7 +130,7 @@ bool Blocks::rotateCW() {
 			return false;
 		} else if (tList[i].y > (board->reserve + board->height - 1)) {
 			return false;
-		} else if (board->theBoard[tList[i].x][tList[i].y].type != 'E') {
+		} else if (board->theBoard[tList[i].x][tList[i].y].getType() != 'E') {
 			return false;
 		}
 
@@ -165,7 +165,7 @@ bool Blocks::rotateCCW() {
 			return false;
 		} else if (tList[i].y > (board->reserve + board->height - 1)) {
 			return false;
-		} else if (board->theBoard[tList[i].x][tList[i].y].type != 'E') {
+		} else if (board->theBoard[tList[i].x][tList[i].y].getType() != 'E') {
 			return false;
 		}
 	}
