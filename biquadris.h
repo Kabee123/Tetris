@@ -22,6 +22,7 @@ class Biquadris: public Board {
 	public:
 	Biquadris();
 	void playGame();
+	void restartGame();
 };
 #endif
 

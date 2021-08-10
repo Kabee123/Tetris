@@ -104,50 +104,48 @@ void Biquadris::playGame() {
 			} else {
 				curBlock = make_unique<IBlock>(0, player2.level, player2);
 			}
-			curBlock->placeBlock();
 		} else if (bType == 'J') {
 			if (fp) {
 				curBlock = make_unique<JBlock>(0, player1.level, player1);
 			} else {
 				curBlock = make_unique<JBlock>(0, player2.level, player2);
 			}
-			curBlock->placeBlock();
 		} else if (bType == 'L') {
 			if (fp) {
 				curBlock = make_unique<LBlock>(0, player1.level, player1);
 			} else {
 				curBlock = make_unique<LBlock>(0, player2.level, player2);
 			}
-			curBlock->placeBlock();
 		} else if (bType == 'O') {
 			if (fp) {
 				curBlock = make_unique<OBlock>(0, player1.level, player1);
 			} else {
 				curBlock = make_unique<OBlock>(0, player2.level, player2);
 			}
-			curBlock->placeBlock();
 		} else if (bType == 'Z') {
 			if (fp) {
 				curBlock = make_unique<ZBlock>(0, player1.level, player1);
 			} else {
 				curBlock = make_unique<ZBlock>(0, player2.level, player2);
 			}
-			curBlock->placeBlock();
 		} else if (bType == 'S') {
 			if (fp) {
 				curBlock = make_unique<SBlock>(0, player1.level, player1);
 			} else {
 				curBlock = make_unique<SBlock>(0, player2.level, player2);
 			}
-			curBlock->placeBlock();
 		} else if (bType == 'T') {
 			if (fp) {
 				curBlock = make_unique<TBlock>(0, player1.level, player1);
 			} else {
 				curBlock = make_unique<TBlock>(0, player2.level, player2);
 			}
-			curBlock->placeBlock();
 		}
+		if (!curBlock->placeBlock()) {
+			cout << "YOU LOST" << endl;
+			break;
+		}
+
 		cout << "TYPE: " << bType << endl;
 		cout << "NEXT: " << player1.nextBlock << endl;
 
@@ -235,6 +233,10 @@ void Biquadris::playGame() {
 					player1.printBoard();
 				} else {
 					player2.printBoard();
+				}
+				if (!curBlock->move(0, 1)) {
+					curBlock->placeBlock();
+					break;
 				}
 			} else if (cmd == "clockwise") {
 				curBlock->rotateCW();
@@ -354,17 +356,74 @@ void Biquadris::playGame() {
 				}
 			} else if (cmd == "sequence") {
 			//do something
-			} else if (cmd == "I") {
+			} else if (cmd == "I" or cmd == "J" or cmd == "L" or cmd == "O" or
+					cmd == "S" or cmd == "Z" or cmd == "T") {
 				curBlock->clearBlock();
-				if (fp) {
-					curBlock = make_unique<IBlock>(0, player1.level, player1);
-				} else {
-					curBlock = make_unique<IBlock>(0, player1.level, player2);
-				}
+
+				//resets to original top left with new block
+				if (cmd == "I") {
+					if (fp) {
+						curBlock = make_unique<IBlock>(0, player1.level, player1);
+					} else {
+						curBlock = make_unique<IBlock>(0, player2.level, player2);
+					}
+				} else if (cmd == "J") {
+					if (fp) {
+						curBlock = make_unique<JBlock>(0, player1.level, player1);
+					} else {
+						curBlock = make_unique<JBlock>(0, player2.level, player2);
+					}
+				} else if (cmd == "L") {
+					if (fp) {
+						curBlock = make_unique<LBlock>(0, player1.level, player1);
+					} else {
+						curBlock = make_unique<LBlock>(0, player2.level, player2);
+					}
+				} else if (cmd == "O") {
+					if (fp) {
+						curBlock = make_unique<OBlock>(0, player1.level, player1);
+					} else {
+						curBlock = make_unique<OBlock>(0, player2.level, player2);
+					}
+				} else if (cmd == "Z") {
+					if (fp) {
+						curBlock = make_unique<ZBlock>(0, player1.level, player1);
+					} else {
+						curBlock = make_unique<ZBlock>(0, player2.level, player2);
+					}
+				} else if (cmd == "S") {
+					if (fp) {
+						curBlock = make_unique<SBlock>(0, player1.level, player1);
+					} else {
+						curBlock = make_unique<SBlock>(0, player2.level, player2);
+					}
+				} else if (cmd == "T") {
+					if (fp) {
+						curBlock = make_unique<TBlock>(0, player1.level, player1);
+					} else {
+						curBlock = make_unique<TBlock>(0, player1.level, player2);
+					}
+				}	
 				curBlock->placeBlock();
+				if (fp) {
+					player1.printBoard();
+				} else {
+					player2.printBoard();
+				}
+			} else if (cmd == "restart") {
+				restartGame();
 				player1.printBoard();
-			}
+				break;
+			}	
 		}
 	}
 }
+
+void Biquadris::restartGame() {
+	player1.reset();
+	player2.reset();
+
+
+}
+
 

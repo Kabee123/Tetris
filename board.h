@@ -19,8 +19,8 @@ class Board {
 		vector<vector<Cell>> theBoard;
 		char nextBlock = 'X';
 
-
 		void init();
+		void reset();
 		int checkRows();
 		void printBoard();
 		void bomb();

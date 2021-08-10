@@ -23,7 +23,7 @@ class Blocks {
 	int levelMade;
 	char type;
 	Blocks(char type, int turn, int levelMades, int w, int h, Coords corner, std::vector<Coords> v, Board &b);
-	void placeBlock();
+	bool placeBlock();
 	bool move(int x, int y);
 	void drop();
 	bool rotateCW();

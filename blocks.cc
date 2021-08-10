@@ -53,13 +53,19 @@ TBlock::TBlock(int turn, int levelMade, Board &b):
 		vector<Coords>{Coords{0, 2}, Coords{1, 2}, Coords{1, 3}, Coords{2, 2}},
 		b) {}
 
-void Blocks::placeBlock() {
+bool Blocks::placeBlock() {
 	for (int i = 0; i < cList.size(); ++i) {
 		int x = cList[i].x;
 		int y = cList[i].y;
+		if (board.theBoard[x][y].type != 'E') return false;
 		board.theBoard[x][y].setCell(type, turn, levelMade);
 	}
+	return true;
 }	
+
+
+
+
 
 bool Blocks::move(int x, int y) {
 	vector<Coords> tList;

@@ -19,6 +19,14 @@ void Board::init() {
 	}
 }
 
+void Board::reset() {
+	for (int i = 0; i < width; ++i) {
+		for (int j = 0; j < height + reserve; ++j) {
+			theBoard[i][j].resetCell();
+		}
+	}
+}
+
 void Board::printBoard() {
 	for (int i = 0; i < height + reserve; ++i) {
 		for (int j = 0; j < width; ++ j) {
