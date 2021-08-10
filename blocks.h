@@ -18,11 +18,11 @@ class Blocks {
 	int turn;
 	Coords botLeft;
 	std::vector<Coords> cList; 
-	Board &board;
+	Board *board;
 	public:
 	int levelMade;
 	char type;
-	Blocks(char type, int turn, int levelMades, int w, int h, Coords corner, std::vector<Coords> v, Board &b);
+	Blocks(char type, int turn, int levelMades, int w, int h, Coords corner, std::vector<Coords> v, Board *b);
 	bool placeBlock();
 	bool move(int x, int y);
 	void drop();
@@ -33,46 +33,44 @@ class Blocks {
 
 class IBlock : public Blocks {
 	public:
-		IBlock(int turn, int levelMade, Board &b);
+		IBlock(int turn, int levelMade, Board *b);
 };
 
 
 class JBlock : public Blocks {
 	public:
-		JBlock(int turn, int levelMade, Board &b);
+		JBlock(int turn, int levelMade, Board *b);
 };
 
 
 class LBlock : public Blocks {
 	public:
-		LBlock(int turn, int levelMade, Board &b);
+		LBlock(int turn, int levelMade, Board *b);
 };
 
 
 class OBlock : public Blocks {
 	public:
-		OBlock(int turn, int levelMade, Board &b);
+		OBlock(int turn, int levelMade, Board *b);
 };
 
 
 class ZBlock : public Blocks {
 	public:
-		ZBlock(int turn, int levelMade, Board &b);
+		ZBlock(int turn, int levelMade, Board *b);
 };
 
 
 class SBlock : public Blocks {
 	public:
-		SBlock(int turn, int levelMade, Board &b);
+		SBlock(int turn, int levelMade, Board *b);
 };
 
 
 class TBlock : public Blocks {
 	public:
-		TBlock(int turn, int levelMade, Board &b);
+		TBlock(int turn, int levelMade, Board *b);
 };
-
-
 
 
 #endif

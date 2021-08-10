@@ -25,7 +25,7 @@ class Board {
 		void bomb();
 			
 		void printBoard();
-		friend std::ostream &operator<<(std::ostream &out, vector<Board> boards);
+		friend std::ostream &operator<<(std::ostream &out, vector<Board*> boards);
 };
 
 

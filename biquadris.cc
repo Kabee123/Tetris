@@ -14,12 +14,12 @@ const int reserve = 3;
 Biquadris::Biquadris() {
 	player1.init();
 	player2.init();
-	boards.emplace_back(player1);
-	boards.emplace_back(player2);
+	boards.emplace_back(&player1);
+	boards.emplace_back(&player2);
 }
 
 void Biquadris::playGame() {
-	std::srand(std::time (NULL));
+	//std::srand(std::time (NULL));
 	bool fp = true;
 	string cmd;
 	char bType;
@@ -229,7 +229,6 @@ void Biquadris::playGame() {
 					}
 				}
 				cout << boards;
-
 				fp = !fp;
 				break;
 			} else if (cmd == "levelup") {

@@ -22,7 +22,7 @@ class Biquadris: public Board {
 
 	Board player1;
 	Board player2;
-	vector<Board> boards;
+	vector<Board*> boards;
 
 	std::unique_ptr<Blocks> curBlock;
 	std::unique_ptr<Blocks> nexBlock;
