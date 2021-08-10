@@ -105,48 +105,21 @@ void Biquadris::playGame() {
 		}
 
 		if (bType == 'I') {
-			if (fp) {
-				curBlock = make_unique<IBlock>(turn, player1.level, player1);
-			} else {
-				curBlock = make_unique<IBlock>(turn, player2.level, player2);
-			}
+			curBlock = make_unique<IBlock>(turn, player1.level, boards[!fp]);
 		} else if (bType == 'J') {
-			if (fp) {
-				curBlock = make_unique<JBlock>(turn, player1.level, player1);
-			} else {
-				curBlock = make_unique<JBlock>(turn, player2.level, player2);
-			}
+			curBlock = make_unique<JBlock>(turn, player1.level, boards[!fp]);
 		} else if (bType == 'L') {
-			if (fp) {
-				curBlock = make_unique<LBlock>(turn, player1.level, player1);
-			} else {
-				curBlock = make_unique<LBlock>(turn, player2.level, player2);
-			}
-		} else if (bType == 'O') {
-			if (fp) {
-				curBlock = make_unique<OBlock>(turn, player1.level, player1);
-			} else {
-				curBlock = make_unique<OBlock>(turn, player2.level, player2);
-			}
+			curBlock = make_unique<LBlock>(turn, player1.level, boards[!fp]);
+ 		} else if (bType == 'O') {
+			curBlock = make_unique<OBlock>(turn, player1.level, boards[!fp]);
 		} else if (bType == 'Z') {
-			if (fp) {
-				curBlock = make_unique<ZBlock>(turn, player1.level, player1);
-			} else {
-				curBlock = make_unique<ZBlock>(turn, player2.level, player2);
-			}
+			curBlock = make_unique<ZBlock>(turn, player1.level, boards[!fp]);
 		} else if (bType == 'S') {
-			if (fp) {
-				curBlock = make_unique<SBlock>(turn, player1.level, player1);
-			} else {
-				curBlock = make_unique<SBlock>(turn, player2.level, player2);
-			}
+			curBlock = make_unique<SBlock>(turn, player1.level, boards[!fp]);
 		} else if (bType == 'T') {
-			if (fp) {
-				curBlock = make_unique<TBlock>(turn, player1.level, player1);
-			} else {
-				curBlock = make_unique<TBlock>(turn, player2.level, player2);
-			}
+			curBlock = make_unique<TBlock>(turn, player1.level, boards[!fp]);
 		}
+
 		if (!curBlock->placeBlock()) {
 			cout << "YOU LOST" << endl;
 			break;
@@ -154,16 +127,9 @@ void Biquadris::playGame() {
 
 		cout << "TYPE: " << bType << endl;
 		cout << "NEXT: " << player1.nextBlock << endl;
-		
-		
+				
 		cout << boards;	
 
-		if (fp) {
-			player1.printBoard();
-			boards[0].printBoard();
-		} else {
-			player2.printBoard();
-		}
 		while (cin >> cmd) {
 			if (cmd == "left" or cmd == "right") {
 				if (cmd == "left") {
@@ -201,44 +167,28 @@ void Biquadris::playGame() {
 					}
 				}
 				curBlock->placeBlock();
-				if (fp) {
-					player1.printBoard();
-				} else {
-					player2.printBoard();
-				}
+				cout << boards;
 			} else if (cmd == "down") {
 				curBlock->move(0, 1);
 				if (curBlock->levelMade >= 3) {
 					curBlock->move(0, 1);
 				}
 				curBlock->placeBlock();
-				if (fp) {
-					player1.printBoard();
-				} else {
-					player2.printBoard();
-				}
+				cout << boards;
 			} else if (cmd == "clockwise") {
 				curBlock->rotateCW();
 				if (curBlock->levelMade == 3 || curBlock->levelMade == 4) {
 					curBlock->move(0, 1);
 				}
 				curBlock->placeBlock();
-				if (fp) {
-					player1.printBoard();
-				} else {
-					player2.printBoard();
-				}
+				cout << boards;
 			} else if (cmd == "counterclockwise") {
 				curBlock->rotateCCW();
 				if (curBlock->levelMade == 3 || curBlock->levelMade == 4) {
 					curBlock->move(0, 1);
 				}
 				curBlock->placeBlock();
-				if (fp) {
-					player1.printBoard();
-				} else {
-					player2.printBoard();
-				}
+				cout << boards;
 			} else if (cmd == "drop") {
 				int c_rows = player1.checkRows();
 				curBlock->drop();
@@ -260,7 +210,6 @@ void Biquadris::playGame() {
 							cin >> player2.forced;
 						}
 					}
-					player1.printBoard();
 				} else {
 					c_rows = player2.checkRows();
 					if (c_rows > 0) {
@@ -278,8 +227,9 @@ void Biquadris::playGame() {
 							cin >> player1.forced;
 						}
 					}
-					player2.printBoard();
 				}
+				cout << boards;
+
 				fp = !fp;
 				break;
 			} else if (cmd == "levelup") {
@@ -340,55 +290,24 @@ void Biquadris::playGame() {
 				curBlock->clearBlock();
 
 				//resets to original top left with new block
-				if (cmd == "I") {
-					if (fp) {
-						curBlock = make_unique<IBlock>(turn, player1.level, player1);
-					} else {
-						curBlock = make_unique<IBlock>(turn, player2.level, player2);
-					}
-				} else if (cmd == "J") {
-					if (fp) {
-						curBlock = make_unique<JBlock>(turn, player1.level, player1);
-					} else {
-						curBlock = make_unique<JBlock>(turn, player2.level, player2);
-					}
-				} else if (cmd == "L") {
-					if (fp) {
-						curBlock = make_unique<LBlock>(turn, player1.level, player1);
-					} else {
-						curBlock = make_unique<LBlock>(turn, player2.level, player2);
-					}
-				} else if (cmd == "O") {
-					if (fp) {
-						curBlock = make_unique<OBlock>(turn, player1.level, player1);
-					} else {
-						curBlock = make_unique<OBlock>(turn, player2.level, player2);
-					}
-				} else if (cmd == "Z") {
-					if (fp) {
-						curBlock = make_unique<ZBlock>(turn, player1.level, player1);
-					} else {
-						curBlock = make_unique<ZBlock>(turn, player2.level, player2);
-					}
-				} else if (cmd == "S") {
-					if (fp) {
-						curBlock = make_unique<SBlock>(turn, player1.level, player1);
-					} else {
-						curBlock = make_unique<SBlock>(turn, player2.level, player2);
-					}
-				} else if (cmd == "T") {
-					if (fp) {
-						curBlock = make_unique<TBlock>(turn, player1.level, player1);
-					} else {
-						curBlock = make_unique<TBlock>(turn, player1.level, player2);
-					}
-				}	
-				curBlock->placeBlock();
-				if (fp) {
-					player1.printBoard();
-				} else {
-					player2.printBoard();
+				if (bType == 'I') {
+					curBlock = make_unique<IBlock>(turn, player1.level, boards[!fp]);
+				} else if (bType == 'J') {
+					curBlock = make_unique<JBlock>(turn, player1.level, boards[!fp]);
+				} else if (bType == 'L') {
+					curBlock = make_unique<LBlock>(turn, player1.level, boards[!fp]);
+				} else if (bType == 'O') {
+					curBlock = make_unique<OBlock>(turn, player1.level, boards[!fp]);
+				} else if (bType == 'Z') {
+					curBlock = make_unique<ZBlock>(turn, player1.level, boards[!fp]);
+				} else if (bType == 'S') {
+					curBlock = make_unique<SBlock>(turn, player1.level, boards[!fp]);
+				} else if (bType == 'T') {
+					curBlock = make_unique<TBlock>(turn, player1.level, boards[!fp]);
 				}
+
+				curBlock->placeBlock();
+				cout << boards;
 			} else if (cmd == "restart") {
 				restartGame();
 				level_fp->counter = -1;

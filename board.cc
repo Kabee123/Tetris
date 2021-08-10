@@ -43,7 +43,6 @@ std::ostream &operator<<(std::ostream &out, vector<Board> boards) {
 						out << '.';
 					}
 				} else {
-					cout << "HERE";
 					out << boards[j].theBoard[k][i].type;
 				}
 			}
