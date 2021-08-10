@@ -177,3 +177,9 @@ bool Blocks::rotateCCW() {
 
 }
 
+void Blocks::clearBlock() {
+	for (int i = 0; i < cList.size(); ++i) {
+		board.theBoard[cList[i].x][cList[i].y].resetCell();
+	}
+}
+

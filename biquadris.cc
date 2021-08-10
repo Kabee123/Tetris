@@ -51,12 +51,7 @@ void Biquadris::playGame() {
 		} else {
 			level_sp = new Level4;
 		}
-
-
 	}
-
-
-	cout << "PLAYING" << endl;
 
 	while (true) {
 		if (cin.eof()) {
@@ -357,6 +352,17 @@ void Biquadris::playGame() {
 					cin >> level_sp->seq_file;
 					level_sp->in_file = true;
 				}
+			} else if (cmd == "sequence") {
+			//do something
+			} else if (cmd == "I") {
+				curBlock->clearBlock();
+				if (fp) {
+					curBlock = make_unique<IBlock>(0, player1.level, player1);
+				} else {
+					curBlock = make_unique<IBlock>(0, player1.level, player2);
+				}
+				curBlock->placeBlock();
+				player1.printBoard();
 			}
 		}
 	}
