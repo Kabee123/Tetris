@@ -3,8 +3,9 @@
 #include <fstream>
 #include <ctime>
 #include <iostream>
-
 using namespace std;
+
+//display both block!!
 
 Level0::Level0(std::string file_name) : file_name{file_name} {}
 
@@ -132,7 +133,7 @@ char Level3::makeBlock()  {
 	}
 }
 
-char Level4::makeBlock()  {
+char Level4::makeBlock()  {//level4 for both
 	++counter;
 	if (in_file) {
 		char fType;
