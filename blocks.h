@@ -29,6 +29,8 @@ class Blocks {
 	bool rotateCCW();
 	void clearBlock();
 
+	Coords getBotL();
+
 	char blockType();
 	int blockTurn();
 	int blockLevel();

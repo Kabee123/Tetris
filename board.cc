@@ -1,15 +1,8 @@
 #include "board.h"
 #include <iostream>
+#include <iomanip>
 #include <utility>
 using namespace std;
-
-char Board::getNextB() {
-	return nextBlock;
-}
-
-void Board::setNextB(char blk) {
-	nextBlock = blk;
-}
 
 int Board::boardLevel() {
 	return level;
@@ -25,6 +18,22 @@ int Board::boardW() {
 
 int Board::boardH() {
 	return height + reserve;
+}
+
+char Board::getNextB() {
+	return nextBlock;
+}
+
+void Board::setNextB(char blk) {
+	nextBlock = blk;
+}
+
+int Board::getScore() {
+	return score;
+}
+
+void Board::setScore(int s) {
+	score += s;
 }
 
 bool Board::getBlind() {
@@ -83,10 +92,17 @@ std::ostream &operator<<(std::ostream &out, vector<Board*> boards) {
 	int width = boards[0]->width;
 	int height = boards[0]->height;
 	int reserve = boards[0]->reserve;
+
+	out << "PLAYER    1     PLAYER    2" << endl;
+	out << "LEVEL: " << setw(4) << boards[0]->level << "     ";
+	out << "LEVEL: " << setw(4) << boards[1]->level << endl;
+	out << "SCORE: " << setw(4) << boards[0]->score << "     ";
+	out << "SCORE: " << setw(4) << boards[1]->score << endl;
+
 	for (int i = 0; i < height + reserve; ++i) {
 		for (int j = 0; j < 2; ++j) {
 			for (int k = 0; k < width; ++k) {
-				if (boards[j]->blind && (i > 4 && i < 15) && (k > 2 && k < 10)) {
+				if (boards[j]->blind && (i > 4 && i < 15) && (k > 1 && k < 9)) {
 					out << '?';
 				} else if (boards[j]->theBoard[k][i].getType() == 'E') {
 					if (i < 3) {
@@ -102,10 +118,13 @@ std::ostream &operator<<(std::ostream &out, vector<Board*> boards) {
 		}
 		out << endl;
 	}
+	out << "NEXT: " << setw(5) << boards[0]->nextBlock << "     ";
+	out << "NEXT: " << setw(5) << boards[1]->nextBlock << endl;
+
 	return out;
 }
 
-
+/*
 void Board::printBoard() {
 	for (int i = 0; i < height + reserve; ++i) {
 		for (int j = 0; j < width; ++j) {
@@ -127,7 +146,7 @@ void Board::printBoard() {
 	}
 	cout << endl;
 }
-
+*/
 
 int Board::checkRows() {
 	int n_row = 0;

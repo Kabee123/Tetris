@@ -9,12 +9,7 @@
 #include <vector>
 
 class Biquadris: public Board {
-	int level;
-	int width, height;
-	
 	int hiScore;
-	int score1;
-	int score2;
 
 	Board player1;
 	Board player2;

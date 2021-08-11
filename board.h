@@ -12,6 +12,7 @@ class Board {
 		int width = 11 ;
 		int height = 15;
 		char nextBlock = 'X';
+		int score = 0;
 
 		bool blind = false;
 		bool heavy = false; 
@@ -21,14 +22,17 @@ class Board {
 	public:
 		vector<vector<Cell>> theBoard;
 
-		char getNextB();
-		void setNextB(char blk);
-
 		int boardLevel();
 		void setBoardLevel(int l);
 
 		int boardW();
 		int boardH();
+
+		char getNextB();
+		void setNextB(char blk);
+
+		int getScore();
+		void setScore(int s);
 
 		bool getBlind();
 		void setBlind(bool b);

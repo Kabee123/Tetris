@@ -185,6 +185,10 @@ void Blocks::clearBlock() {
 	}
 }
 
+Coords Blocks::getBotL() {
+	return botLeft;
+}
+
 char Blocks::blockType() {
 	return type;
 }
