@@ -8,21 +8,19 @@ using namespace std;
 
 Level0::Level0(std::string file_name) : file_name{file_name} {}
 
-char Level0::makeBlock()  {
+char Level0::makeBlock()  {//does not read last block!!!
 	char fType;
 	char check_eof;
 	char type;
 	fstream seq(file_name);
 	int i = 0;
 	seq.get(fType);
-
 	if (c_idx == 0) {
 		++c_idx;
 		return fType;
 	}
-	for (int i = 0; i < c_idx; ++i) {
+	for (int i = 0; i <= c_idx; ++i) {
 		seq.get(type);
-
 		if (type == ' ') {
 			seq.get(type);
 		}
@@ -32,7 +30,6 @@ char Level0::makeBlock()  {
 			return fType;
 		}
 	}
-
 	++c_idx;
 	return type;
 }

@@ -1,6 +1,6 @@
 #ifndef LEVEL_H_
 #define LEVEL_H_
-#include "board.h"
+//#include "board.h"
 #include <string>
 
 class Level {
@@ -8,7 +8,7 @@ class Level {
                 int counter = -1;
                 std::string seq_file;
                 bool in_file = false;
-		virtual char makeBlock()  = 0;
+		virtual char makeBlock() = 0;
 };
 
 class Level0 : public Level {

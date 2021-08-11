@@ -20,6 +20,7 @@ class Board {
 		char forced;
 
 	public:
+		Level *levelGen;
 		vector<vector<Cell>> theBoard;
 
 		int boardLevel();
@@ -43,8 +44,8 @@ class Board {
 		char getForcedB();
 		void setForcedB(char blk);
 
-		void init();
-		void reset();
+		void init(int lvl, string s);
+		void reset(string s);
 		int checkRows();
 		void bomb();
 			

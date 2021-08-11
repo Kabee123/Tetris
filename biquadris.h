@@ -11,6 +11,11 @@
 class Biquadris: public Board {
 	int hiScore;
 
+	bool textOnly;
+	int seed;
+	std::string seq_1, seq_2;
+	int startlvl;
+
 	Board player1;
 	Board player2;
 	vector<Board*> boards;
@@ -19,10 +24,8 @@ class Biquadris: public Board {
 	std::unique_ptr<Blocks> nexBlock;
 
 	public:
-	bool in_file = false;
-	std::string seq_1, seq_2;
-	
-	Biquadris();
+	//bool in_file = false;	
+	Biquadris(bool tdOnly, int seed, std::string s1, std::string s2, int lvl);
 	void playGame();
 	void restartGame();
 };

@@ -68,8 +68,8 @@ void Board::setForcedB(char blk) {
 	forced = blk;
 }
 
-void Board::init() {
-	//make board
+void Board::init(int lvl, string s) {
+	level = lvl;
 	for (int i = 0; i < width; ++i) {
 		vector<Cell> v;
 		for (int j = 0; j < height + reserve; ++j) {
@@ -78,14 +78,33 @@ void Board::init() {
 		}
 		theBoard.emplace_back(v);
 	}
+	if (level == 0) {
+		levelGen = new Level0(s);
+	} else if (level == 1) {
+		levelGen = new Level1();
+	} else if (level == 2) {
+		levelGen = new Level2();
+	} else if (level == 3) {
+		levelGen = new Level3();
+	} else if (level == 4) {
+		levelGen = new Level4();
+	}
 }
 
-void Board::reset() {
-	for (int i = 0; i < width; ++i) {
+void Board::reset(string s) {
+	theBoard.clear();
+	this->init(level, s);
+	nextBlock = 'X';
+	score = 0;
+	blind = false;
+	heavy = false; 
+	force = false;
+	forced = 'X';
+	/*for (int i = 0; i < width; ++i) {
 		for (int j = 0; j < height + reserve; ++j) {
 			theBoard[i][j].resetCell();
 		}
-	}
+	}*/
 }
 
 std::ostream &operator<<(std::ostream &out, vector<Board*> boards) {

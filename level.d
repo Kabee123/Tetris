@@ -1,1 +1,1 @@
-level.o: level.cc level.h board.h cell.h
+level.o: level.cc level.h
