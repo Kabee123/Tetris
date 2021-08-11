@@ -12,16 +12,15 @@ class Coords {
 };
 
 class Blocks {
-	//char type;
+	char type;
+	int turn;
+	int levelMade;
 	int width;
 	int height;
-	int turn;
 	Coords botLeft;
 	std::vector<Coords> cList; 
 	Board *board;
 	public:
-	int levelMade;
-	char type;
 	Blocks(char type, int turn, int levelMades, int w, int h, Coords corner, std::vector<Coords> v, Board *b);
 	bool placeBlock();
 	bool move(int x, int y);
@@ -29,6 +28,10 @@ class Blocks {
 	bool rotateCW();
 	bool rotateCCW();
 	void clearBlock();
+
+	char blockType();
+	int blockTurn();
+	int blockLevel();
 };
 
 class IBlock : public Blocks {

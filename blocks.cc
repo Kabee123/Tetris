@@ -63,10 +63,6 @@ bool Blocks::placeBlock() {
 	return true;
 }	
 
-
-
-
-
 bool Blocks::move(int x, int y) {
 	vector<Coords> tList;
 
@@ -80,9 +76,9 @@ bool Blocks::move(int x, int y) {
 		tList[i].x = tList[i].x + x;
 		tList[i].y = tList[i].y + y;
 
-		if (tList[i].x > (board->width - 1) || tList[i].x < 0) {
+		if (tList[i].x > (board->boardW() - 1) || tList[i].x < 0) {
 			return false;
-		} else if (tList[i].y > (board->reserve + board->height - 1)) {
+		} else if (tList[i].y > (board->boardH() - 1)) {
 			return false;
 		} else if (board->theBoard[tList[i].x][tList[i].y].getType() != 'E') {
 			return false;
@@ -101,11 +97,11 @@ bool Blocks::move(int x, int y) {
 }
 
 void Blocks::drop() {
-	if (board->blind) {
-		board->blind = false;
+	if (board->getBlind()) {
+		board->setBlind(false);
 	} 
-	if (board->heavy) {
-		board->heavy = false;
+	if (board->getHeavy()) {
+		board->setHeavy(false);
 	}
 
 	while(this->move(0, 1)) {
@@ -126,9 +122,9 @@ bool Blocks::rotateCW() {
 		tList[i].x = cList[i].y *-1 + botLeft.x + botLeft.y;
 		tList[i].y = cList[i].x - (botLeft.x + (width - 1) - botLeft.y);
 
-		if (tList[i].x > (board->width - 1) || tList[i].x < 0) {
+		if (tList[i].x > (board->boardW() - 1) || tList[i].x < 0) {
 			return false;
-		} else if (tList[i].y > (board->reserve + board->height - 1)) {
+		} else if (tList[i].y > (board->boardH() - 1)) {
 			return false;
 		} else if (board->theBoard[tList[i].x][tList[i].y].getType() != 'E') {
 			return false;
@@ -161,9 +157,9 @@ bool Blocks::rotateCCW() {
 	for (int i = 0; i < tList.size(); ++i) {
 		tList[i].x = cList[i].y + (botLeft.x + (height - 1) - botLeft.y); 
 		tList[i].y = cList[i].x * -1 + botLeft.x + botLeft.y;
-		if (tList[i].x > (board->width - 1) || tList[i].x < 0) {
+		if (tList[i].x > (board->boardW() - 1) || tList[i].x < 0) {
 			return false;
-		} else if (tList[i].y > (board->reserve + board->height - 1)) {
+		} else if (tList[i].y > (board->boardH() - 1)) {
 			return false;
 		} else if (board->theBoard[tList[i].x][tList[i].y].getType() != 'E') {
 			return false;
@@ -189,3 +185,14 @@ void Blocks::clearBlock() {
 	}
 }
 
+char Blocks::blockType() {
+	return type;
+}
+
+int Blocks::blockTurn() {
+	return turn;
+}
+
+int Blocks::blockLevel() {
+	return levelMade;
+}

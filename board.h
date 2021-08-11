@@ -7,17 +7,37 @@
 using namespace std;
 
 class Board {
-	public:	
-		bool blind = false;
-		bool heavy = false; 
-		bool force = false;
 		int level;
-		char forced;
 		int reserve = 3;
 		int width = 11 ;
 		int height = 15;
-		vector<vector<Cell>> theBoard;
 		char nextBlock = 'X';
+
+		bool blind = false;
+		bool heavy = false; 
+		bool force = false;
+		char forced;
+
+	public:
+		vector<vector<Cell>> theBoard;
+
+		char getNextB();
+		void setNextB(char blk);
+
+		int boardLevel();
+		void setBoardLevel(int l);
+
+		int boardW();
+		int boardH();
+
+		bool getBlind();
+		void setBlind(bool b);
+		bool getHeavy();
+		void setHeavy(bool b);
+		bool getForce();
+		void setForce(bool b);
+		char getForcedB();
+		void setForcedB(char blk);
 
 		void init();
 		void reset();

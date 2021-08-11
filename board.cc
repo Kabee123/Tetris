@@ -3,9 +3,61 @@
 #include <utility>
 using namespace std;
 
-//Board::Board() {}
+char Board::getNextB() {
+	return nextBlock;
+}
 
-//Board::~Board() {};
+void Board::setNextB(char blk) {
+	nextBlock = blk;
+}
+
+int Board::boardLevel() {
+	return level;
+}
+
+void Board::setBoardLevel(int l) {
+	level = l;
+}
+
+int Board::boardW() {
+	return width;
+}
+
+int Board::boardH() {
+	return height + reserve;
+}
+
+bool Board::getBlind() {
+	return blind;
+}
+
+void Board::setBlind(bool b) {
+	blind = b;
+}
+
+bool Board::getHeavy() {
+	return heavy;
+}
+
+void Board::setHeavy(bool b) {
+	heavy = b;
+}
+
+bool Board::getForce() {
+	return force;
+}
+
+void Board::setForce(bool b) {
+	force = b;
+}
+
+char Board::getForcedB() {
+	return forced;
+}
+
+void Board::setForcedB(char blk) {
+	forced = blk;
+}
 
 void Board::init() {
 	//make board
@@ -52,6 +104,7 @@ std::ostream &operator<<(std::ostream &out, vector<Board*> boards) {
 	}
 	return out;
 }
+
 
 void Board::printBoard() {
 	for (int i = 0; i < height + reserve; ++i) {
