@@ -31,7 +31,7 @@ void Biquadris::playGame() {
 	string cmd;
 	char bType;
 
-	int blk;
+	char blk;
 
 	int turn = -1;
 	while (true) {
