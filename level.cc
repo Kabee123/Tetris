@@ -10,30 +10,30 @@ using namespace std;
 Level0::Level0(std::string file_name) : file_name{file_name} {}
 
 char Level0::makeBlock()  {//does not read last block!!! 
-//also incorrect when calling ./biquadris -scriptfile1 test1.txt etc.
+	//also incorrect when calling ./biquadris -scriptfile1 test1.txt etc.
 	char fType;
 	char check_eof;
 	char type;
 	fstream seq(file_name);
-	int i = 0;
-	seq.get(fType);
-	if (c_idx == 0) {
-		++c_idx;
-		return fType;
-	}
 	for (int i = 0; i <= c_idx; ++i) {
-		seq.get(type);
+		if (i == 0) {
+			seq.get(fType);
+		} else {
+			seq.get(type);
+		}
+		if (c_idx == 0) {
+			++c_idx;
+			return fType;
+		}
 		if (type == ' ') {
 			seq.get(type);
 		}
-		seq.get(check_eof);
 		if (seq.eof()) {
 			c_idx = 1;
 			return fType;
 		}
 	}
 	++c_idx;
-	cout << "BLOCK: " << type << endl;
 	return type;
 }
 
@@ -89,26 +89,24 @@ char Level3::makeBlock()  {
 		char check_eof;
 		char type;
 		fstream seq(seq_file);
-		int i = 0;
-		seq.get(fType);
-
-		if (c_idx == 0) {
-			++c_idx;
-			return fType;
-		}
-		for (int i = 0; i < c_idx; ++i) {
-			seq.get(type);
-
+		for (int i = 0; i <= c_idx; ++i) {
+			if (i == 0) {
+				seq.get(fType);
+			} else {
+				seq.get(type);
+			}
+			if (c_idx == 0) {
+				++c_idx;
+				return fType;
+			}
 			if (type == ' ') {
 				seq.get(type);
 			}
-			seq.get(check_eof);
 			if (seq.eof()) {
 				c_idx = 1;
 				return fType;
 			}
 		}
-
 		++c_idx;
 		return type;
 
@@ -142,26 +140,24 @@ char Level4::makeBlock()  {//level4 for both
 		char check_eof;
 		char type;
 		fstream seq(seq_file);
-		int i = 0;
-		seq.get(fType);
-
-		if (c_idx == 0) {
-			++c_idx;
-			return fType;
-		}
-		for (int i = 0; i < c_idx; ++i) {
-			seq.get(type);
-
+		for (int i = 0; i <= c_idx; ++i) {
+			if (i == 0) {
+				seq.get(fType);
+			} else {
+				seq.get(type);
+			}
+			if (c_idx == 0) {
+				++c_idx;
+				return fType;
+			}
 			if (type == ' ') {
 				seq.get(type);
 			}
-			seq.get(check_eof);
 			if (seq.eof()) {
 				c_idx = 1;
 				return fType;
 			}
 		}
-
 		++c_idx;
 		return type;
 
