@@ -137,8 +137,3 @@ void Xwindow::removeDisplay(int player, vector<Coords> c) {
   }
 }
 
-
-
-
-
-

@@ -110,8 +110,9 @@ void Biquadris::playGame() {
 			}
 			if (cmd == "lef" || cmd == "left" || 
 				cmd == "ri" || cmd == "rig" || cmd == "righ" || cmd == "right") {
+				w.removeDisplay(!fp, curBlock->cList);
+				
 				if (cmd == "lef" || cmd == "left") {
-					w.removeDisplay(!fp, curBlock->cList);
 					for (int i = 0; i < multPre; ++i) {
 						if (!curBlock->move(-1, 0)) break;
 					}
