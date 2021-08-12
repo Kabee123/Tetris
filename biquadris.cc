@@ -32,22 +32,13 @@ void Biquadris::playGame() {
 
 	int turn = -1;
 	while (true) {
-		//if (infile->eof()) break;
-		try {
-			infile->eof();
-		} catch (ios::failure &) {
-			cout << "WILLIAM" << endl;
-			break;
-			
-		}
-		/*if (cin.eof()) {
-			break;
-		}*/
+		if (cin.eof()) break;	
+
 		if (fp) ++turn;	
-		//cout << "COUNTER: " << boards[!fp]->levelGen->counter << endl;
+
 		if (boards[!fp]->levelGen->counter > 0 && 
 			boards[!fp]->levelGen->counter % 5 == 0) {
-				cout << "TRIGGERED" << endl;
+				//cout << "TRIGGERED" << endl;
 				boards[!fp]->bomb();
 		}		
 		if (boards[!fp]->getForce()) {
@@ -56,10 +47,8 @@ void Biquadris::playGame() {
 			boards[!fp]->setForce(false);
 		} else {
 			if (boards[!fp]->getNextB() == 'X') {
-				cout << "BEFORE" << endl;
 				bType = boards[!fp]->levelGen->makeBlock();
 				boards[!fp]->setNextB(boards[!fp]->levelGen->makeBlock());
-				cout << "AFTER" << endl;
 			} else {
 				bType = boards[!fp]->getNextB();
 				boards[!fp]->setNextB(boards[!fp]->levelGen->makeBlock());
@@ -82,10 +71,13 @@ void Biquadris::playGame() {
 			curBlock = make_unique<TBlock>(turn, boards[!fp]->boardLevel(), boards[!fp]);
 		}
 
-		if (!curBlock->placeBlock()) { 
+		curBlock->placeBlock();
+		//curBlock2->placeBlock();
+
+		/*if (!curBlock->placeBlock()) { 
 			cout << "YOU LOST" << endl; // IDK
 			break;
-		}
+		}*/
 
 		cout << boards;	
 
@@ -96,7 +88,6 @@ void Biquadris::playGame() {
 			} catch (ios::failure &) {
 				break;
 			}
-			//while true w/ try catch inside
 
 			//prefixing
 			int multPre = 1;
@@ -112,13 +103,13 @@ void Biquadris::playGame() {
 			if (prefix != "") {
 				multPre = stoi(prefix);
 			}
-
-			if (cmd == "left" or cmd == "right") {
-				if (cmd == "left") {
+			if (cmd == "lef" || cmd == "left" || 
+				cmd == "ri" || cmd == "rig" || cmd == "righ" || cmd == "right") {
+				if (cmd == "lef" || cmd == "left") {
 					for (int i = 0; i < multPre; ++i) {
 						if (!curBlock->move(-1, 0)) break;
 					}
-				} else if (cmd == "right") {
+				} else /*if (cmd == "ri" || cmd == "rig" || cmd == "righ" cmd == "right")*/ {
 					for (int i = 0; i < multPre; ++i) {
 						if (!curBlock->move(1, 0)) break;
 					}
@@ -150,7 +141,7 @@ void Biquadris::playGame() {
 				}
 				curBlock->placeBlock();
 				cout << boards;
-			} else if (cmd == "down") {
+			} else if (cmd == "do" || cmd == "dow" || cmd == "down") {
 				for (int i = 0; i < multPre; ++i) {
 						if (!curBlock->move(0, 1)) break;
 					}
@@ -159,7 +150,9 @@ void Biquadris::playGame() {
 				}
 				curBlock->placeBlock();
 				cout << boards;
-			} else if (cmd == "clockwise") {
+			} else if (cmd == "cl" || cmd == "clo" || cmd == "cloc" ||  
+						cmd == "clock" || cmd == "clockw" || cmd == "clockwi" || 
+						cmd == "clockwis" || cmd == "clockwise") {
 				for (int i = 0; i < multPre; ++i) {
 					if (!curBlock->rotateCW()) break;
 				}
@@ -168,7 +161,10 @@ void Biquadris::playGame() {
 				}
 				curBlock->placeBlock();
 				cout << boards;
-			} else if (cmd == "counterclockwise") {
+			} else if (cmd == "co" || cmd == "cou" || cmd == "coun" || cmd == "count" || 
+						cmd == "counte" || cmd == "counter" || cmd == "counterc" || cmd == "countercl" ||
+						 cmd == "counterclo" || cmd == "countercloc" || cmd == "counterclock" || cmd == "counterclockw" || 
+						 cmd == "counterclockwi" || cmd == "counterclockwis" || cmd == "counterclockwise") {
 				for (int i = 0; i < multPre; ++i) {
 					if(!curBlock->rotateCCW()) break;
 				}
@@ -177,42 +173,65 @@ void Biquadris::playGame() {
 				}
 				curBlock->placeBlock();
 				cout << boards;
-			} else if (cmd == "drop") {
+			} else if (cmd == "dr" || cmd == "dro" || cmd == "drop") {
 				int c_rows;
-				curBlock->drop();
-				curBlock->placeBlock();
-				c_rows = boards[!fp]->checkRows();
+				for (int i = 0; i < multPre; ++i) {
+					curBlock->drop();
+					curBlock->placeBlock();
+					c_rows = boards[!fp]->checkRows();
 
-				if (c_rows > 0) {
-					boards[!fp]->setScore(pow(boards[!fp]->boardLevel() + c_rows, 2));
-					boards[!fp]->levelGen->counter = 0;
-				} else {
-					if (boards[!fp]->boardLevel() == 4) {
-						if (boards[!fp]->levelGen->counter == -1) {
+					if (c_rows > 0) {
+						boards[!fp]->setScore(pow(boards[!fp]->boardLevel() + c_rows, 2));
+						boards[!fp]->levelGen->counter = 0;
+					} else {
+						if (boards[!fp]->boardLevel() == 4) {
+							if (boards[!fp]->levelGen->counter == -1) {
+								boards[!fp]->levelGen->counter += 1;
+							}
 							boards[!fp]->levelGen->counter += 1;
 						}
-						boards[!fp]->levelGen->counter += 1;
 					}
-				}
 
-				if (c_rows > 1) {
-					cout << "Choose your special action (blind, heavy, force)" << endl;
-						*infile >> cmd;
-					if (cmd == "blind") {
-						boards[fp]->setBlind(true);
-					} else if (cmd == "heavy") {
-						boards[fp]->setHeavy(true);
-					} else {
-						boards[fp]->setForce(true);
-						*infile >> blk;
-						boards[fp]->setForcedB(blk);
+					if (c_rows > 1) {
+						cout << "Choose your special action (blind, heavy, force)" << endl;
+							*infile >> cmd;
+						if (cmd == "blind") {
+							boards[fp]->setBlind(true);
+						} else if (cmd == "heavy") {
+							boards[fp]->setHeavy(true);
+						} else {
+							boards[fp]->setForce(true);
+							*infile >> blk;
+							boards[fp]->setForcedB(blk);
+						}
+					}
+				
+					if (multPre > 1) {
+						bType = boards[!fp]->getNextB();
+						boards[!fp]->setNextB(boards[!fp]->levelGen->makeBlock());
+
+						if (bType == 'I') {
+							curBlock = make_unique<IBlock>(turn, boards[!fp]->boardLevel(), boards[!fp]);
+						} else if (bType == 'J') {
+							curBlock = make_unique<JBlock>(turn, boards[!fp]->boardLevel(), boards[!fp]);
+						} else if (bType == 'L') {
+							curBlock = make_unique<LBlock>(turn, boards[!fp]->boardLevel(), boards[!fp]);
+ 						} else if (bType == 'O') {
+							curBlock = make_unique<OBlock>(turn, boards[!fp]->boardLevel(), boards[!fp]);
+						} else if (bType == 'Z') {
+							curBlock = make_unique<ZBlock>(turn, boards[!fp]->boardLevel(), boards[!fp]);
+						} else if (bType == 'S') {
+							curBlock = make_unique<SBlock>(turn, boards[!fp]->boardLevel(), boards[!fp]);
+						} else if (bType == 'T') {
+							curBlock = make_unique<TBlock>(turn, boards[!fp]->boardLevel(), boards[!fp]);
+						}
 					}
 				}
-				cout << boards;
 				fp = !fp;
 				break;
-			} else if (cmd == "levelup" || cmd == "leveldown") {
-				if (cmd == "levelup") {
+			} else if (cmd == "levelu" || cmd == "levelup" || cmd == "leveld" || 
+						cmd == "leveldo" || cmd == "leveldow" || cmd == "leveldown") {
+				if (cmd == "levelu" || cmd == "levelup") {
 					if (boards[!fp]->boardLevel() == 4) {
 						continue;
 					} else {
@@ -243,26 +262,25 @@ void Biquadris::playGame() {
 					boards[!fp]->levelGen = new Level4;
 				}
 				cout << boards;
-			} else if (cmd == "random") {
+			} else if (cmd == "ra" || cmd == "ran" || cmd == "rand" || 
+						cmd == "rando" || cmd == "random") {
 				boards[!fp]->levelGen->in_file = false;
-			} else if (cmd == "norandom") {
+			} else if (cmd == "n" || cmd == "no" || cmd == "nor" || 
+						cmd == "nora" || cmd == "noran" || cmd == "norand" ||
+						cmd == "norando" || cmd == "norandom") {
 				if (fp) {
 					boards[!fp]->levelGen->seq_file = seq_1;
 				} else {
 					boards[!fp]->levelGen->seq_file = seq_2;
 				}
 				boards[!fp]->levelGen->in_file = true;
-			} else if (cmd == "sequence") {
-				try {
+			} else if (cmd == "se" || cmd == "seq" || cmd == "sequ" || cmd == "seque" ||
+						cmd == "sequen" || cmd == "sequenc" || cmd == "sequence") {
 					*infile >> cmd;
 					infile = new ifstream(cmd);
 					infile->exceptions( ios_base::failbit );
-				} catch (ios::failure &) {
-					cout << "KEFAN" << endl;
-					break;
-				}
-			} else if (cmd == "I" or cmd == "J" or cmd == "L" or cmd == "O" or
-					cmd == "S" or cmd == "Z" or cmd == "T") {
+			} else if (cmd == "I" || cmd == "J" || cmd == "L" || cmd == "O" ||
+					cmd == "S" || cmd == "Z" || cmd == "T") {
 
 				int shiftx;
 				int shifty;
@@ -290,7 +308,8 @@ void Biquadris::playGame() {
 				curBlock->move(shiftx, shifty);	
 				curBlock->placeBlock();
 				cout << boards;
-			} else if (cmd == "restart") {
+			} else if (cmd == "re" || cmd == "res" || cmd == "rest" || 
+						cmd == "resta" || cmd == "restar" || cmd == "restart") {
 				restartGame();
 				cout << boards;
 				break;
