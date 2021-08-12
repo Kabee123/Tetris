@@ -261,7 +261,7 @@ void Biquadris::playGame() {
 					}
 				}
 				w.updateDisplay(!fp, boards[!fp]);
-				//fp = !fp;
+				fp = !fp;
 				break;
 			} else if (cmd == "levelu" || cmd == "levelup" || cmd == "leveld" || 
 					cmd == "leveldo" || cmd == "leveldow" || cmd == "leveldown") {
