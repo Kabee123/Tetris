@@ -9,7 +9,8 @@ using namespace std;
 
 Level0::Level0(std::string file_name) : file_name{file_name} {}
 
-char Level0::makeBlock()  {//does not read last block!!!
+char Level0::makeBlock()  {//does not read last block!!! 
+//also incorrect when calling ./biquadris -scriptfile1 test1.txt etc.
 	char fType;
 	char check_eof;
 	char type;
@@ -32,6 +33,7 @@ char Level0::makeBlock()  {//does not read last block!!!
 		}
 	}
 	++c_idx;
+	cout << "BLOCK: " << type << endl;
 	return type;
 }
 
@@ -81,7 +83,7 @@ char Level2::makeBlock()  {
 }
 
 char Level3::makeBlock()  {
-	++counter;
+	//++counter;
 	if (in_file) {
 		char fType;
 		char check_eof;
@@ -134,7 +136,7 @@ char Level3::makeBlock()  {
 }
 
 char Level4::makeBlock()  {//level4 for both
-	++counter;
+	//++counter;
 	if (in_file) {
 		char fType;
 		char check_eof;

@@ -18,29 +18,30 @@ int main(int argc, char *argv[]) {
 	int theLevel = 0;
 
 	for (int i = 1; i < argc; ++i) {
-		string s;
+		string s{""};
 		stringstream ss;
-		ss << argv[i];
-		ss >> s;
+		s += argv[i];
 		if (s.find(text) != string::npos) {
 			textOnly = true;
 		} else if (s.find(seed) != string::npos) {
 			++i;
-			ss << argv[i];
-			ss >> s;
+			s = "";
+			s += argv[i];
 			theLevel = stoi(s);
 		} else if (s.find(sfile1) != string::npos) {
 			++i;
-			ss << argv[i];
-			ss >> s1;
+			s1 = "";
+			s1 += argv[i];
+			//ss >> s1;
 		} else if (s.find(sfile2) != string::npos) {
 			++i;
-			ss << argv[i];
-			ss >> s2;
+			s2 = "";
+			s2 += argv[i];
+			//ss >> s2;
 		} else if (s.find(level) != string::npos) {
 			++i;
-			ss << argv[i];
-			ss >> s;
+			s = "";
+			s += argv[i];
 			theLevel = stoi(s);
 		}
 	}
@@ -50,6 +51,7 @@ int main(int argc, char *argv[]) {
 		g.seq_1 = argv[1];
 		g.seq_2 = argv[2];
 	}*/
+
 	Biquadris g{textOnly, theSeed, s1, s2, theLevel};
 	g.playGame();
 }

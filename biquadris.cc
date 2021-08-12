@@ -21,6 +21,8 @@ Biquadris::Biquadris(bool tdOnly, int seed, string s1, string s2, int lvl)
 }
 
 void Biquadris::playGame() {
+	istream *infile = &cin; //default value
+	infile->exceptions( ios_base::failbit );
 	//std::srand(std::time (NULL));
 	bool fp = true; //fp = 1 and !fp = 0
 	string cmd;
@@ -30,11 +32,19 @@ void Biquadris::playGame() {
 
 	int turn = -1;
 	while (true) {
-		if (cin.eof()) {
+		//if (infile->eof()) break;
+		try {
+			infile->eof();
+		} catch (ios::failure &) {
+			cout << "WILLIAM" << endl;
 			break;
+			
 		}
+		/*if (cin.eof()) {
+			break;
+		}*/
 		if (fp) ++turn;	
-		cout << "COUNTER: " << boards[!fp]->levelGen->counter << endl;
+		//cout << "COUNTER: " << boards[!fp]->levelGen->counter << endl;
 		if (boards[!fp]->levelGen->counter > 0 && 
 			boards[!fp]->levelGen->counter % 5 == 0) {
 				cout << "TRIGGERED" << endl;
@@ -46,9 +56,10 @@ void Biquadris::playGame() {
 			boards[!fp]->setForce(false);
 		} else {
 			if (boards[!fp]->getNextB() == 'X') {
-				cout << "THIS" << endl;
+				cout << "BEFORE" << endl;
 				bType = boards[!fp]->levelGen->makeBlock();
 				boards[!fp]->setNextB(boards[!fp]->levelGen->makeBlock());
+				cout << "AFTER" << endl;
 			} else {
 				bType = boards[!fp]->getNextB();
 				boards[!fp]->setNextB(boards[!fp]->levelGen->makeBlock());
@@ -71,14 +82,22 @@ void Biquadris::playGame() {
 			curBlock = make_unique<TBlock>(turn, boards[!fp]->boardLevel(), boards[!fp]);
 		}
 
-		if (!curBlock->placeBlock()) { // IDK
-			cout << "YOU LOST" << endl;
+		if (!curBlock->placeBlock()) { 
+			cout << "YOU LOST" << endl; // IDK
 			break;
 		}
 
 		cout << boards;	
-		while (cin >> cmd) {
+
+		while (true) {
 			
+			try {
+				*infile >> cmd;
+			} catch (ios::failure &) {
+				break;
+			}
+			//while true w/ try catch inside
+
 			//prefixing
 			int multPre = 1;
 			string prefix{""};
@@ -167,18 +186,25 @@ void Biquadris::playGame() {
 				if (c_rows > 0) {
 					boards[!fp]->setScore(pow(boards[!fp]->boardLevel() + c_rows, 2));
 					boards[!fp]->levelGen->counter = 0;
+				} else {
+					if (boards[!fp]->boardLevel() == 4) {
+						if (boards[!fp]->levelGen->counter == -1) {
+							boards[!fp]->levelGen->counter += 1;
+						}
+						boards[!fp]->levelGen->counter += 1;
+					}
 				}
 
 				if (c_rows > 1) {
 					cout << "Choose your special action (blind, heavy, force)" << endl;
-						cin >> cmd;
+						*infile >> cmd;
 					if (cmd == "blind") {
 						boards[fp]->setBlind(true);
 					} else if (cmd == "heavy") {
 						boards[fp]->setHeavy(true);
 					} else {
 						boards[fp]->setForce(true);
-						cin >> blk;
+						*infile >> blk;
 						boards[fp]->setForcedB(blk);
 					}
 				}
@@ -227,7 +253,14 @@ void Biquadris::playGame() {
 				}
 				boards[!fp]->levelGen->in_file = true;
 			} else if (cmd == "sequence") {
-			//do something
+				try {
+					*infile >> cmd;
+					infile = new ifstream(cmd);
+					infile->exceptions( ios_base::failbit );
+				} catch (ios::failure &) {
+					cout << "KEFAN" << endl;
+					break;
+				}
 			} else if (cmd == "I" or cmd == "J" or cmd == "L" or cmd == "O" or
 					cmd == "S" or cmd == "Z" or cmd == "T") {
 
@@ -264,13 +297,12 @@ void Biquadris::playGame() {
 			}	
 		}
 	}
+	if ( infile != &cin ) delete infile;
 }
 
 void Biquadris::restartGame() {
 	boards[0]->reset(seq_1);
 	boards[1]->reset(seq_2);
-	boards[0]->levelGen->counter = 0;
-	boards[1]->levelGen->counter = 0;
+	boards[0]->levelGen->counter = -1;
+	boards[1]->levelGen->counter = -1;
 }
-
-

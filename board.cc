@@ -117,6 +117,8 @@ std::ostream &operator<<(std::ostream &out, vector<Board*> boards) {
 	out << "LEVEL: " << setw(4) << boards[1]->level << endl;
 	out << "SCORE: " << setw(4) << boards[0]->score << "     ";
 	out << "SCORE: " << setw(4) << boards[1]->score << endl;
+	out << "COUNTER: " << setw(2) << boards[0]->levelGen->counter << "     ";
+	out << "COUNTER: " << setw(2) << boards[1]->levelGen->counter << endl;
 
 	for (int i = 0; i < height + reserve; ++i) {
 		for (int j = 0; j < 2; ++j) {
@@ -142,30 +144,6 @@ std::ostream &operator<<(std::ostream &out, vector<Board*> boards) {
 
 	return out;
 }
-
-/*
-void Board::printBoard() {
-	for (int i = 0; i < height + reserve; ++i) {
-		for (int j = 0; j < width; ++j) {
-			if (blind && (i > 4 && i < 15)) {
-				cout << '?';
-			} else if (blind && (j > 1 && j < 9) && i > 2) {
-				cout << '?';
-			} else if (theBoard[j][i].getType() == 'E') {
-				if (i < 3) {
-					cout << '-';
-				} else {
-					cout << '.';
-				}
-			} else {
-				cout << theBoard[j][i].getType();
-			}
-		}
-		cout << endl;
-	}
-	cout << endl;
-}
-*/
 
 int Board::checkRows() {
 	int n_row = 0;
