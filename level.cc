@@ -28,6 +28,7 @@ char Level0::makeBlock()  {//does not read last block!!!
 		if (type == ' ') {
 			seq.get(type);
 		}
+		seq.get(check_eof);
 		if (seq.eof()) {
 			c_idx = 1;
 			return fType;
@@ -102,6 +103,7 @@ char Level3::makeBlock()  {
 			if (type == ' ') {
 				seq.get(type);
 			}
+			seq.get(check_eof);
 			if (seq.eof()) {
 				c_idx = 1;
 				return fType;
@@ -153,6 +155,7 @@ char Level4::makeBlock()  {//level4 for both
 			if (type == ' ') {
 				seq.get(type);
 			}
+			seq.get(check_eof);
 			if (seq.eof()) {
 				c_idx = 1;
 				return fType;
