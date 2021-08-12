@@ -6,6 +6,7 @@
 #include <string>
 #include <memory>
 #include "level.h"
+#include "window.h"
 #include <vector>
 
 class Biquadris: public Board {
@@ -25,7 +26,8 @@ class Biquadris: public Board {
 
 	//std::unique_ptr<Blocks> curBlock2;
 	//std::unique_ptr<Blocks> nexBlock2;
-
+	
+	Xwindow w;
 	public:
 	//bool in_file = false;	
 	Biquadris(bool tdOnly, int seed, std::string s1, std::string s2, int lvl);

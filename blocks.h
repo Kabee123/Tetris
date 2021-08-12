@@ -18,9 +18,10 @@ class Blocks {
 	int width;
 	int height;
 	Coords botLeft;
-	std::vector<Coords> cList; 
+	
 	Board *board;
 	public:
+	std::vector<Coords> cList; 
 	Blocks(char type, int turn, int levelMades, int w, int h, Coords corner, std::vector<Coords> v, Board *b);
 	bool placeBlock();
 	bool move(int x, int y);

@@ -100,11 +100,6 @@ void Board::reset(string s) {
 	heavy = false; 
 	force = false;
 	forced = 'X';
-	/*for (int i = 0; i < width; ++i) {
-		for (int j = 0; j < height + reserve; ++j) {
-			theBoard[i][j].resetCell();
-		}
-	}*/
 }
 
 std::ostream &operator<<(std::ostream &out, vector<Board*> boards) {
@@ -126,11 +121,12 @@ std::ostream &operator<<(std::ostream &out, vector<Board*> boards) {
 				if (boards[j]->blind && (i > 4 && i < 15) && (k > 1 && k < 9)) {
 					out << '?';
 				} else if (boards[j]->theBoard[k][i].getType() == 'E') {
-					if (i < 3) {
+					/*if (i < 3) {
 						out << '-';
 					} else {
 						out << '.';
-					}
+					}*/
+					out << ' ';
 				} else {
 					out << boards[j]->theBoard[k][i].getType();
 				}
