@@ -9,8 +9,7 @@ using namespace std;
 
 Level0::Level0(std::string file_name) : file_name{file_name} {}
 
-char Level0::makeBlock()  {//does not read last block!!! 
-	//also incorrect when calling ./biquadris -scriptfile1 test1.txt etc.
+char Level0::makeBlock()  {
 	char fType;
 	char check_eof;
 	char type;
@@ -40,7 +39,6 @@ char Level0::makeBlock()  {//does not read last block!!!
 
 char Level1::makeBlock()  {
 	int num_prob = 12;
-	//std::srand(std::time (NULL));
 	int rand_c = rand() % num_prob;
 
 	if (rand_c == 0) {
@@ -63,7 +61,6 @@ char Level1::makeBlock()  {
 
 char Level2::makeBlock()  {
 	int num_prob = 7;
-	//std::srand(std::time (NULL));
 	int rand_c = rand() % num_prob;
 
 	if (rand_c == 0) {
@@ -84,7 +81,6 @@ char Level2::makeBlock()  {
 }
 
 char Level3::makeBlock()  {
-	//++counter;
 	if (in_file) {
 		char fType;
 		char check_eof;
@@ -115,7 +111,6 @@ char Level3::makeBlock()  {
 	}
 	c_idx = 0;
 	int num_prob = 9;
-	//std::srand(std::time (NULL));
 	int rand_c = rand() % num_prob;
 
 	if (rand_c <= 1) {
@@ -135,8 +130,7 @@ char Level3::makeBlock()  {
 	}
 }
 
-char Level4::makeBlock()  {//level4 for both
-	//++counter;
+char Level4::makeBlock()  {
 	if (in_file) {
 		char fType;
 		char check_eof;
