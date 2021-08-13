@@ -13,7 +13,7 @@ int main(int argc, char *argv[]) {
 	string level{"-startlevel"};
 
 	bool display = true;
-	int theSeed = 0; //idk if correct default
+	int theSeed = 0; 
 	string s1{"sequence1.txt"};
 	string s2{"sequence2.txt"};
 	int theLevel = 0;
