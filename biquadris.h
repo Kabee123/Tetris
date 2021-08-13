@@ -12,7 +12,7 @@
 class Biquadris: public Board {
 	int hiScore;
 
-	bool textOnly;
+	bool display;
 	int seed;
 	std::string seq_1, seq_2;
 	int startlvl;
@@ -30,7 +30,7 @@ class Biquadris: public Board {
 	Xwindow w;
 	public:
 	//bool in_file = false;	
-	Biquadris(bool tdOnly, int seed, std::string s1, std::string s2, int lvl);
+	Biquadris(bool display, int seed, std::string s1, std::string s2, int lvl);
 	void playGame();
 	void restartGame();
 };

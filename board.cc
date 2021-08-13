@@ -106,7 +106,7 @@ std::ostream &operator<<(std::ostream &out, vector<Board*> boards) {
 	int width = boards[0]->width;
 	int height = boards[0]->height;
 	int reserve = boards[0]->reserve;
-
+	out << endl;
 	out << "PLAYER    1     PLAYER    2" << endl;
 	out << "LEVEL: " << setw(4) << boards[0]->level << "     ";
 	out << "LEVEL: " << setw(4) << boards[1]->level << endl;
@@ -114,18 +114,13 @@ std::ostream &operator<<(std::ostream &out, vector<Board*> boards) {
 	out << "SCORE: " << setw(4) << boards[1]->score << endl;
 	out << "COUNTER: " << setw(2) << boards[0]->levelGen->counter << "     ";
 	out << "COUNTER: " << setw(2) << boards[1]->levelGen->counter << endl;
-
+	out << "-----------     -----------" << endl;
 	for (int i = 0; i < height + reserve; ++i) {
 		for (int j = 0; j < 2; ++j) {
 			for (int k = 0; k < width; ++k) {
 				if (boards[j]->blind && (i > 4 && i < 15) && (k > 1 && k < 9)) {
 					out << '?';
 				} else if (boards[j]->theBoard[k][i].getType() == 'E') {
-					/*if (i < 3) {
-						out << '-';
-					} else {
-						out << '.';
-					}*/
 					out << ' ';
 				} else {
 					out << boards[j]->theBoard[k][i].getType();
@@ -135,6 +130,7 @@ std::ostream &operator<<(std::ostream &out, vector<Board*> boards) {
 		}
 		out << endl;
 	}
+	out << "-----------     -----------" << endl;
 	out << "NEXT: " << setw(5) << boards[0]->nextBlock << "     ";
 	out << "NEXT: " << setw(5) << boards[1]->nextBlock << endl;
 

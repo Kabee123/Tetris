@@ -30,8 +30,15 @@ class Xwindow {
   int getColor(char t);
 
   void updateDisplay(int player, Board *b);
+  void removeBlock(int player, vector<Coords> c);
+  void removeRow(int player, int removed, Board *b);
+  void showSpecial();
+  void clearSpecial();
+  void removeBlind(int player, Board *b);
 
-  void removeDisplay(int player, vector<Coords> c);
+  void updateLevel(int player, int lev);
+  void updateScore(int player, int score);
+  void updateNext(int player, char next);
 };
 
 #endif

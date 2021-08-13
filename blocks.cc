@@ -97,9 +97,6 @@ bool Blocks::move(int x, int y) {
 }
 
 void Blocks::drop() {
-	if (board->getBlind()) {
-		board->setBlind(false);
-	} 
 	if (board->getHeavy()) {
 		board->setHeavy(false);
 	}

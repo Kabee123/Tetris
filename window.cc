@@ -78,19 +78,19 @@ void Xwindow::displayInit(int level) {
   this->drawString(20, 50, "PLAYER 1");
   this->drawString(260, 50, "PLAYER 2");
   
-  string lvl{"LEVEL: "};
-  lvl += to_string(level);
-  this->drawString(20, 65, lvl);
-  this->drawString(260, 65, lvl);
+  this->drawString(20, 65, "LEVEL: ");
+  this->drawString(260, 65, "LEVEL: ");
+  this->updateLevel(0, level);
+  this->updateLevel(1, level);
 
   this->drawString(20, 80, "SCORE: 0");
   this->drawString(260, 80, "SCORE: 0");
 
   this->drawString(20, 95, "NEXT BLOCK: ");
   this->drawString(260, 95, "NEXT BLOCK: ");
-}
 
-// cell is 20x20
+
+}
 
 int Xwindow::getColor(char t) {
 	if (t == 'I') {
@@ -120,20 +120,84 @@ const	int dim = 20;
 void Xwindow::updateDisplay(int player, Board *b) {
 	int color;	
 	for (int i = 0; i < b->boardH(); ++i) {
-	       for (int j = 0; j < b->boardW(); ++j) {
-		       if (b->getBlind() && (i > 4 && i < 15) && (j > 1 && j < 9)) {
-				this->fillRectangle(j*dim + shiftx[player], i*dim + shifty, dim, dim, Black);
-			} else if (b->theBoard[j][i].getType() != 'E') {
-				color = getColor(b->theBoard[j][i].getType());
-				this->fillRectangle(j*dim + shiftx[player], i*dim + shifty, dim, dim, color);
-			}
-	       }
+	    for (int j = 0; j < b->boardW(); ++j) {
+		      if (b->getBlind() && (i > 4 && i < 15) && (j > 1 && j < 9)) {
+			    	  this->fillRectangle(j*dim + shiftx[player], i*dim + shifty, dim, dim, Black);
+	    		} else if (b->theBoard[j][i].getType() != 'E') {
+			      	color = getColor(b->theBoard[j][i].getType());
+		    		  this->fillRectangle(j*dim + shiftx[player], i*dim + shifty, dim, dim, color);
+		    	} 
+	    }
 	}	       
 }
 
-void Xwindow::removeDisplay(int player, vector<Coords> c) {
+void Xwindow::removeBlock(int player, vector<Coords> c) {
   for (int i = 0; i < c.size(); ++i) {
     this->fillRectangle(c[i].x*dim + shiftx[player], c[i].y*dim + shifty, dim, dim, Gray);
   }
 }
+
+void Xwindow::removeRow(int player, int removed, Board *b) {
+  int color;
+  this->fillRectangle(shiftx[player], 470 - dim * removed, dim * b->boardW(), dim * removed, Gray);
+  for (int i = b->boardH() - 1 - removed; i >= 0; --i) {
+    this->fillRectangle(shiftx[player], i*dim + shifty, dim, dim, Gray);
+  }
+}
+
+
+void Xwindow::showSpecial() {
+  drawString(100, 490, "CHOOSE YOUR SPECIAL ACTION: blind, heavy, force");
+}
+
+void Xwindow::clearSpecial() {
+   this->fillRectangle(90, 475, 400, 20, White);
+}
+
+void Xwindow::removeBlind(int player, Board *b) {
+int color;	
+	for (int i = 0; i < b->boardH(); ++i) {
+	    for (int j = 0; j < b->boardW(); ++j) {
+		      if (b->theBoard[j][i].getType() != 'E') {
+			      	color = getColor(b->theBoard[j][i].getType());
+		    		  this->fillRectangle(j*dim + shiftx[player], i*dim + shifty, dim, dim, color);
+		    	} else {
+              this->fillRectangle(j*dim + shiftx[player], i*dim + shifty, dim, dim, Gray);
+          }
+	    }
+	}
+}
+
+void Xwindow::updateLevel(int player, int lev) {
+  if (player) {
+    XClearArea(d, w, 300, 53, 20, 12, true);
+    drawString(300, 65, to_string(lev));
+  } else {
+    XClearArea(d, w, 60, 53, 20, 12, true);
+    drawString(60, 65, to_string(lev));
+  }
+}
+
+void Xwindow::updateScore(int player, int score) {
+  if (player) {
+    XClearArea(d, w, 300, 73, 50, 12, true);
+    drawString(300, 80, to_string(score));
+  } else {
+    XClearArea(d, w, 60, 73, 50, 12, true);
+    drawString(60, 80, to_string(score));
+  }
+}
+
+void Xwindow::updateNext(int player, char next) {
+  string s{""};
+  s += next;
+  if (player) {
+    XClearArea(d, w, 330, 85, 50, 20, true);
+    drawString(330, 95, s);
+  } else {
+    XClearArea(d, w, 90, 85, 50, 20, true);
+    drawString(90, 95, s);
+  }
+}
+
 

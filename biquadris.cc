@@ -8,18 +8,19 @@
 #include <ctime>
 using namespace std;
 
+/*
 const int w = 11;
 const int h = 15;
-const int reserve = 3;
+const int reserve = 3;*/
 
-Biquadris::Biquadris(bool tdOnly, int seed, string s1, string s2, int lvl) 
-	: hiScore{0}, textOnly{tdOnly}, seed{seed}, seq_1{s1}, seq_2{s2}, startlvl{lvl} {
+Biquadris::Biquadris(bool display, int seed, string s1, string s2, int lvl) 
+	: hiScore{0}, display{display}, seed{seed}, seq_1{s1}, seq_2{s2}, startlvl{lvl} {
 		player1.init(lvl, seq_1);
 		player2.init(lvl, seq_2);
 		boards.emplace_back(&player1);
 		boards.emplace_back(&player2);
-		if (!textOnly) {
-			w.displayInit(lvl);
+		if (display) {	
+		w.displayInit(startlvl);
 		}
 	}
 
@@ -32,10 +33,15 @@ void Biquadris::playGame() {
 	char bType;
 
 	char blk;
-
+	
 	int turn = -1;
 	while (true) {
-		if (cin.eof()) break;	
+			
+		try {
+			if (infile->eof()) break;
+		} catch (ios::failure &) {
+			break;
+		}
 
 		if (fp) ++turn;	
 
@@ -52,7 +58,7 @@ void Biquadris::playGame() {
 				bType = boards[!fp]->levelGen->makeBlock();
 				boards[!fp]->setNextB(boards[!fp]->levelGen->makeBlock());
 				boards[fp]->setNextB(boards[fp]->levelGen->makeBlock());
-				cout << "TEST: " << boards[!fp]->getNextB() << endl;
+				//cout << "TEST: " << boards[!fp]->getNextB() << endl;
 			} else {
 				bType = boards[!fp]->getNextB();
 				boards[!fp]->setNextB(boards[!fp]->levelGen->makeBlock());
@@ -78,17 +84,17 @@ void Biquadris::playGame() {
 		if (boards[fp]->getNextB() == 'I') {
 			nextBlock = make_unique<IBlock>(turn, boards[fp]->boardLevel(), boards[fp]);
 		} else if (boards[fp]->getNextB() == 'J') {
-                        nextBlock = make_unique<JBlock>(turn, boards[fp]->boardLevel(), boards[fp]);
+            nextBlock = make_unique<JBlock>(turn, boards[fp]->boardLevel(), boards[fp]);
 		} else if (boards[fp]->getNextB() == 'L') {
-                        nextBlock = make_unique<LBlock>(turn, boards[fp]->boardLevel(), boards[fp]);
+            nextBlock = make_unique<LBlock>(turn, boards[fp]->boardLevel(), boards[fp]);
 		} else if (boards[fp]->getNextB() == 'O') {
-                        nextBlock = make_unique<OBlock>(turn, boards[fp]->boardLevel(), boards[fp]);
+            nextBlock = make_unique<OBlock>(turn, boards[fp]->boardLevel(), boards[fp]);
 		} else if (boards[fp]->getNextB() == 'Z') {
-                        nextBlock = make_unique<ZBlock>(turn, boards[fp]->boardLevel(), boards[fp]);
+            nextBlock = make_unique<ZBlock>(turn, boards[fp]->boardLevel(), boards[fp]);
 		} else if (boards[fp]->getNextB() == 'S') {
-                        nextBlock = make_unique<SBlock>(turn, boards[fp]->boardLevel(), boards[fp]);
+            nextBlock = make_unique<SBlock>(turn, boards[fp]->boardLevel(), boards[fp]);
 		} else if (boards[fp]->getNextB() == 'T') {
-                        nextBlock = make_unique<TBlock>(turn, boards[fp]->boardLevel(), boards[fp]);
+            nextBlock = make_unique<TBlock>(turn, boards[fp]->boardLevel(), boards[fp]);
 		}
 
 		nextBlock->placeBlock();
@@ -97,17 +103,23 @@ void Biquadris::playGame() {
 		//curBlock2->placeBlock();
 
 		/*if (!curBlock->placeBlock()) { 
-		  cout << "YOU LOST" << endl; // IDK
+		  cout << "PLAYER " << !fp << " LOST" << endl; // IDK
 		  break;
-		  }*/
+		}*/
 
 		cout << boards;	
-		w.updateDisplay(!fp, boards[!fp]);
+		if (display) { 
+			w.updateNext(!fp, boards[!fp]->getNextB());
+			w.updateNext(fp, boards[fp]->getNextB());
+			w.updateDisplay(!fp, boards[!fp]);
+			w.updateDisplay(fp, boards[fp]);
+		}
 
 		while (true) {
 
 			try {
 				*infile >> cmd;
+				if (infile->eof()) break;
 			} catch (ios::failure &) {
 				break;
 			}
@@ -128,13 +140,13 @@ void Biquadris::playGame() {
 			}
 			if (cmd == "lef" || cmd == "left" || 
 					cmd == "ri" || cmd == "rig" || cmd == "righ" || cmd == "right") {
-				w.removeDisplay(!fp, curBlock->cList);
+				if (display) w.removeBlock(!fp, curBlock->cList);
 
 				if (cmd == "lef" || cmd == "left") {
 					for (int i = 0; i < multPre; ++i) {
 						if (!curBlock->move(-1, 0)) break;
 					}
-				} else /*if (cmd == "ri" || cmd == "rig" || cmd == "righ" cmd == "right")*/ {
+				} else {
 					for (int i = 0; i < multPre; ++i) {
 						if (!curBlock->move(1, 0)) break;
 					}
@@ -142,33 +154,37 @@ void Biquadris::playGame() {
 				if (curBlock->blockLevel() >= 3) {
 					curBlock->move(0, 1);
 				}
-				curBlock->placeBlock();
+				//curBlock->placeBlock();
 				if (fp && player1.getHeavy()) {
 					if (!curBlock->move(0, 1)) {
 						player1.setHeavy(false);
+						curBlock->placeBlock();
 						break;
 					}
 					if (!curBlock->move(0,1)) {
 						curBlock->placeBlock();
 						player1.setHeavy(false);
+						curBlock->placeBlock();
 						break;
 					}
 				} else if (!fp && player2.getHeavy()) {
 					if (!curBlock->move(0, 1)) {
 						player2.setHeavy(false);
+						curBlock->placeBlock();
 						break;
 					}
 					if (!curBlock->move(0,1)) {
 						curBlock->placeBlock();
 						player2.setHeavy(false);
+						curBlock->placeBlock();
 						break;
 					}
 				}
 				curBlock->placeBlock();
 				cout << boards;
-				w.updateDisplay(!fp, boards[!fp]);
+				if (display) w.updateDisplay(!fp, boards[!fp]);
 			} else if (cmd == "do" || cmd == "dow" || cmd == "down") {
-				w.removeDisplay(!fp, curBlock->cList);
+				if (display) w.removeBlock(!fp, curBlock->cList);
 				for (int i = 0; i < multPre; ++i) {
 					if (!curBlock->move(0, 1)) break;
 				}
@@ -177,11 +193,11 @@ void Biquadris::playGame() {
 				}
 				curBlock->placeBlock();
 				cout << boards;
-				w.updateDisplay(!fp, boards[!fp]);
+				if (display) w.updateDisplay(!fp, boards[!fp]);
 			} else if (cmd == "cl" || cmd == "clo" || cmd == "cloc" ||  
 					cmd == "clock" || cmd == "clockw" || cmd == "clockwi" || 
 					cmd == "clockwis" || cmd == "clockwise") {
-				w.removeDisplay(!fp, curBlock->cList);
+				if (display) w.removeBlock(!fp, curBlock->cList);
 				for (int i = 0; i < multPre; ++i) {
 					if (!curBlock->rotateCW()) break;
 				}
@@ -190,12 +206,12 @@ void Biquadris::playGame() {
 				}
 				curBlock->placeBlock();
 				cout << boards;
-				w.updateDisplay(!fp, boards[!fp]);
+				if (display) w.updateDisplay(!fp, boards[!fp]);
 			} else if (cmd == "co" || cmd == "cou" || cmd == "coun" || cmd == "count" || 
 					cmd == "counte" || cmd == "counter" || cmd == "counterc" || cmd == "countercl" ||
 					cmd == "counterclo" || cmd == "countercloc" || cmd == "counterclock" || cmd == "counterclockw" || 
 					cmd == "counterclockwi" || cmd == "counterclockwis" || cmd == "counterclockwise") {
-				w.removeDisplay(!fp, curBlock->cList);
+				if (display) w.removeBlock(!fp, curBlock->cList);
 				for (int i = 0; i < multPre; ++i) {
 					if(!curBlock->rotateCCW()) break;
 				}
@@ -204,17 +220,19 @@ void Biquadris::playGame() {
 				}
 				curBlock->placeBlock();
 				cout << boards;
-				w.updateDisplay(!fp, boards[!fp]);
+				if (display) w.updateDisplay(!fp, boards[!fp]);
 			} else if (cmd == "dr" || cmd == "dro" || cmd == "drop") {
-				w.removeDisplay(!fp, curBlock->cList);
-				int c_rows;
+				if (display) w.removeBlock(!fp, curBlock->cList);
+				int c_rows = 0;
 				for (int i = 0; i < multPre; ++i) {
 					curBlock->drop();
 					curBlock->placeBlock();
 					c_rows = boards[!fp]->checkRows();
 
 					if (c_rows > 0) {
+						if (display) w.removeRow(!fp, c_rows, boards[!fp]);
 						boards[!fp]->setScore(pow(boards[!fp]->boardLevel() + c_rows, 2));
+						if (display) w.updateScore(!fp, boards[!fp]->getScore());
 						boards[!fp]->levelGen->counter = 0;
 					} else {
 						if (boards[!fp]->boardLevel() == 4) {
@@ -227,6 +245,7 @@ void Biquadris::playGame() {
 
 					if (c_rows > 1) {
 						cout << "Choose your special action (blind, heavy, force)" << endl;
+						if (display) w.showSpecial();
 						*infile >> cmd;
 						if (cmd == "blind") {
 							boards[fp]->setBlind(true);
@@ -238,6 +257,7 @@ void Biquadris::playGame() {
 							boards[fp]->setForcedB(blk);
 							nextBlock->clearBlock();
 						}
+						if (display) w.clearSpecial();
 					}
 
 					if (multPre > 1) {
@@ -261,7 +281,12 @@ void Biquadris::playGame() {
 						}
 					}
 				}
-				w.updateDisplay(!fp, boards[!fp]);
+				if (boards[!fp]->getBlind()) {
+					boards[!fp]->setBlind(false);
+					if (display) w.removeBlind(!fp, boards[!fp]);
+				} else {
+					if (display) w.updateDisplay(!fp, boards[!fp]); 
+				}
 				fp = !fp;
 				break;
 			} else if (cmd == "levelu" || cmd == "levelup" || cmd == "leveld" || 
@@ -271,7 +296,7 @@ void Biquadris::playGame() {
 						continue;
 					} else {
 						for (int i = 0; i < multPre; ++i) {
-							if (boards[!fp]->boardLevel() == 4) break;
+							if (boards[!fp]->boardLevel() == 4) continue;
 							boards[!fp]->setBoardLevel(boards[!fp]->boardLevel() + 1);
 						}
 					}
@@ -280,14 +305,22 @@ void Biquadris::playGame() {
 						continue;
 					} else {
 						for (int i = 0; i < multPre; ++i) {
-							if (boards[!fp]->boardLevel() == 0) break;
+							if (boards[!fp]->boardLevel() == 0) continue;
 							boards[!fp]->setBoardLevel(boards[!fp]->boardLevel() - 1);
+							
 						}
 					}
 				}
+				if (display) w.updateLevel(!fp, boards[!fp]->boardLevel());
 				Level *temp = boards[!fp]->levelGen;
 				delete temp;
-				if (boards[!fp]->boardLevel() == 1) {
+				if (boards[!fp]->boardLevel() == 0) {
+					if (fp) {
+						boards[0]->levelGen = new Level0(seq_1);
+					} else {
+						boards[1]->levelGen = new Level0(seq_2);
+					}
+				} else if (boards[!fp]->boardLevel() == 1) {
 					boards[!fp]->levelGen = new Level1;
 				} else if (boards[!fp]->boardLevel() == 2) {
 					boards[!fp]->levelGen = new Level2;
@@ -297,7 +330,7 @@ void Biquadris::playGame() {
 					boards[!fp]->levelGen = new Level4;
 				}
 				cout << boards;
-				w.updateDisplay(!fp, boards[!fp]);
+				if (display) w.updateDisplay(!fp, boards[!fp]);
 			} else if (cmd == "ra" || cmd == "ran" || cmd == "rand" || 
 					cmd == "rando" || cmd == "random") {
 				boards[!fp]->levelGen->in_file = false;
@@ -310,10 +343,10 @@ void Biquadris::playGame() {
 					cmd == "sequen" || cmd == "sequenc" || cmd == "sequence") {
 				*infile >> cmd;
 				infile = new ifstream(cmd);
-				infile->exceptions( ios_base::failbit );
+				infile->exceptions(ios_base::eofbit | ios_base::failbit );
 			} else if (cmd == "I" || cmd == "J" || cmd == "L" || cmd == "O" ||
 					cmd == "S" || cmd == "Z" || cmd == "T") {
-				w.removeDisplay(!fp, curBlock->cList);
+				if (display) w.removeBlock(!fp, curBlock->cList);
 				int shiftx;
 				int shifty;
 				shiftx = curBlock->getBotL().x;
@@ -340,12 +373,12 @@ void Biquadris::playGame() {
 				curBlock->move(shiftx, shifty);	
 				curBlock->placeBlock();
 				cout << boards;
-				w.updateDisplay(!fp, boards[!fp]);
+				if (display) w.updateDisplay(!fp, boards[!fp]);
 			} else if (cmd == "re" || cmd == "res" || cmd == "rest" || 
 					cmd == "resta" || cmd == "restar" || cmd == "restart") {
 				restartGame();
 				cout << boards;
-				w.updateDisplay(!fp, boards[!fp]);
+				if (display) w.updateDisplay(!fp, boards[!fp]);
 				break;
 			}	
 		}

@@ -9,11 +9,11 @@ int main(int argc, char *argv[]) {
 	string text{"-text"};
 	string seed{"-seed"};
 	string sfile1{"-scriptfile1"};
-	string sfile2{".scriptfile2"};
+	string sfile2{"-scriptfile2"};
 	string level{"-startlevel"};
 
-	bool textOnly = false;
-	int theSeed; //idk if correct default
+	bool display = true;
+	int theSeed = 0; //idk if correct default
 	string s1{"sequence1.txt"};
 	string s2{"sequence2.txt"};
 	int theLevel = 0;
@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
 		stringstream ss;
 		s += argv[i];
 		if (s.find(text) != string::npos) {
-			textOnly = true;
+			display = false;
 		} else if (s.find(seed) != string::npos) {
 			++i;
 			s = "";
@@ -34,12 +34,10 @@ int main(int argc, char *argv[]) {
 			++i;
 			s1 = "";
 			s1 += argv[i];
-			//ss >> s1;
 		} else if (s.find(sfile2) != string::npos) {
 			++i;
 			s2 = "";
 			s2 += argv[i];
-			//ss >> s2;
 		} else if (s.find(level) != string::npos) {
 			++i;
 			s = "";
@@ -48,13 +46,7 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
-	/*if (argc > 1) {
-		g.in_file = true;
-		g.seq_1 = argv[1];
-		g.seq_2 = argv[2];
-	}*/
-
-	Biquadris g{textOnly, theSeed, s1, s2, theLevel};
+	Biquadris g{display, theSeed, s1, s2, theLevel};
 	g.playGame();
 }
 
