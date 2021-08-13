@@ -314,27 +314,19 @@ void Biquadris::playGame() {
 					}
 				}
 				if (display) w.updateLevel(!fp, boards[!fp]->boardLevel());
-				//Level *temp = boards[!fp]->levelGen;
-				//delete temp;
 				if (boards[!fp]->boardLevel() == 0) {
 					if (fp) {
-						//boards[0]->levelGen = new Level0(seq_1);
 						boards[0]->levelGen = make_unique<Level0>(seq_1);
 					} else {
-						//boards[1]->levelGen = new Level0(seq_2);
 						boards[1]->levelGen = make_unique<Level0>(seq_2);
 					}
 				} else if (boards[!fp]->boardLevel() == 1) {
-					//boards[!fp]->levelGen = new Level1;
 					boards[!fp]->levelGen = make_unique<Level1>();
 				} else if (boards[!fp]->boardLevel() == 2) {
-					//boards[!fp]->levelGen = new Level2;
 					boards[!fp]->levelGen = make_unique<Level2>();
 				} else if (boards[!fp]->boardLevel() == 3) {
-					//boards[!fp]->levelGen = new Level3;
 					boards[!fp]->levelGen = make_unique<Level3>();
 				} else if (boards[!fp]->boardLevel() == 4) {
-					//boards[!fp]->levelGen = new Level4;
 					boards[!fp]->levelGen = make_unique<Level4>();
 				}
 				cout << boards;
@@ -350,8 +342,13 @@ void Biquadris::playGame() {
 			} else if (cmd == "se" || cmd == "seq" || cmd == "sequ" || cmd == "seque" ||
 					cmd == "sequen" || cmd == "sequenc" || cmd == "sequence") {
 				*infile >> cmd;
-				infile = new ifstream(cmd);
-				infile->exceptions(ios_base::eofbit | ios_base::failbit );
+				try {
+					infile = new ifstream(cmd);	// open input file
+					infile->exceptions( ios_base::eofbit | ios_base::failbit ); // set exceptions
+	   			} catch( ios_base::failure ) {
+					cout << "Could not open file" << endl;
+					break;
+	    		}
 			} else if (cmd == "I" || cmd == "J" || cmd == "L" || cmd == "O" ||
 					cmd == "S" || cmd == "Z" || cmd == "T") {
 				if (display) w.removeBlock(!fp, curBlock->cList);
@@ -390,10 +387,6 @@ void Biquadris::playGame() {
 			}	
 		}
 	}
-	//Level *temp1 = boards[0]->levelGen;
-	//delete temp1;
-	//Level *temp2 = boards[1]->levelGen;
-	//delete temp2;
 	if ( infile != &cin ) delete infile;
 }
 
