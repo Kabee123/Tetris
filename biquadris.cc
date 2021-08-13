@@ -90,13 +90,13 @@ void Biquadris::playGame() {
             nextBlock = make_unique<TBlock>(turn, boards[fp]->boardLevel(), boards[fp]);
 		}
 
-		nextBlock->placeBlock();
 		curBlock->placeBlock();
 
-		/*if (!nextBlock->placeBlock()) { 
-		  cout << "PLAYER " << !fp << " CANNOT PLACE BLOCK" << endl; // IDK
+		if (!nextBlock->placeBlock()) { 
+		  cout << "GAME OVER" << endl;
+		  cout << "PLAYER " << fp + 1 << " CANNOT PLACE BLOCK" << endl; // IDK
 		  break;
-		}*/
+		}
 
 		cout << boards;	
 		if (display) { 
@@ -227,7 +227,7 @@ void Biquadris::playGame() {
 					if (c_rows > 0) {
 						if (display) { 
 							w.removeRow(!fp, c_rows, boards[!fp]);
-							w.updateDisplay(!fp, boards[!fp]);
+							//w.updateDisplay(!fp, boards[!fp]);
 						}
 						boards[!fp]->setScore(pow(boards[!fp]->boardLevel() + c_rows, 2));
 						if (display) w.updateScore(!fp, boards[!fp]->getScore());

@@ -146,7 +146,7 @@ void Xwindow::removeRow(int player, int removed, Board *b) {
   int color;
   this->fillRectangle(shiftx[player], 470 - dim * removed, dim * b->boardW(), dim * removed, Gray);
   for (int i = b->boardH() - 1 - removed; i >= 0; --i) {
-    this->fillRectangle(shiftx[player], i*dim + shifty, dim, dim, Gray);
+    this->fillRectangle(shiftx[player], i*dim + shifty, 11*dim, dim, Gray);
   }
 }
 
@@ -161,7 +161,7 @@ void Xwindow::clearSpecial() {
 
 void Xwindow::removeBlind(int player, Board *b) {
 int color;	
-	for (int i = 0; i < b->boardH(); ++i) {
+	for (int i = b->boardH() - 1; i >= 0; --i) {
 	    for (int j = 0; j < b->boardW(); ++j) {
 		      if (b->theBoard[j][i].getType() != 'E') {
 			      	color = getColor(b->theBoard[j][i].getType());
