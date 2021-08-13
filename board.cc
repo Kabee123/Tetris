@@ -112,8 +112,6 @@ std::ostream &operator<<(std::ostream &out, vector<Board*> boards) {
 	out << "LEVEL: " << setw(4) << boards[1]->level << endl;
 	out << "SCORE: " << setw(4) << boards[0]->score << "     ";
 	out << "SCORE: " << setw(4) << boards[1]->score << endl;
-	out << "COUNTER: " << setw(2) << boards[0]->levelGen->counter << "     ";
-	out << "COUNTER: " << setw(2) << boards[1]->levelGen->counter << endl;
 	out << "-----------     -----------" << endl;
 	for (int i = 0; i < height + reserve; ++i) {
 		for (int j = 0; j < 2; ++j) {
