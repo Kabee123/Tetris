@@ -236,6 +236,7 @@ void Biquadris::playGame() {
 							boards[fp]->setForce(true);
 							*infile >> blk;
 							boards[fp]->setForcedB(blk);
+							nextBlock->clearBlock();
 						}
 					}
 
