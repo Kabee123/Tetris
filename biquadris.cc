@@ -236,6 +236,7 @@ void Biquadris::playGame() {
 							boards[fp]->setForce(true);
 							*infile >> blk;
 							boards[fp]->setForcedB(blk);
+							nextBlock->clearBlock();
 						}
 					}
 
@@ -261,7 +262,7 @@ void Biquadris::playGame() {
 					}
 				}
 				w.updateDisplay(!fp, boards[!fp]);
-				//fp = !fp;
+				fp = !fp;
 				break;
 			} else if (cmd == "levelu" || cmd == "levelup" || cmd == "leveld" || 
 					cmd == "leveldo" || cmd == "leveldow" || cmd == "leveldown") {
