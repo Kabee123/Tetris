@@ -22,7 +22,6 @@ Biquadris::Biquadris(bool display, int seed, string s1, string s2, int lvl)
 void Biquadris::playGame() {
 	istream *infile = &cin; //default value
 	infile->exceptions( ios_base::failbit );
-	//std::srand(std::time (NULL));
 	bool fp = true; //fp = 1 and !fp = 0
 	string cmd;
 	char bType;
@@ -53,7 +52,6 @@ void Biquadris::playGame() {
 				bType = boards[!fp]->levelGen->makeBlock();
 				boards[!fp]->setNextB(boards[!fp]->levelGen->makeBlock());
 				boards[fp]->setNextB(boards[fp]->levelGen->makeBlock());
-				//cout << "TEST: " << boards[!fp]->getNextB() << endl;
 			} else {
 				bType = boards[!fp]->getNextB();
 				boards[!fp]->setNextB(boards[!fp]->levelGen->makeBlock());
@@ -92,13 +90,13 @@ void Biquadris::playGame() {
             nextBlock = make_unique<TBlock>(turn, boards[fp]->boardLevel(), boards[fp]);
 		}
 
-		//nextBlock->placeBlock();
+		nextBlock->placeBlock();
 		curBlock->placeBlock();
 
-		if (!nextBlock->placeBlock()) { 
+		/*if (!nextBlock->placeBlock()) { 
 		  cout << "PLAYER " << !fp << " CANNOT PLACE BLOCK" << endl; // IDK
 		  break;
-		}
+		}*/
 
 		cout << boards;	
 		if (display) { 
@@ -147,29 +145,32 @@ void Biquadris::playGame() {
 				if (curBlock->blockLevel() >= 3) {
 					curBlock->move(0, 1);
 				}
-				//curBlock->placeBlock();
 				if (fp && player1.getHeavy()) {
 					if (!curBlock->move(0, 1)) {
 						player1.setHeavy(false);
 						curBlock->placeBlock();
+						fp = !fp;
 						break;
 					}
 					if (!curBlock->move(0,1)) {
 						curBlock->placeBlock();
 						player1.setHeavy(false);
 						curBlock->placeBlock();
+						fp = !fp;
 						break;
 					}
 				} else if (!fp && player2.getHeavy()) {
 					if (!curBlock->move(0, 1)) {
 						player2.setHeavy(false);
 						curBlock->placeBlock();
+						fp = !fp;
 						break;
 					}
 					if (!curBlock->move(0,1)) {
 						curBlock->placeBlock();
 						player2.setHeavy(false);
 						curBlock->placeBlock();
+						fp = !fp;
 						break;
 					}
 				}
@@ -223,7 +224,10 @@ void Biquadris::playGame() {
 					c_rows = boards[!fp]->checkRows();
 
 					if (c_rows > 0) {
-						if (display) w.removeRow(!fp, c_rows, boards[!fp]);
+						if (display) { 
+							w.removeRow(!fp, c_rows, boards[!fp]);
+							w.updateDisplay(!fp, boards[!fp]);
+						}
 						boards[!fp]->setScore(pow(boards[!fp]->boardLevel() + c_rows, 2));
 						if (display) w.updateScore(!fp, boards[!fp]->getScore());
 						if (boards[!fp]->getScore() > hiScore) {
@@ -282,7 +286,7 @@ void Biquadris::playGame() {
 					boards[!fp]->setBlind(false);
 					if (display) w.removeBlind(!fp, boards[!fp]);
 				} else {
-					if (display) w.updateDisplay(!fp, boards[!fp]); 
+					 w.updateDisplay(!fp, boards[!fp]);
 				}
 				fp = !fp;
 				break;
@@ -349,7 +353,6 @@ void Biquadris::playGame() {
 				shiftx = curBlock->getBotL().x;
 				shifty = curBlock->getBotL().y - 3;
 
-				cout << "SHIFT" << shiftx << " " << shifty << endl;
 				curBlock->clearBlock();
 
 				if (cmd == "I") {
