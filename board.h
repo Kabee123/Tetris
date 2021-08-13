@@ -1,9 +1,11 @@
+
 #ifndef _BOARD_H_
 #define _BOARD_H_
 #include "level.h"
 #include "cell.h"
 #include <vector>
 #include <string>
+#include <memory>
 using namespace std;
 
 class Board {
@@ -20,7 +22,8 @@ class Board {
 		char forced;
 
 	public:
-		Level *levelGen;
+		//Level *levelGen;
+		std::unique_ptr<Level> levelGen;
 		vector<vector<Cell>> theBoard;
 
 		int boardLevel();

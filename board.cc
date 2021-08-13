@@ -79,15 +79,20 @@ void Board::init(int lvl, string s) {
 		theBoard.emplace_back(v);
 	}
 	if (level == 0) {
-		levelGen = new Level0(s);
+		//levelGen = new Level0(s);
+		levelGen = make_unique<Level0>(s);
 	} else if (level == 1) {
-		levelGen = new Level1();
+		//levelGen = new Level1();
+		levelGen = make_unique<Level1>();
 	} else if (level == 2) {
-		levelGen = new Level2();
+		//levelGen = new Level2();
+		levelGen = make_unique<Level2>();
 	} else if (level == 3) {
-		levelGen = new Level3();
+		//levelGen = new Level3();
+		levelGen = make_unique<Level3>();
 	} else if (level == 4) {
-		levelGen = new Level4();
+		//levelGen = new Level4();
+		levelGen = make_unique<Level4>();
 	}
 }
 

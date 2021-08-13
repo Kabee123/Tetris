@@ -44,6 +44,7 @@ void Biquadris::playGame() {
 			boards[!fp]->bomb();
 		}		
 		if (boards[!fp]->getForce()) {
+			if (display) w.removeBlock(!fp, nextBlock->cList);
 			bType = boards[!fp]->getForcedB();
 			boards[!fp]->setNextB(boards[!fp]->levelGen->makeBlock());
 			boards[!fp]->setForce(false);
@@ -227,13 +228,12 @@ void Biquadris::playGame() {
 					if (c_rows > 0) {
 						if (display) { 
 							w.removeRow(!fp, c_rows, boards[!fp]);
-							//w.updateDisplay(!fp, boards[!fp]);
 						}
 						boards[!fp]->setScore(pow(boards[!fp]->boardLevel() + c_rows, 2));
 						if (display) w.updateScore(!fp, boards[!fp]->getScore());
 						if (boards[!fp]->getScore() > hiScore) {
 							hiScore = boards[!fp]->getScore();
-							w.updateHiScore(hiScore);
+							if (display) w.updateHiScore(hiScore);
 						}
 						boards[!fp]->levelGen->counter = 0;
 					} else {
@@ -287,7 +287,7 @@ void Biquadris::playGame() {
 					boards[!fp]->setBlind(false);
 					if (display) w.removeBlind(!fp, boards[!fp]);
 				} else {
-					 w.updateDisplay(!fp, boards[!fp]);
+					 if (display) w.updateDisplay(!fp, boards[!fp]);
 				}
 				fp = !fp;
 				break;
@@ -314,22 +314,28 @@ void Biquadris::playGame() {
 					}
 				}
 				if (display) w.updateLevel(!fp, boards[!fp]->boardLevel());
-				Level *temp = boards[!fp]->levelGen;
-				delete temp;
+				//Level *temp = boards[!fp]->levelGen;
+				//delete temp;
 				if (boards[!fp]->boardLevel() == 0) {
 					if (fp) {
-						boards[0]->levelGen = new Level0(seq_1);
+						//boards[0]->levelGen = new Level0(seq_1);
+						boards[0]->levelGen = make_unique<Level0>(seq_1);
 					} else {
-						boards[1]->levelGen = new Level0(seq_2);
+						//boards[1]->levelGen = new Level0(seq_2);
+						boards[1]->levelGen = make_unique<Level0>(seq_2);
 					}
 				} else if (boards[!fp]->boardLevel() == 1) {
-					boards[!fp]->levelGen = new Level1;
+					//boards[!fp]->levelGen = new Level1;
+					boards[!fp]->levelGen = make_unique<Level1>();
 				} else if (boards[!fp]->boardLevel() == 2) {
-					boards[!fp]->levelGen = new Level2;
+					//boards[!fp]->levelGen = new Level2;
+					boards[!fp]->levelGen = make_unique<Level2>();
 				} else if (boards[!fp]->boardLevel() == 3) {
-					boards[!fp]->levelGen = new Level3;
+					//boards[!fp]->levelGen = new Level3;
+					boards[!fp]->levelGen = make_unique<Level3>();
 				} else if (boards[!fp]->boardLevel() == 4) {
-					boards[!fp]->levelGen = new Level4;
+					//boards[!fp]->levelGen = new Level4;
+					boards[!fp]->levelGen = make_unique<Level4>();
 				}
 				cout << boards;
 				if (display) w.updateDisplay(!fp, boards[!fp]);
@@ -384,10 +390,10 @@ void Biquadris::playGame() {
 			}	
 		}
 	}
-	Level *temp1 = boards[0]->levelGen;
-	delete temp1;
-	Level *temp2 = boards[1]->levelGen;
-	delete temp2;
+	//Level *temp1 = boards[0]->levelGen;
+	//delete temp1;
+	//Level *temp2 = boards[1]->levelGen;
+	//delete temp2;
 	if ( infile != &cin ) delete infile;
 }
 
