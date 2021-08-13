@@ -1,6 +1,7 @@
 #include "biquadris.h"
 #include <iostream>
 #include <sstream>
+#include <cstdlib>
 using namespace std;
 
 int main(int argc, char *argv[]) {
@@ -12,7 +13,7 @@ int main(int argc, char *argv[]) {
 	string level{"-startlevel"};
 
 	bool textOnly = false;
-	int theSeed = 0; //idk if correct default
+	int theSeed; //idk if correct default
 	string s1{"sequence1.txt"};
 	string s2{"sequence2.txt"};
 	int theLevel = 0;
@@ -27,7 +28,8 @@ int main(int argc, char *argv[]) {
 			++i;
 			s = "";
 			s += argv[i];
-			theLevel = stoi(s);
+			theSeed = stoi(s);
+			std::srand(theSeed);
 		} else if (s.find(sfile1) != string::npos) {
 			++i;
 			s1 = "";
