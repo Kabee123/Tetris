@@ -23,13 +23,9 @@ class Biquadris: public Board {
 
 	std::unique_ptr<Blocks> curBlock;
 	std::unique_ptr<Blocks> nextBlock;
-
-	//std::unique_ptr<Blocks> curBlock2;
-	//std::unique_ptr<Blocks> nexBlock2;
 	
 	Xwindow w;
-	public:
-	//bool in_file = false;	
+	public:;
 	Biquadris(bool display, int seed, std::string s1, std::string s2, int lvl);
 	void playGame();
 	void restartGame();

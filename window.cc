@@ -75,6 +75,8 @@ void Xwindow::displayInit(int level) {
   this->fillRectangle(20, 110, 220, 360, Xwindow::Gray);
   this->fillRectangle(260, 110, 220, 360, Xwindow::Gray);
 
+  this->updateHiScore(0);
+
   this->drawString(20, 50, "PLAYER 1");
   this->drawString(260, 50, "PLAYER 2");
   
@@ -88,8 +90,6 @@ void Xwindow::displayInit(int level) {
 
   this->drawString(20, 95, "NEXT BLOCK: ");
   this->drawString(260, 95, "NEXT BLOCK: ");
-
-
 }
 
 int Xwindow::getColor(char t) {
@@ -116,6 +116,11 @@ int Xwindow::getColor(char t) {
 int shiftx[2] = {20, 260};
 const	int shifty = 110;
 const	int dim = 20;
+
+void Xwindow::resetDisplay() {
+  this->fillRectangle(20, 110, 220, 360, Xwindow::Gray);
+  this->fillRectangle(260, 110, 220, 360, Xwindow::Gray);
+}
 
 void Xwindow::updateDisplay(int player, Board *b) {
 	int color;	
@@ -186,6 +191,12 @@ void Xwindow::updateScore(int player, int score) {
     XClearArea(d, w, 60, 73, 50, 12, true);
     drawString(60, 80, to_string(score));
   }
+}
+
+void Xwindow::updateHiScore(int hi) {
+  fillRectangle(270, 10, 300, 20, White);
+  this->drawString(200, 25, "HIGH SCORE: ");
+  drawString(270, 25, to_string(hi));
 }
 
 void Xwindow::updateNext(int player, char next) {

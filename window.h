@@ -29,6 +29,7 @@ class Xwindow {
 
   int getColor(char t);
 
+  void resetDisplay();
   void updateDisplay(int player, Board *b);
   void removeBlock(int player, vector<Coords> c);
   void removeRow(int player, int removed, Board *b);
@@ -37,6 +38,7 @@ class Xwindow {
   void removeBlind(int player, Board *b);
 
   void updateLevel(int player, int lev);
+  void updateHiScore(int hi);
   void updateScore(int player, int score);
   void updateNext(int player, char next);
 };

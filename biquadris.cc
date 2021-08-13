@@ -8,11 +8,6 @@
 #include <ctime>
 using namespace std;
 
-/*
-const int w = 11;
-const int h = 15;
-const int reserve = 3;*/
-
 Biquadris::Biquadris(bool display, int seed, string s1, string s2, int lvl) 
 	: hiScore{0}, display{display}, seed{seed}, seq_1{s1}, seq_2{s2}, startlvl{lvl} {
 		player1.init(lvl, seq_1);
@@ -97,15 +92,13 @@ void Biquadris::playGame() {
             nextBlock = make_unique<TBlock>(turn, boards[fp]->boardLevel(), boards[fp]);
 		}
 
-		nextBlock->placeBlock();
+		//nextBlock->placeBlock();
 		curBlock->placeBlock();
 
-		//curBlock2->placeBlock();
-
-		/*if (!curBlock->placeBlock()) { 
-		  cout << "PLAYER " << !fp << " LOST" << endl; // IDK
+		if (!nextBlock->placeBlock()) { 
+		  cout << "PLAYER " << !fp << " CANNOT PLACE BLOCK" << endl; // IDK
 		  break;
-		}*/
+		}
 
 		cout << boards;	
 		if (display) { 
@@ -233,6 +226,10 @@ void Biquadris::playGame() {
 						if (display) w.removeRow(!fp, c_rows, boards[!fp]);
 						boards[!fp]->setScore(pow(boards[!fp]->boardLevel() + c_rows, 2));
 						if (display) w.updateScore(!fp, boards[!fp]->getScore());
+						if (boards[!fp]->getScore() > hiScore) {
+							hiScore = boards[!fp]->getScore();
+							w.updateHiScore(hiScore);
+						}
 						boards[!fp]->levelGen->counter = 0;
 					} else {
 						if (boards[!fp]->boardLevel() == 4) {
@@ -378,11 +375,15 @@ void Biquadris::playGame() {
 					cmd == "resta" || cmd == "restar" || cmd == "restart") {
 				restartGame();
 				cout << boards;
-				if (display) w.updateDisplay(!fp, boards[!fp]);
+				if (display) w.resetDisplay();
 				break;
 			}	
 		}
 	}
+	Level *temp1 = boards[0]->levelGen;
+	delete temp1;
+	Level *temp2 = boards[1]->levelGen;
+	delete temp2;
 	if ( infile != &cin ) delete infile;
 }
 
