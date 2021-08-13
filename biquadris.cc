@@ -216,6 +216,7 @@ void Biquadris::playGame() {
 				cout << boards;
 				if (display) w.updateDisplay(!fp, boards[!fp]);
 			} else if (cmd == "dr" || cmd == "dro" || cmd == "drop") {
+				if (multPre == 0) continue;
 				if (display) w.removeBlock(!fp, curBlock->cList);
 				int c_rows = 0;
 				for (int i = 0; i < multPre; ++i) {
